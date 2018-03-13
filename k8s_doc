@@ -1,0 +1,92 @@
+#########################################
+Deploy a Kubernetes cluster manually
+#########################################
+
+1. Update modules and states on all Minions:
+
+    salt '*' saltutil.sync_all
+
+2. Register compute nodes:
+
+salt-call event.send "reclass/minion/classify" \
+"{\"node_master_ip\": \"<config_host>\", \
+\"node_os\": \"<os_codename>\", \
+\"node_deploy_ip\": \"<node_deploy_network_ip>\", \
+\"node_deploy_iface\": \"<node_deploy_network_iface>\", \
+\"node_control_ip\": \"<node_control_network_ip>\", \
+\"node_control_iface\": \"<node_control_network_iface>\", \
+\"node_tenant_ip\": \"<node_tenant_network_ip>\", \
+\"node_tenant_iface\": \"<node_tenant_network_iface>\", \
+\"node_external_ip\": \"<node_external_network_ip>\", \
+\"node_external_iface\": \"<node_external_network_iface>\", \
+\"node_baremetal_ip\": \"<node_baremetal_network_ip>\", \
+\"node_baremetal_iface\": \"<node_baremetal_network_iface>\", \
+\"node_domain\": \"<node_domain>\", \
+\"node_cluster\": \"<cluster_name>\", \
+\"node_hostname\": \"<node_hostname>\"}"
+
+
+3. Create and distribute SSL certificates for services using the salt state:
+
+    salt "*" state.sls salt
+
+4. Perform Linux system configuration to synchronize repositories and execute outstanding system maintenance tasks:
+
+    salt -C 'I@docker:host' state.sls linux.system
+
+5. Install Keepalived:
+
+   salt -C 'I@keepalived:cluster' state.sls keepalived -b 1
+
+6. Install HAProxy:
+
+    salt -C 'I@haproxy:proxy' state.sls haproxy
+    salt -C 'I@haproxy:proxy' service.status haproxy
+
+7. Install Docker:
+
+    salt -C 'I@docker:host' state.sls docker.host
+    salt -C 'I@docker:host' cmd.run "docker ps"
+
+8. Install etcd:
+
+  salt -C 'I@etcd:server' state.sls etcd.server.service
+  salt -C 'I@etcd:server' cmd.run "etcdctl cluster-health"
+
+  Install etcd with the SSL support:
+
+  salt -C 'I@etcd:server' state.sls salt.minion.cert,etcd.server.service
+  salt -C 'I@etcd:server' cmd.run '. /var/lib/etcd/configenv && etcdctl cluster-health'
+
+9. Install Kubernetes:
+
+  salt -C 'I@kubernetes:master' state.sls kubernetes.master.kube-addons
+  salt -C 'I@kubernetes:pool' state.sls kubernetes.pool
+
+10.  For the Calico setup:
+
+  Verify the Calico nodes status:
+
+    salt -C 'I@kubernetes:pool' cmd.run "calicoctl node status"
+
+  Set up NAT for Calico:
+
+    salt -C 'I@kubernetes:master' state.sls etcd.server.setup
+
+11. For the OpenContrail setup, deploy OpenContrail as described in Deploy OpenContrail manually.
+
+12. Run master to check consistency:
+
+    salt -C 'I@kubernetes:master' state.sls kubernetes exclude=kubernetes.master.setup
+
+13. Register addons:
+
+    salt -C 'I@kubernetes:master' --subset 1 state.sls kubernetes.master.setup
+
+14. Restart kubelet:
+
+    salt -C 'I@kubernetes:pool' service.restart kubelet
+
+15. Log in to any Kubernetes ctl node to verify that all nodes have been registered successfully:
+
+    kubectl get nodes
