@@ -1,0 +1,26 @@
+parameters:
+  _param:
+    linux_system_user_sudo: true
+  linux:
+    system:
+      user:
+        cdodda:
+          enabled: true
+          name: cdodda
+          sudo: true
+          full_name: cdodda
+          home: /home/cdodda
+          email: cdodda@mirantis.com
+  openssh: 
+    server:
+      enabled: true
+      user:
+        cdodda:
+          enabled: true
+          public_keys:
+          - ${public_keys:cdodda}
+          user: ${linux:system:user:cdodda}
+  public_keys:
+    cdodda:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbU3LETmZst5dcLl7iPdAeVTtSQoJZoQ3Nza6DHlpv3wtHHvoh8Fd0QFhIkR81a+5563qBcUiFfI9n3vufyJWzc9x+8G2/WJXkKg6D3tnvPqmlT+3Cqj1vNZbjVvXFdVb24pR9jdAa8CEHInWLVNCdL/WShKDSHBQ/cloymzzGhpJOYMXjPzEBxDbiodKMD0TAvw7IKQSY9trlxOXBtQLcHWYxrdxG1ir7TjD6PXdXae8PRxOwh35leot9kWo27icxGIKdJunrvQZI3VB7FSf6hhWajgnmD4yREF9sCLaknl5Xx1J3c/6P0JDeX3DDT4Nv3Bl1cLIdMa0+iDeCPvGz creddy@space
+

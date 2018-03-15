@@ -1,0 +1,50 @@
+classes:
+# Docker
+- system.docker.host
+# Keepalived
+- system.keepalived.cluster.instance.stacklight_monitor_vip
+- system.salt.minion.cert.proxy.cicd
+- system.linux.system.repo.mcp.apt_mirantis.docker
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.extra
+- system.telegraf.agent.remote
+- system.telegraf.agent.remote.input.http_listener
+- system.prometheus.alertmanager.notification.pushkin
+- system.prometheus.server.alert.labels_add.route
+- system.prometheus.server.remote_write.docker
+- system.prometheus.server.target.dns
+- system.prometheus.server.alertmanager.dns
+- system.prometheus.pushgateway.container
+- system.prometheus.server.container
+- system.prometheus.alertmanager.container
+- system.prometheus.remote_storage_adapter.container
+- cluster.snv.infra
+- cluster.snv.stacklight.networking.virtual
+parameters:
+  _param:
+    heka_amqp_host: ${_param:openstack_message_queue_address}
+    docker_image_remote_collector: docker-prod-local.artifactory.mirantis.com/openstack-docker/heka:${_param:apt_mk_version}
+    remote_collector_telegraf_host: monitoring_remote_agent
+    keepalived_prometheus_vip_address: ${_param:stacklight_monitor_address}
+    keepalived_prometheus_vip_interface: ens3
+    alertmanager_notification_pushkin_host: ${_param:stacklight_monitor_address}
+    alertmanager_notification_pushkin_port: 8887
+    cluster_vip_address: ${_param:stacklight_monitor_address}
+
+    keepalived_stacklight_monitor_vip_address: ${_param:stacklight_monitor_address}
+
+    control_vip_address: ${_param:stacklight_monitor_address}
+    cluster_node01_name: ${_param:stacklight_monitor_node01_hostname}
+    cluster_node01_address: ${_param:stacklight_monitor_node01_address}
+    cluster_node02_name: ${_param:stacklight_monitor_node02_hostname}
+    cluster_node02_address: ${_param:stacklight_monitor_node02_address}
+    cluster_node03_name: ${_param:stacklight_monitor_node03_hostname}
+    cluster_node03_address: ${_param:stacklight_monitor_node03_address}
+    keepalived_vip_virtual_router_id: 280
+    keepalived_stacklight_monitor_vip_interface: ens3
+    cluster_public_host: ${_param:cluster_vip_address}
+    # Proxy
+    cluster_ssl_certificate:
+      enabled: true
+      pem_file: /etc/haproxy/ssl/${_param:cluster_public_host}-all.pem
+    haproxy_bind_address: ${_param:cluster_vip_address}

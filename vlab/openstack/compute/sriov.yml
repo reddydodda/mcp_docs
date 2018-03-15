@@ -1,0 +1,3 @@
+classes:
+- system.nova.compute.nfv.sriov
+- cluster.vlab.openstack.compute

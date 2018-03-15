@@ -1,0 +1,73 @@
+classes:
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.apt_mirantis.openstack
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
+- system.linux.system.repo.mcp.contrail
+- system.memcached.server.single
+- system.heat.server.single
+- system.keystone.server.single
+- system.keystone.server.wsgi
+- system.glance.control.single
+- system.neutron.control.opencontrail.single
+- system.cinder.control.single
+- system.cinder.volume.local
+- system.nova.control.single
+- system.keystone.client.single
+- system.keystone.client.service.nova21
+- system.rabbitmq.server.single
+- system.rabbitmq.server.vhost.openstack
+- system.backupninja.server.single
+- cluster.vlab.infra
+- cluster.vlab.openstack.networking.virtual
+parameters:
+  _param:
+    nova_vncproxy_url: http://${_param:openstack_proxy_address}:6080
+    openstack_message_queue_node01_address: ${_param:openstack_upgrade_node01_address}
+    cluster_local_address: ${_param:openstack_upgrade_node01_address}
+    cluster_vip_address: ${_param:openstack_upgrade_node01_address}
+    openstack_control_address: ${_param:openstack_upgrade_node01_address}
+    public_address: ${_param:openstack_upgrade_node01_address}
+    cluster_public_protocol: http
+    openstack_version: ocata
+  glance:
+    server:
+      storage:
+        client_glance_key: ${_param:glance_storage_client_key}
+  keystone:
+    server:
+      database:
+        host: ${_param:openstack_database_address}
+        name: 'keystone_upgrade'
+  glance:
+    server:
+      database:
+        host: ${_param:openstack_database_address}
+        name: glance_upgrade
+  neutron:
+    server:
+      database:
+        host: ${_param:openstack_database_address}
+        name: neutron_upgrade
+  cinder:
+    controller:
+      database:
+        host: ${_param:openstack_database_address}
+        name: cinder_upgrade
+    volume:
+      database:
+        host: ${_param:openstack_database_address}
+        name: cinder_upgrade
+  nova:
+    controller:
+      database:
+        host: ${_param:openstack_database_address}
+        name: nova_upgrade
+  heat:
+    server:
+      database:
+        engine: mysql
+        host: ${_param:openstack_database_address}
+        port: 3306
+        name: heat_upgrade
+        user: heat

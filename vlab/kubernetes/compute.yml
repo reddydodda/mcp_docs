@@ -1,0 +1,44 @@
+classes:
+- system.linux.system.repo.mcp.apt_mirantis.docker_legacy
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
+- system.kubernetes.pool.cluster
+- system.salt.minion.cert.k8s_client
+- system.salt.minion.cert.etcd_client
+- cluster.snv.opencontrail.compute
+- cluster.snv.infra
+- cluster.snv.kubernetes.networking.compute
+
+parameters:
+  docker:
+    host:
+      pkgs:
+        - docker-engine=1.12.6-0~ubuntu-xenial
+        - python-docker
+  kubernetes:
+    pool:
+      network:
+        no_default_pools: false
+        etcd:
+          ssl:
+            enabled: True}
+        engine: opencontrail
+        config:
+          api:
+            host: ${_param:opencontrail_control_address}
+        prometheus:
+          enabled: true
+    common:
+      hyperkube:
+        image: ${_param:kubernetes_hyperkube_image}
+  linux:
+    system:
+      package:
+        docker-engine:
+          version: 1.12.6-0~ubuntu-xenial
+          hold: true
+      kernel:
+        sysctl:
+          # The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.
+          vm.max_map_count: 262144

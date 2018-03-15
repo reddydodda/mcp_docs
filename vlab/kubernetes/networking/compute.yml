@@ -1,0 +1,38 @@
+# Kubernetes compute node default networking template
+#
+parameters:
+  linux:
+    system:
+      kernel:
+        sysctl:
+          # The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.
+          vm.max_map_count: 262144
+    network:
+      interface:
+        eth0:
+          mtu: 1500
+          enabled: true
+          type: eth
+          proto: dhcp
+          name: ${_param:deploy_nic}
+        eth1:
+          mtu: 1500
+          enabled: true
+          type: eth
+          proto: static
+          name: ${_param:primary_first_nic}
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+        eth2:
+          mtu: 1500
+          enabled: true
+          type: eth
+          proto: static
+          name: ${_param:primary_second_nic}
+          address: ${_param:tenant_address}
+          netmask: ${_param:tenant_network_netmask}
+          gateway: ${_param:tenant_network_gateway}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
+

@@ -1,0 +1,53 @@
+# This is a template to set proxies on the environment
+parameters:
+  _param:
+    # global proxy, with http:// preffix
+    http_proxy:  ""
+  salt:
+    minion:
+      # enable proxy for salt states/modules runtime.
+      # NOTE: This is actually a must for some salt modules,
+      #       even you already have proxy related ENV variables exported in system.
+      proxy:
+        host: cfg01
+        port: 8000
+      #backend: urllib2
+  linux:
+    system:
+      proxy:
+        pkg:
+          # enable proxy for APT/YUM
+          enabled: true
+          # http: (reuses what linux:system:proxy:http is set")
+        http:  ${_param:http_proxy}
+        https: ${_param:http_proxy}
+        ftp:   ${_param:http_proxy}
+        noproxy:
+          - .local
+          - localhost
+          - 169.254.169.254
+          - 127.0.0.1
+          - 127.0.0.2
+          # TODO: you might wan tto set whole control plane cidr here
+      # /etc/environment, is passed to all new system processes
+      env:
+        http_proxy:  ${linux:system:proxy:http}
+        https_proxy: ${linux:system:proxy:http}
+        ftp:         ${linux:system:proxy:http}
+        no_proxy: ${linux:system:proxy:noproxy}
+      # /etc/profile.d/proxies.sh, for interactive shells or being sourced
+      profile:
+        proxies.sh: |
+          export HTTP_PROXY=${linux:system:proxy:http}
+          export HTTPS_PROXY=${linux:system:proxy:https}
+          export http_proxy=${linux:system:proxy:http}
+          export https_proxy=${linux:system:proxy:https}
+          export NO_PROXY="localhost, .local, 169.254.169.254, 127.0.0.1, 127.0.0.2"
+          export no_proxy="localhost, .local, 169.254.169.254, 127.0.0.1, 127.0.0.2"
+  docker:
+    host:
+      proxy:
+        enabled: true
+        http: ${_param:http_proxy}
+        https: ${_param:http_proxy}
+        no_proxy: ${linux:system:proxy:noproxy}

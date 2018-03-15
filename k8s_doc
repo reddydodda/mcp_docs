@@ -2,6 +2,17 @@
 Deploy a Kubernetes cluster manually
 #########################################
 
+##############
+Prerequisite
+##############
+
+1.
+
+
+#######
+setup
+#######
+
 1. Update modules and states on all Minions:
 
     salt '*' saltutil.sync_all

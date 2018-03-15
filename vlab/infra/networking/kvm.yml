@@ -1,0 +1,61 @@
+# KVM nodes default networking template
+#
+parameters:
+  linux:
+    network:
+      bridge: linux
+      interface:
+        eth0:
+          enabled: true
+          type: eth
+          proto: manual
+          name: ${_param:deploy_nic}
+        eth1:
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_first_nic}
+          master: bond0
+        eth2:
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_second_nic}
+          master: bond0
+        br_mgm:
+          enabled: true
+          proto: static
+          type: bridge
+          address: ${_param:deploy_address}
+          netmask: ${_param:deploy_network_netmask}
+          gateway: ${_param:deploy_network_gateway}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
+          use_interfaces:
+          - ${_param:deploy_nic}
+        bond0:
+          enabled: true
+          proto: manual
+          type: bond
+          use_interfaces:
+          - ${_param:primary_first_nic}
+#          - ${_param:primary_second_nic}
+#          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
+          slaves: ${_param:primary_first_nic}
+          mode: active-backup
+        bond0.1:
+          name: bond0.${_param:control_vlan}
+          enabled: true
+          proto: manual
+          type: vlan
+          use_interfaces:
+          - bond0
+        br_ctl:
+          enabled: true
+          type: bridge
+          proto: static
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+          use_interfaces:
+          - bond0.${_param:control_vlan}

@@ -1,0 +1,21 @@
+classes:
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.apt_mirantis.openstack
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
+- system.rabbitmq.server.cluster
+- system.rabbitmq.server.vhost.openstack
+- cluster.vlab.infra
+- cluster.vlab.openstack.networking.virtual
+parameters:
+  _param:
+    keepalived_vip_interface: ens3
+    keepalived_vip_virtual_router_id: 90
+    cluster_vip_address: ${_param:openstack_message_queue_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ${_param:openstack_message_queue_node01_hostname}
+    cluster_node01_address: ${_param:openstack_message_queue_node01_address}
+    cluster_node02_hostname: ${_param:openstack_message_queue_node02_hostname}
+    cluster_node02_address: ${_param:openstack_message_queue_node02_address}
+    cluster_node03_hostname: ${_param:openstack_message_queue_node03_hostname}
+    cluster_node03_address: ${_param:openstack_message_queue_node03_address}

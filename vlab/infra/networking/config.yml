@@ -1,0 +1,17 @@
+# Infra config node default networking template
+#
+parameters:
+  linux:
+    network:
+      interface:
+        ens3:
+          enabled: true
+          type: eth
+          proto: static
+          address: ${_param:deploy_address}
+          netmask: ${_param:deploy_network_netmask}
+          gateway: ${_param:deploy_network_gateway}
+          name_servers:
+            - ${_param:dns_server01}
+            - ${_param:dns_server02}
+        ens4: ${_param:linux_single_interface}

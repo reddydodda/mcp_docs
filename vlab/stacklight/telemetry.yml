@@ -1,0 +1,27 @@
+classes:
+- service.haproxy.proxy.single
+- system.keepalived.cluster.instance.stacklight_telemetry_vip
+- system.linux.system.repo.mcp.apt_mirantis.influxdb
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.extra
+- system.haproxy.proxy.listen.stacklight.influxdb_relay
+- system.influxdb.relay.cluster
+- system.influxdb.server.single
+- system.influxdb.database.ceilometer
+- system.influxdb.database.prometheus
+- cluster.snv.stacklight
+- cluster.snv.infra
+- cluster.snv.stacklight.networking.virtual
+parameters:
+  _param:
+    keepalived_stacklight_telemetry_vip_address: ${_param:stacklight_telemetry_address}
+    keepalived_stacklight_telemetry_vip_password: ${_param:stacklight_telemetry_keepalived_password}
+    keepalived_stacklight_telemetry_vip_interface: ens3
+    cluster_vip_address: ${_param:stacklight_telemetry_address}
+    cluster_local_address: ${_param:single_address}
+    cluster_node01_hostname: ${_param:stacklight_telemetry_node01_hostname}
+    cluster_node01_address: ${_param:stacklight_telemetry_node01_address}
+    cluster_node02_hostname: ${_param:stacklight_telemetry_node02_hostname}
+    cluster_node02_address: ${_param:stacklight_telemetry_node02_address}
+    cluster_node03_hostname: ${_param:stacklight_telemetry_node03_hostname}
+    cluster_node03_address: ${_param:stacklight_telemetry_node03_address}

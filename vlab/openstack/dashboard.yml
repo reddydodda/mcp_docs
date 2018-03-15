@@ -1,0 +1,10 @@
+classes:
+- system.horizon.server.single
+#- system.horizon.server.plugin.theme
+- system.horizon.server.plugin.contrail
+- system.horizon.server.plugin.overrides
+- cluster.vlab.infra
+parameters:
+  _param:
+    horizon_site_branding: OpenStack Dashboard
+    # horizon_dashboard_theme: mirantis

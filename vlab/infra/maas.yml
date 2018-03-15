@@ -1,0 +1,57 @@
+
+classes:
+- system.linux.system.repo.mcp.apt_mirantis.maas
+- system.maas.region.single
+- system.backupninja.client.single
+- cluster.vlab.infra
+parameters:
+  _param:
+    backupninja_backup_host: ${_param:infra_kvm_node03_address}
+    backupninja_engine: rsync
+
+  maas:
+    region:
+      commissioning_scripts:
+        00-maas-05-simplify-network-interfaces: /etc/maas/files/commisioning_scripts/00-maas-05-simplify-network-interfaces
+      bind:
+        host: ${_param:deploy_address}
+    cluster:
+      region:
+        host: ${_param:deploy_address}
+# linux:
+#   network:
+#     interface:
+#       primary_interface:
+#         enabled: true
+#         name: ens2
+#         type: eth
+#         proto: static
+#         netmask: ${_param:deploy_network_netmask}
+#         address: ${_param:single_address}
+#         gateway: ${_param:deploy_network_gateway}
+#         name_servers:
+#         - ${_param:dns_server01}
+#         - ${_param:dns_server02}
+### Sample MaaS Configuration
+#  maas:
+#    region:
+#      subnets:
+#        deploy_network:
+#          cidr: 172.17.44.0/24
+#          fabric: deploy_network
+#          gateway_ip: 172.17.44.1
+#          iprange:
+#            end: 172.17.44.200
+#            start: 172.17.44.92
+#      fabrics:
+#        deploy_network:
+#          description: Fabric for deploy_network
+#      machines:
+#        kvm02:
+#          interface:
+#            mac: 00:25:90:eb:92:4a
+#          power_parameters:
+#            power_address: ipmi_ip
+#            power_password: password
+#            power_type: ipmi
+#            power_user: engineer

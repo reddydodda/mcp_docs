@@ -1,0 +1,29 @@
+classes:
+- system.grafana.client
+- system.grafana.client.datasource.prometheus
+- system.docker.client
+- system.docker.swarm.stack.dashboard
+- system.docker.swarm.stack.monitoring
+
+
+#- cluster.snv.infra
+#- cluster.snv.cicd.control
+
+- cluster.snv.infra
+parameters:
+  _param:
+    docker_image_alertmanager: docker-prod-local.artifactory.mirantis.com/openstack-docker/alertmanager:${_param:apt_mk_version}
+    docker_image_pushgateway: docker-prod-local.artifactory.mirantis.com/openstack-docker/pushgateway:${_param:apt_mk_version}
+    docker_image_prometheus: docker-prod-local.artifactory.mirantis.com/openstack-docker/prometheus:${_param:apt_mk_version}
+    docker_image_remote_agent: docker-prod-local.artifactory.mirantis.com/openstack-docker/telegraf:${_param:apt_mk_version}
+    docker_image_remote_storage_adapter: docker-prod-local.artifactory.mirantis.com/openstack-docker/remote_storage_adapter:${_param:apt_mk_version}
+    docker_image_prometheus_relay: docker-prod-local.artifactory.mirantis.com/openstack-docker/prometheus_relay:${_param:apt_mk_version}
+    docker_image_grafana: docker-prod-local.artifactory.mirantis.com/mirantis/external/grafana:${_param:apt_mk_version}
+    # Grafana client parameters
+    grafana_address: ${_param:stacklight_monitor_address}
+    grafana_port: 15013
+    grafana_user: admin
+    grafana_password: ${_param:grafana_admin_password}
+    grafana_prometheus_address: ${_param:stacklight_monitor_address}
+    grafana_prometheus_port: 15016
+    stacklight_prometheus_port: 15010
