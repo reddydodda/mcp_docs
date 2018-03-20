@@ -6,7 +6,92 @@ Deploy a Kubernetes cluster manually
 Prerequisite
 ##############
 
-1.
+1. cp kubernetes folder from github.com/reddydodda/mcp_install
+
+2. cp k8s-vms.yml to infra
+
+3. cp kvm04.yml to infra
+
+4. add classes to infra/config.yml
+
+- system.reclass.storage.system.kubernetes_control_cluster
+- system.salt.minion.cert.k8s_server
+- cluster.vlab.kubernetes
+
+5. add network hosts confi in infra/config.yml
+
+infra_kvm_node04:
+classes:
+- cluster.${_param:cluster_name}.infra.kvm04
+domain: ${_param:cluster_domain}
+name: ${_param:infra_kvm_node04_hostname}
+params:
+  deploy_address: ${_param:infra_kvm_node04_deploy_address}
+  linux_system_codename: xenial
+  salt_master_host: ${_param:reclass_config_master}
+  single_address: ${_param:infra_kvm_node04_address}
+kubernetes_compute_node01:
+classes:
+- cluster.${_param:cluster_name}.kubernetes.compute
+domain: ${_param:cluster_domain}
+name: ${_param:kubernetes_compute_node01_hostname}
+params:
+  linux_system_codename: xenial
+#            salt_master_host: ${_param:infra_config_address}
+  single_address: ${_param:kubernetes_compute_node01_address}
+  tenant_address: ${_param:kubernetes_compute_node01_tenant_address}
+  kubernetes_compute_node02:
+  classes:
+  - cluster.${_param:cluster_name}.kubernetes.compute
+  domain: ${_param:cluster_domain}
+  name: ${_param:kubernetes_compute_node02_hostname}
+  params:
+    linux_system_codename: xenial
+#            salt_master_host: ${_param:infra_config_address}
+    single_address: ${_param:kubernetes_compute_node02_address}
+    tenant_address: ${_param:kubernetes_compute_node02_tenant_address}
+kubernetes_compute_node03:
+  classes:
+  - cluster.${_param:cluster_name}.kubernetes.compute
+  domain: ${_param:cluster_domain}
+  name: ${_param:kubernetes_compute_node03_hostname}
+  params:
+    linux_system_codename: xenial
+#            salt_master_host: ${_param:infra_config_address}
+    single_address: ${_param:kubernetes_compute_node03_address}
+    tenant_address: ${_param:kubernetes_compute_node03_tenant_address}
+kubernetes_control_node01:
+  name: ${_param:kubernetes_control_node01_hostname}
+  params:
+    tenant_address: ${_param:kubernetes_control_node01_tenant_address}
+kubernetes_control_node02:
+  name: ${_param:kubernetes_control_node02_hostname}
+  params:
+    tenant_address: ${_param:kubernetes_control_node01_tenant_address}
+kubernetes_control_node03:
+  name: ${_param:kubernetes_control_node03_hostname}
+  params:
+    tenant_address: ${_param:kubernetes_control_node01_tenant_address}
+
+
+
+6. add network host in inti.yml
+- cluster.vlab.kubernetes
+
+infra_kvm_node04_address: 10.101.0.244
+infra_kvm_node04_deploy_address: 10.100.0.244
+infra_kvm_node04_hostname: kvm04
+
+kvm04:
+  address: ${_param:infra_kvm_node04_address}
+  names:
+  - ${_param:infra_kvm_node04_hostname}
+  - ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
+
+
+7.
+
+
 
 
 #######

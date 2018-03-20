@@ -109,7 +109,31 @@ Important TODO
 
 4. add DHCP interfaces to all virtual networks
 
-5. 
+    Adding ens2 interface for deploynetwork
+
+      1. edit stacklight/networking/virtual.yml
+
+        add below line to interface
+
+            ens2: ${_param:linux_dhcp_interface}
+
+              ./stacklight/networking/virtual.yml
+              ./openstack/networking/virtual.yml
+              ./opencontrail/networking/virtual.yml
+              ./cicd/networking/virtual.yml
+
+6. proxy commadn to connect maas
+
+  ssh -f root@hp01 -L 8080:10.100.0.15:8080 -N
+
+7. Enable Swap on cfg node if it is less memory node.
+
+      sudo fallocate -l 1G /swapfile
+      sudo chmod 600 /swapfile
+      sudo mkswap /swapfile
+      sudo swapon /swapfile
+      echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+      
 
 ###########
 MaaS node
@@ -304,21 +328,6 @@ Deply VCP
 8. Verify nodes
 
   salt-key
-
-#############
-Adding ens2 interface for deploynetwork
-
-1. edit stacklight/networking/virtual.yml
-
-add below line to interface
-
-        ens2: ${_param:linux_dhcp_interface}
-
-2. ./stacklight/networking/virtual.yml
-./openstack/networking/virtual.yml
-./opencontrail/networking/virtual.yml
-./cicd/networking/virtual.yml
-
 
 
 #######################
