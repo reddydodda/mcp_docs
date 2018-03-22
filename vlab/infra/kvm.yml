@@ -22,11 +22,11 @@ classes:
 - system.salt.control.cluster.stacklight_log_cluster
 - system.salt.control.cluster.stacklight_telemetry_cluster
 - system.salt.control.cluster.cicd_control_cluster
-- cluster.deployment_name.cicd.gluster
+- cluster.vlab.cicd.gluster
 - system.salt.control.cluster.ceph_mon_cluster
 - system.salt.control.cluster.ceph_rgw_cluster
-- cluster.deployment_name.infra
-- cluster.deployment_name.infra.networking.kvm
+- cluster.vlab.infra
+- cluster.vlab.infra.networking.kvm
 parameters:
   _param:
     cluster_vip_address: ${_param:infra_kvm_address}

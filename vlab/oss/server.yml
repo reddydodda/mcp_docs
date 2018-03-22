@@ -41,7 +41,7 @@ classes:
 - system.glusterfs.server.volume.mongodb
 - system.haproxy.proxy.listen.oss.janitor_monkey
 - system.haproxy.proxy.listen.oss.mongodb
-- cluster.deployment_name.infra
+- cluster.vlab.infra
 
 # Rundeck
 - system.rundeck.client.runbook

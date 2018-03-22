@@ -1,7 +1,7 @@
 
 classes:
   - system.linux.system.haveged
-  - cluster.deployment_name.cicd.networking.virtual
+  - cluster.vlab.cicd.networking.virtual
   - system.linux.system.repo.mcp.apt_mirantis.ubuntu
   - system.linux.system.repo.mcp.apt_mirantis.glusterfs
   - system.linux.system.repo.mcp.apt_mirantis.docker

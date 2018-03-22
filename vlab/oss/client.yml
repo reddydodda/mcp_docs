@@ -43,7 +43,7 @@ classes:
 - system.devops_portal.service.grafana
 - system.devops_portal.service.security_monkey
 - system.devops_portal.service.janitor_monkey
-- cluster.deployment_name.infra
+- cluster.vlab.infra
 
 parameters:
   _param:

@@ -3,8 +3,8 @@ classes:
 - system.opencontrail.compute.cluster
 - system.opencontrail.client.cluster
 - system.opencontrail.client.resource.virtual_router
-- cluster.deployment_name.infra
-- cluster.deployment_name.opencontrail.networking.compute
+- cluster.vlab.infra
+- cluster.vlab.opencontrail.networking.compute
 parameters:
   _param:
     opencontrail_compute_address: ${_param:tenant_address}

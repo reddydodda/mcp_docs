@@ -34,9 +34,9 @@ classes:
 - service.jenkins.client
 - system.jenkins.client.credential.salt
 - system.jenkins.client.job.deploy.openstack
-- cluster.deployment_name.infra.maas
-- cluster.deployment_name.infra
-- cluster.deployment_name.infra.networking.config
+- cluster.vlab.infra.maas
+- cluster.vlab.infra
+- cluster.vlab.infra.networking.config
 parameters:
   _param:
     salt_master_base_environment: prd

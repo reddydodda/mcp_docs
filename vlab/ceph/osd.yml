@@ -1,8 +1,8 @@
 classes:
 - system.ceph.osd.cluster
 - system.ceph.backup.client.single
-- cluster.deployment_name.ceph.common
-- cluster.deployment_name.ceph.networking.osd
+- cluster.vlab.ceph.common
+- cluster.vlab.ceph.networking.osd
 parameters:
   _param:
     ceph_remote_backup_server: ${_param:infra_kvm_node03_address}

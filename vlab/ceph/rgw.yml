@@ -1,10 +1,10 @@
 classes:
 - system.ceph.rgw.cluster
 - system.ceph.rgw.keystone
-- cluster.deployment_name.ceph
-- cluster.deployment_name.ceph.common
-- cluster.deployment_name.infra
-- cluster.deployment_name.ceph.networking.virtual
+- cluster.vlab.ceph
+- cluster.vlab.ceph.common
+- cluster.vlab.infra
+- cluster.vlab.ceph.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3

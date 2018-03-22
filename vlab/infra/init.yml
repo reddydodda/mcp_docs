@@ -7,18 +7,18 @@ classes:
 #- system.openssh.server.team.networking
 #- system.openssh.server.team.stacklight
 - system.rsyslog.client.single
-- cluster.deployment_name.openstack
-- cluster.deployment_name.opencontrail
-- cluster.deployment_name.stacklight
+- cluster.vlab.openstack
+- cluster.vlab.opencontrail
+- cluster.vlab.stacklight
 - system.heka.log_collector.single
 - system.heka.log_collector.output.telegraf
 - system.telegraf.agent
 - system.prometheus.collector
 - service.grafana.collector
-- cluster.deployment_name.oss
-- cluster.deployment_name.ceph
-- cluster.deployment_name.cicd
-#- cluster.deployment_name.infra.proxy
+- cluster.vlab.oss
+- cluster.vlab.ceph
+- cluster.vlab.cicd
+#- cluster.vlab.infra.proxy
 parameters:
   _param:
     # Don't set it "false" before you configure sudo policies and enable power users.
@@ -35,7 +35,7 @@ parameters:
     infra_config_deploy_address: 10.100.0.15
 
     cluster_domain: mirantis.net
-    cluster_name: deployment_name
+    cluster_name: vlab
     cluster_public_host: ${_param:openstack_proxy_address}
 
     control_network_netmask: 255.255.255.0

@@ -21,12 +21,12 @@ classes:
 - system.salt.minion.cert.proxy.pki
 - system.sphinx.server.doc.reclass
 - service.keepalived.cluster.single
-- cluster.deployment_name.infra
-- cluster.deployment_name.openstack.dashboard
-- cluster.deployment_name.stacklight.proxy
+- cluster.vlab.infra
+- cluster.vlab.openstack.dashboard
+- cluster.vlab.stacklight.proxy
 - system.nginx.server.proxy.oss.devops_portal
 - system.nginx.server.proxy.oss.rundeck
-- cluster.deployment_name.openstack.networking.virtual
+- cluster.vlab.openstack.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3

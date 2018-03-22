@@ -7,13 +7,13 @@ classes:
 - system.nova.compute.notification.messagingv2
 - system.ceilometer.agent.cluster
 - system.prometheus.exporters.libvirt
-- cluster.deployment_name.opencontrail.compute
+- cluster.vlab.opencontrail.compute
 - system.nova.compute.storage.ceph
 - system.ceph.common.cluster
-- cluster.deployment_name.ceph.common
+- cluster.vlab.ceph.common
 - system.linux.network.dynamic_hosts
-- cluster.deployment_name.infra
-- cluster.deployment_name.openstack.networking.compute
+- cluster.vlab.infra
+- cluster.vlab.openstack.networking.compute
 parameters:
   _param:
     cluster_vip_address: ${_param:openstack_control_address}

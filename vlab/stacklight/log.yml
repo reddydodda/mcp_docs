@@ -9,9 +9,9 @@ classes:
 - system.keepalived.cluster.instance.stacklight_log_vip
 - system.elasticsearch.server.cluster
 - system.kibana.server.single
-- cluster.deployment_name.stacklight
-- cluster.deployment_name.infra
-- cluster.deployment_name.stacklight.networking.virtual
+- cluster.vlab.stacklight
+- cluster.vlab.infra
+- cluster.vlab.stacklight.networking.virtual
 parameters:
   _param:
     keepalived_stacklight_log_vip_address: ${_param:stacklight_log_address}
