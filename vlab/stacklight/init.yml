@@ -1,6 +1,6 @@
 parameters:
   _param:
-    docker_registry_http_secret: L4mCAcJwKseimVPm
+    docker_registry_http_secret: Dv6qWZ7Efd2DKK8m
     stacklight_monitor_address: ${_param:stacklight_monitor_address}
     prometheus_control_address: ${_param:stacklight_monitor_address}
     kibana_elasticsearch_host: ${_param:stacklight_log_address}
@@ -8,23 +8,23 @@ parameters:
     heka_influxdb_host: ${_param:stacklight_telemetry_address}
     heka_aggregator_host: ${_param:stacklight_monitor_address}
     grafana_user: admin
-    grafana_password: ifF393pOaUjdl9GB
+    grafana_password: dUzFPzHUCZnlpP6C
     cluster_elasticsearch_port: 9200
     cluster_kibana_port: 5601
     cluster_grafana_port: 3000
-    mysql_grafana_password: EhhkgsfOOe29qFih
+    mysql_grafana_password: VYLT9xR9Yaxv0uMf
     grafana_influxdb_host: ${_param:stacklight_telemetry_address}
     elasticsearch_port: 9200
-    influxdb_stacklight_password: sib5Iei8gX9GTZnU
-    influxdb_admin_password: uCqhyvmzVoQUj8pp
+    influxdb_stacklight_password: VpvyAcgwbY13vLZp
+    influxdb_admin_password: DGC4yWeXwLt8JsZD
     influxdb_port: 8086
     influxdb_database: lma
     influxdb_user: lma
-    influxdb_password: E7KdbdPZOcTwW6pM
-    stacklight_log_keepalived_password: iZfxd6VSJ3Srfwwb
-    stacklight_telemetry_keepalived_password: hP83ZGWADSulkQOV
-    keepalived_stacklight_monitor_vip_password: GijWO0pCjD3gLaf7
-    keepalived_prometheus_vip_password: 6wRiBFrDNHJgvb5v
+    influxdb_password: XpJQcpCodSHeJxeS
+    stacklight_log_keepalived_password: jfmseiGGoeeRTqKG
+    stacklight_telemetry_keepalived_password: w5r2N60I9B9ENVf0
+    keepalived_stacklight_monitor_vip_password: JBgmFQvZWdDPDja0
+    keepalived_prometheus_vip_password: 9IwVaemF5abnvRqn
     stacklight_environment: ${_param:cluster_domain}
     stacklight_log_address: 10.101.0.60
     stacklight_log_node01_address: 10.101.0.61
@@ -43,7 +43,7 @@ parameters:
     stacklight_monitor_node01_address: 10.101.0.71
     stacklight_monitor_node02_address: 10.101.0.72
     stacklight_monitor_node03_address: 10.101.0.73
-    grafana_admin_password: 24vypBjj6dUkhbFE
+    grafana_admin_password: odolzmO5azpSNWFW
     grafana_database_type: mysql
     grafana_database_host: ${_param:openstack_database_address}
     grafana_database_password: ${_param:mysql_grafana_password}

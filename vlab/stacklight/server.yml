@@ -18,8 +18,8 @@ classes:
 - system.prometheus.server.container
 - system.prometheus.alertmanager.container
 - system.prometheus.remote_storage_adapter.container
-- cluster.snv.infra
-- cluster.snv.stacklight.networking.virtual
+- cluster.vlab.infra
+- cluster.vlab.stacklight.networking.virtual
 parameters:
   _param:
     heka_amqp_host: ${_param:openstack_message_queue_address}

@@ -6,11 +6,17 @@ classes:
 - system.kubernetes.pool.cluster
 - system.salt.minion.cert.k8s_client
 - system.salt.minion.cert.etcd_client
-- cluster.snv.opencontrail.compute
-- cluster.snv.infra
-- cluster.snv.kubernetes.networking.compute
+#- cluster.vlab.opencontrail.compute
+- cluster.vlab.infra
+- cluster.vlab.kubernetes.networking.compute
+
 
 parameters:
+  _param:
+    kubernetes_calicoctl_image: docker-prod-local.artifactory.mirantis.com/mirantis/projectcalico/calico/ctl:latest
+    kubernetes_calico_image: docker-prod-local.artifactory.mirantis.com/mirantis/projectcalico/calico/node:latest
+    kubernetes_calico_cni_image: docker-prod-local.artifactory.mirantis.com/mirantis/projectcalico/calico/cni:latest
+    kubernetes_hyperkube_image: docker-prod-local.artifactory.mirantis.com/mirantis/kubernetes/hyperkube-amd64:v1.8.5-4
   docker:
     host:
       pkgs:
@@ -22,11 +28,12 @@ parameters:
         no_default_pools: false
         etcd:
           ssl:
-            enabled: True}
-        engine: opencontrail
-        config:
-          api:
-            host: ${_param:opencontrail_control_address}
+            enabled: True
+        image: ${_param:kubernetes_calico_image}
+        calicoctl:
+          image: ${_param:kubernetes_calicoctl_image}
+        cni:
+          image: ${_param:kubernetes_calico_cni_image}
         prometheus:
           enabled: true
     common:
@@ -42,3 +49,4 @@ parameters:
         sysctl:
           # The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.
           vm.max_map_count: 262144
+

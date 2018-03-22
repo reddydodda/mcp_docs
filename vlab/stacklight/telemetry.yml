@@ -9,9 +9,9 @@ classes:
 - system.influxdb.server.single
 - system.influxdb.database.ceilometer
 - system.influxdb.database.prometheus
-- cluster.snv.stacklight
-- cluster.snv.infra
-- cluster.snv.stacklight.networking.virtual
+- cluster.vlab.stacklight
+- cluster.vlab.infra
+- cluster.vlab.stacklight.networking.virtual
 parameters:
   _param:
     keepalived_stacklight_telemetry_vip_address: ${_param:stacklight_telemetry_address}

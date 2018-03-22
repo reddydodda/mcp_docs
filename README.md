@@ -133,7 +133,20 @@ Important TODO
       sudo mkswap /swapfile
       sudo swapon /swapfile
       echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-      
+
+8. Create manage-project in cicd01 Nodes
+
+    chmod +x /usr/local/bin/manage-projects
+
+
+9. Fix Gerrit tags issues on CICD Nodes
+
+    Workaround:
+      a. In Gerrit UI add access rule `Forge Committer Identity` for group `Administrators` to `refs/tags/*` for project `All-Projects`
+      b. In Gerrit UI remove projects `mcp-ci/pipeline-library` and ` mk/mk-pipelines`
+      c. On cid01 node remove `/srv/jeepyb` directory
+      d. On cid01 node run Salt state `gerrit.client`
+
 
 ###########
 MaaS node

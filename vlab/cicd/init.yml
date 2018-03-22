@@ -25,11 +25,11 @@ parameters:
       public: docker-prod-local.artifactory.mirantis.com/mirantis/cicd/aptly-public:${_param:apt_mk_version}
     # OpenLDAP
     openldap_organisation: "${_param:cluster_name}"
-    openldap_dn: "dc=deploy-name,dc=local"
-    openldap_domain: "deploy-name.local"
-    openldap_admin_password: LTfWAopcJ1dHS6pp
-    openldap_config_password: PZvmQjEEBXcFDv3L
-    openldap_readonly_password: ligEZhZwdj258JHU
+    openldap_dn: "dc=miranits,dc=net"
+    openldap_domain: "miranits.net"
+    openldap_admin_password: hlY0zvFTwpT8Z1vu
+    openldap_config_password: g2T7mQgYxCA3zSXf
+    openldap_readonly_password: yYN767Isasb4SPcq
     # Jenkins
     jenkins_admin_password: ${_param:openldap_admin_password}
     jenkins_security_ldap_server: ${_param:cicd_control_address}

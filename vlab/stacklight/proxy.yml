@@ -5,8 +5,8 @@ classes:
 - system.nginx.server.proxy.monitoring.prometheus_server
 - system.nginx.server.proxy.monitoring.prometheus_alertmanager
 - system.salt.minion.cert.proxy
-- cluster.snv.stacklight
-- cluster.snv.infra
+- cluster.vlab.stacklight
+- cluster.vlab.infra
 parameters:
   _param:
     nginx_proxy_grafana_port: 15013

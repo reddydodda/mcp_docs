@@ -1,16 +1,12 @@
 classes:
-#- system.linux.system.repo.mcp.openstack
 - system.linux.system.repo.mcp.extra
-- system.linux.system.repo.ubuntu
-- system.linux.system.repo.glusterfs
-- system.linux.system.repo.saltstack.xenial
-- system.linux.system.repo.sensu
+- system.linux.system.repo.mcp.apt_mirantis.openstack
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- system.linux.system.repo.mcp.apt_mirantis.glusterfs
+- system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.salt.control.virt
 - system.salt.control.cluster.openstack_benchmark_single
 - cluster.vlab.infra.k8s-vms
-#- cluster.kddipoc1.cicd.gluster
-# Add separate file with voulems for stacklight
-#- cluster.kddipoc1.stacklight.gluster
 - cluster.vlab.infra
 parameters:
   _param:
@@ -18,9 +14,9 @@ parameters:
     cluster_node01_address: ${_param:infra_kvm_node01_address}
     cluster_node02_address: ${_param:infra_kvm_node02_address}
     cluster_node03_address: ${_param:infra_kvm_node03_address}
-    deploy_nic: ens2
-    primary_first_nic: ens3
-    primary_second_nic: eth3
+    deploy_nic: ens3
+    primary_first_nic: ens4
+    primary_second_nic: eth2
   salt:
     control:
       size: #RAM 4096,8192,16384,32768,65536
@@ -71,12 +67,12 @@ parameters:
   linux:
     network:
       interface:
-        ens2:
+        ens3:
           enabled: true
           type: eth
           proto: manual
           name: ${_param:deploy_nic}
-        ens3:
+        ens4:
           enabled: true
           type: eth
           proto: manual
@@ -90,21 +86,21 @@ parameters:
           gateway: ${_param:deploy_network_gateway}
           use_interfaces:
           - ${_param:deploy_nic}
-        ens3.101:
+        ens4.101:
           name: ${_param:primary_first_nic}.${_param:control_vlan}
           enabled: true
           proto: manual
           type: vlan
           use_interfaces:
           - ${_param:primary_first_nic}
-        ens3.102:
+        ens4.102:
           name: ${_param:primary_first_nic}.${_param:tenant_vlan}
           enabled: true
           proto: manual
           type: vlan
           use_interfaces:
           - ${_param:primary_first_nic}
-        eno1.103:
+        ens4.103:
           name: ${_param:primary_first_nic}.${_param:proxy_vlan}
           enabled: true
           proto: manual

@@ -6,6 +6,7 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.linux.system.repo.mcp.apt_mirantis.cassandra
+- system.prometheus.exporters.jmx
 - system.opencontrail.control.control
 - system.opencontrail.client.cluster
 - system.opencontrail.client.resource.openstack_metadata

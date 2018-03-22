@@ -6,10 +6,10 @@ classes:
 - system.docker.swarm.stack.monitoring
 
 
-#- cluster.snv.infra
-#- cluster.snv.cicd.control
+#- cluster.vlab.infra
+#- cluster.vlab.cicd.control
 
-- cluster.snv.infra
+- cluster.vlab.infra
 parameters:
   _param:
     docker_image_alertmanager: docker-prod-local.artifactory.mirantis.com/openstack-docker/alertmanager:${_param:apt_mk_version}

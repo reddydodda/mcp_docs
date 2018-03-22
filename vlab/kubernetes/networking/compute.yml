@@ -2,37 +2,58 @@
 #
 parameters:
   linux:
-    system:
-      kernel:
-        sysctl:
-          # The default operating system limits on mmap counts is likely to be too low, which may result in out of memory exceptions.
-          vm.max_map_count: 262144
     network:
       interface:
-        eth0:
-          mtu: 1500
-          enabled: true
-          type: eth
-          proto: dhcp
-          name: ${_param:deploy_nic}
-        eth1:
-          mtu: 1500
-          enabled: true
-          type: eth
-          proto: static
-          name: ${_param:primary_first_nic}
-          address: ${_param:single_address}
-          netmask: ${_param:control_network_netmask}
-        eth2:
-          mtu: 1500
+        ens2: ${_param:linux_dhcp_interface}
+        ens3: ${_param:linux_single_interface}
+#          mtu: 9000
+#          enabled: true
+#          type: slave
+#          proto: manual
+#          name: ${_param:primary_first_nic}
+#          master: bond0
+        ens4:
           enabled: true
           type: eth
           proto: static
-          name: ${_param:primary_second_nic}
           address: ${_param:tenant_address}
           netmask: ${_param:tenant_network_netmask}
-          gateway: ${_param:tenant_network_gateway}
           name_servers:
-          - ${_param:dns_server01}
-          - ${_param:dns_server02}
+            - ${_param:dns_server01}
+            - ${_param:dns_server02}
 
+#          mtu: 9000
+#          enabled: true
+#          type: slave
+#          proto: manual
+#          name: ${_param:primary_second_nic}
+#          master: bond0
+#        bond0:
+#          mtu: 9000
+#          enabled: true
+#          proto: manual
+#          type: bond
+#          use_interfaces:
+#          - ${_param:primary_first_nic}
+#          slaves: ${_param:primary_first_nic}
+#          mode: active-backup
+#        bond0.1:
+#          mtu: 9000
+#          name: bond0.${_param:control_vlan}
+#          enabled: true
+#          proto: static
+#          type: vlan
+#          use_interfaces:
+#          - bond0
+#          address: ${_param:single_address}
+#          netmask: ${_param:control_network_netmask}
+#        bond0.2:
+#          mtu: 9000
+#          name: bond0.${_param:tenant_vlan}
+#          enabled: true
+#          proto: static
+#          type: vlan
+#          use_interfaces:
+#          - bond0
+#          address: ${_param:tenant_address}
+#          netmask: ${_param:tenant_network_netmask}

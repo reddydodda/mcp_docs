@@ -89,7 +89,7 @@ kvm04:
   - ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
 
 
-7.
+7. No Contrail
 
 
 
@@ -98,11 +98,15 @@ kvm04:
 setup
 #######
 
-1. Update modules and states on all Minions:
+1. Deploy Salt node
+
+2. Deploy KVM nodes with Drivetrain
+
+3. Update modules and states on all Minions:
 
     salt '*' saltutil.sync_all
 
-2. Register compute nodes:
+4. Register compute nodes:
 
 salt-call event.send "reclass/minion/classify" \
 "{\"node_master_ip\": \"<config_host>\", \
@@ -122,29 +126,29 @@ salt-call event.send "reclass/minion/classify" \
 \"node_hostname\": \"<node_hostname>\"}"
 
 
-3. Create and distribute SSL certificates for services using the salt state:
+5. Create and distribute SSL certificates for services using the salt state:
 
     salt "*" state.sls salt
 
-4. Perform Linux system configuration to synchronize repositories and execute outstanding system maintenance tasks:
+6. Perform Linux system configuration to synchronize repositories and execute outstanding system maintenance tasks:
 
     salt -C 'I@docker:host' state.sls linux.system
 
-5. Install Keepalived:
+7. Install Keepalived:
 
    salt -C 'I@keepalived:cluster' state.sls keepalived -b 1
 
-6. Install HAProxy:
+8. Install HAProxy:
 
     salt -C 'I@haproxy:proxy' state.sls haproxy
     salt -C 'I@haproxy:proxy' service.status haproxy
 
-7. Install Docker:
+9. Install Docker:
 
     salt -C 'I@docker:host' state.sls docker.host
     salt -C 'I@docker:host' cmd.run "docker ps"
 
-8. Install etcd:
+10. Install etcd:
 
   salt -C 'I@etcd:server' state.sls etcd.server.service
   salt -C 'I@etcd:server' cmd.run "etcdctl cluster-health"
@@ -154,12 +158,12 @@ salt-call event.send "reclass/minion/classify" \
   salt -C 'I@etcd:server' state.sls salt.minion.cert,etcd.server.service
   salt -C 'I@etcd:server' cmd.run '. /var/lib/etcd/configenv && etcdctl cluster-health'
 
-9. Install Kubernetes:
+11. Install Kubernetes:
 
   salt -C 'I@kubernetes:master' state.sls kubernetes.master.kube-addons
   salt -C 'I@kubernetes:pool' state.sls kubernetes.pool
 
-10.  For the Calico setup:
+12.  For the Calico setup:
 
   Verify the Calico nodes status:
 
@@ -169,20 +173,20 @@ salt-call event.send "reclass/minion/classify" \
 
     salt -C 'I@kubernetes:master' state.sls etcd.server.setup
 
-11. For the OpenContrail setup, deploy OpenContrail as described in Deploy OpenContrail manually.
+13. For the OpenContrail setup, deploy OpenContrail as described in Deploy OpenContrail manually.
 
-12. Run master to check consistency:
+14. Run master to check consistency:
 
     salt -C 'I@kubernetes:master' state.sls kubernetes exclude=kubernetes.master.setup
 
-13. Register addons:
+15. Register addons:
 
     salt -C 'I@kubernetes:master' --subset 1 state.sls kubernetes.master.setup
 
-14. Restart kubelet:
+16. Restart kubelet:
 
     salt -C 'I@kubernetes:pool' service.restart kubelet
 
-15. Log in to any Kubernetes ctl node to verify that all nodes have been registered successfully:
+17. Log in to any Kubernetes ctl node to verify that all nodes have been registered successfully:
 
     kubectl get nodes

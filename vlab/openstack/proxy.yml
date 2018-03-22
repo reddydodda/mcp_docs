@@ -14,6 +14,7 @@ classes:
 - system.nginx.server.proxy.openstack.glare
 - system.nginx.server.proxy.openstack_vnc
 - system.nginx.server.proxy.openstack_web
+- system.nginx.server.proxy.openstack.ceilometer
 - system.horizon.server.single
 - system.salt.minion.cert.proxy.openstack
 - system.salt.minion.cert.proxy.pki
@@ -21,6 +22,9 @@ classes:
 - service.keepalived.cluster.single
 - cluster.vlab.infra
 - cluster.vlab.openstack.dashboard
+- cluster.vlab.stacklight.proxy
+- system.nginx.server.proxy.oss.devops_portal
+- system.nginx.server.proxy.oss.rundeck
 - cluster.vlab.openstack.networking.virtual
 parameters:
   _param:
