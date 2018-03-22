@@ -9,6 +9,9 @@ classes:
 - system.neutron.control.opencontrail.cluster
 - system.opencontrail.client.cluster
 - system.heat.server.resource.contrail
+- system.glance.control.storage.ceph
+- system.cinder.control.backend.ceph
+- system.ceph.common.cluster
 - system.keystone.server.cluster
 - system.keystone.server.wsgi
 - system.keystone.server.notification.messagingv2
@@ -31,8 +34,9 @@ classes:
 - system.heka.ceilometer_collector.single
 - system.aodh.server.cluster
 - system.ceilometer.server.cluster
-- cluster.vlab.infra
-- cluster.vlab.openstack.networking.virtual
+- cluster.deployment_name.ceph.common
+- cluster.deployment_name.infra
+- cluster.deployment_name.openstack.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3
@@ -46,4 +50,3 @@ parameters:
     cluster_node03_hostname: ${_param:openstack_control_node03_hostname}
     cluster_node03_address: ${_param:openstack_control_node03_address}
     nova_vncproxy_url: https://${_param:cluster_public_host}:6080
-    nova_cpu_allocation_ratio: 8.0

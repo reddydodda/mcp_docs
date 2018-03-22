@@ -11,8 +11,8 @@ classes:
 - system.opencontrail.client.resource.analytics_node
 - system.opencontrail.client.resource.database_node
 - system.opencontrail.control.analytics
-- cluster.vlab.infra
-- cluster.vlab.opencontrail.networking.virtual
+- cluster.deployment_name.infra
+- cluster.deployment_name.opencontrail.networking.virtual
 parameters:
   _param:
     ### latest OpenStack repo on Trusty is Mitaka

@@ -14,8 +14,8 @@ classes:
 - system.galera.server.database.nova
 - system.galera.server.database.neutron
 #- haproxy.proxy.listen.openstack.galera.clustercheck
-- cluster.vlab.infra
-- cluster.vlab.openstack.networking.virtual
+- cluster.deployment_name.infra
+- cluster.deployment_name.openstack.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3

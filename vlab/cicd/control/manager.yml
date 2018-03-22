@@ -1,5 +1,5 @@
 classes:
   - system.docker.swarm.manager
-  - cluster.vlab.infra
-  - cluster.vlab.cicd.control
+  - cluster.deployment_name.infra
+  - cluster.deployment_name.cicd.control
 

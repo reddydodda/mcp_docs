@@ -4,7 +4,6 @@ parameters:
   linux:
     network:
       interface:
-        eth0: ${_param:linux_dhcp_interface}
         eth1:
           mtu: 9000
           enabled: true
@@ -26,8 +25,8 @@ parameters:
           type: bond
           use_interfaces:
           - ${_param:primary_first_nic}
-#          - ${_param:primary_second_nic}
-          slaves: ${_param:primary_first_nic}
+          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
           mode: active-backup
         bond0.1:
           mtu: 9000

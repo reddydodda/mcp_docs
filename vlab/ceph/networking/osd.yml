@@ -1,0 +1,49 @@
+# Ceph OSD nodes default network configuration template
+#
+parameters:
+  linux:
+    network:
+      interface:
+        eth1:
+          mtu: 9000
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:ceph_osd_primary_first_nic}
+          master: bond1
+        eth2:
+          mtu: 9000
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:ceph_osd_primary_second_nic}
+          master: bond1
+        bond1:
+          enabled: true
+          proto: manual
+          type: bond
+          use_interfaces:
+          - ${_param:ceph_osd_primary_second_nic}
+          - ${_param:ceph_osd_primary_first_nic}
+          slaves: ${_param:ceph_osd_primary_second_nic} ${_param:ceph_osd_primary_first_nic}
+          mode: active-backup
+    # bond for cluster communication on _param:public_network
+        bond1.1:
+          name: bond1.${_param:control_vlan}
+          enabled: true
+          type: vlan
+          proto: static
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+          use_interfaces:
+          - bond1
+    # bond for OSD data replication on _param:cluster_network
+        bond1.2:
+          name: bond1.${_param:backend_vlan}
+          enabled: true
+          type: vlan
+          proto: static
+          address: ${_param:backend_address}
+          netmask: ${_param:backend_network_netmask}
+          use_interfaces:
+          - bond1

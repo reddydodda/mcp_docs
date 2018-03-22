@@ -18,8 +18,8 @@ classes:
 - system.rabbitmq.server.single
 - system.rabbitmq.server.vhost.openstack
 - system.backupninja.server.single
-- cluster.vlab.infra
-- cluster.vlab.openstack.networking.virtual
+- cluster.deployment_name.infra
+- cluster.deployment_name.openstack.networking.virtual
 parameters:
   _param:
     nova_vncproxy_url: http://${_param:openstack_proxy_address}:6080

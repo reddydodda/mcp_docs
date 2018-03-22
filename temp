@@ -1,0 +1,57 @@
+  virt-install --name cfg01.mirantis.net \
+    --disk path=/var/lib/libvirt/images/cfg01/system.qcow2,bus=virtio,cache=none \
+    --disk path=/var/lib/libvirt/images/cfg01/cfg01-config.iso,device=cdrom \
+    --network bridge:br-pxe,model=virtio \
+    --network bridge:br-control,model=virtio \
+    --ram 6144 --vcpus=6 --accelerate \
+    --boot hd --vnc --noreboot --autostart
+
+
+virt-install --name cfg01.mirantis.local \
+    --disk path=/var/lib/libvirt/images/cfg01/system.qcow2,bus=virtio,cache=none \
+    --disk path=/var/lib/libvirt/images/cfg01/cfg01-config.iso,device=cdrom \
+    --network network:test,model=virtio \
+    --ram 8124 --vcpus=4 --accelerate \
+    --boot hd --vnc --noreboot --autostart
+
+
+{%- if network.host|length > 0 or network.get('purge_hosts', True) %}
+
+
+
+virt-install --name cmp001 --connect qemu+ssh://kvmtemp/system  \
+--network bridge:br_mgm,model=virtio \
+--network bridge:br_ctl,model=virtio \
+--pxe --vnc \
+--ram=10240 --vcpus=4 \
+--disk path=/var/lib/libvirt/images/cmp001.img,size=100 --noreboot --autostart
+
+
+
+ssh -f root@mcplab -L 8081:192.168.100.15:8081 -N
+
+salt-call state.sls reclass test=True
+
+
+salt-run jobs.lookup_jid 20180320002426445161
+
+
+
+sudo iptables -A FORWARD -o br-public -i br-pxe -s 10.100.0.0/24 -m conntrack --ctstate NEW -j ACCEPT
+sudo iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -t nat -F POSTROUTING
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+A FORWARD -d 192.168.122.0/24 -o virbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -s 192.168.122.0/24 -i virbr0 -j ACCEPT
+
+
+
+iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o br-public -j SNAT --to 172.17.18.36
+
+
+
+
+
+
+
