@@ -37,6 +37,8 @@ classes:
   - system.haproxy.proxy.listen.phpldapadmin
   - system.haproxy.proxy.listen.mysql
   - system.haproxy.proxy.listen.stats
+
+
 parameters:
   _param:
     apt_mk_version: 2018.1
@@ -51,18 +53,18 @@ parameters:
     glusterfs_node02_address: ${_param:infra_kvm_node02_address}
     glusterfs_node03_address: ${_param:infra_kvm_node03_address}
     keepalived_vip_virtual_router_id: 180
-    keepalived_vip_password: UvfechnOqdUWieAT
+    keepalived_vip_password: wFJ6sHh8Oc0Z5dED
     keepalived_vip_interface: ens3
     cluster_vip_address: ${_param:control_vip_address}
     control_vip_address: ${_param:cicd_control_address}
-    salt_api_password: 3DsLnakhnXylKsld0z8PiKcG9HdJbwtq
+    salt_api_password: eaRgU4dgxpT5S1t0VRJdUaTBVICpis68
     jenkins_slave_user_id: 10000
     jenkins_slave_group_id: ${_param:jenkins_slave_user_id}
     # Docker images and versions
-    docker_registry_http_secret: 0dAWgjk97SwE5k8C
+    docker_registry_http_secret: SWkFZhzSxyr6oNNT
     # CI/CD service databases
-    mysql_admin_password: DzbdUt3pGZCjMHqG
-    mysql_gerrit_password: tdlRrQdOmKYP2Gji
+    mysql_admin_password: Z1AyS3ysXogahKSd
+    mysql_gerrit_password: pyOHDd1kW42X16LG
     nginx_proxy_gerrit_server_site_host: ${_param:cluster_public_host}
     nginx_proxy_gerrit_server_site_port: 8070
     gerrit_http_listen_url: proxy-https://*:8080/

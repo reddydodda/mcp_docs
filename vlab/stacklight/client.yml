@@ -6,7 +6,6 @@ classes:
 - system.docker.swarm.stack.monitoring
 - system.docker.swarm.stack.monitoring.remote_agent.ceph_common
 
-
 #- cluster.vlab.infra
 #- cluster.vlab.cicd.control
 

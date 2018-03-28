@@ -11,6 +11,14 @@ parameters:
           full_name: cdodda
           home: /home/cdodda
           email: cdodda@mirantis.com
+        ozhurba:
+          enabled: true
+          name: ozhurba
+          sudo: true
+          full_name: ozhurba
+          home: /home/ozhurba
+          email: ozhurba@mirantis.com
+
   openssh: 
     server:
       enabled: true
@@ -20,6 +28,15 @@ parameters:
           public_keys:
           - ${public_keys:cdodda}
           user: ${linux:system:user:cdodda}
+        ozhurba:
+          enabled: true
+          public_keys:
+          - ${public_keys:ozhurba}
+          user: ${linux:system:user:ozhurba}
+
+
   public_keys:
+    ozhurba:
+      key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUwubPT8GWUeuPCdPeYlIuN8OaD0umc0JuyKWf5ViVhX3VqB6CwS6/ddm9fpbAedV/8J5l/Sl/usK/WuCPVBgKEuGtidRcrABxRt49q+aum5WRd6bsYv4UxFZmaDHKgg6g8LR7Ii26GPM/HdM1CdqnxpVicz7QRj3pgLDYLippg7RAktKkp4Jw7gkBFNR7UXGHr/5qX08VoUadbgWQP7OdHdgSxysqkSiN1Rr9URWEpwZ5wfblkbEzR1JBg6kYJAP3sTJvOQguFvFCVu6++/UX2wbrrc0+0eAO31lFUAIjboYLpWDj5Sj/ER3uwTX0dJw0wpSsa9lHn/LSZrJhrA5v ozhurba@zhurba-mac
     cdodda:
       key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbU3LETmZst5dcLl7iPdAeVTtSQoJZoQ3Nza6DHlpv3wtHHvoh8Fd0QFhIkR81a+5563qBcUiFfI9n3vufyJWzc9x+8G2/WJXkKg6D3tnvPqmlT+3Cqj1vNZbjVvXFdVb24pR9jdAa8CEHInWLVNCdL/WShKDSHBQ/cloymzzGhpJOYMXjPzEBxDbiodKMD0TAvw7IKQSY9trlxOXBtQLcHWYxrdxG1ir7TjD6PXdXae8PRxOwh35leot9kWo27icxGIKdJunrvQZI3VB7FSf6hhWajgnmD4yREF9sCLaknl5Xx1J3c/6P0JDeX3DDT4Nv3Bl1cLIdMa0+iDeCPvGz creddy@space

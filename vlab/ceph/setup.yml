@@ -5,56 +5,56 @@ parameters:
     setup:
       pool:
         images:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rbd
 #          crush_rule: sata (uncomment these lines if you setup crush map)
         volumes:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rbd
 #          crush_rule: sata
         vms:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rbd
 #          crush_rule: sata
         .rgw.root:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata
         default.rgw.control:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata
         default.rgw.meta:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata
         default.rgw.log:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata
         default.rgw.buckets.index:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata
         default.rgw.buckets.data:
-          pg_num: 512
-          pgp_num: 512
+          pg_num: 256
+          pgp_num: 256
           type: replicated
           application: rgw
 #          crush_rule: sata

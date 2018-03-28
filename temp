@@ -50,8 +50,9 @@ A FORWARD -d 192.168.122.0/24 -o virbr0 -m conntrack --ctstate RELATED,ESTABLISH
 iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o br-public -j SNAT --to 172.17.18.36
 
 
+ ceph --admin-daemon /var/run/ceph/ceph-mon.1.asok config show
 
 
 
-
-
+ $ git fetch -unf origin 1.0.12:refs/tags/1.0.12
+$ git checkout 1.0.12

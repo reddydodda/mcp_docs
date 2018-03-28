@@ -34,6 +34,8 @@ classes:
 - service.jenkins.client
 - system.jenkins.client.credential.salt
 - system.jenkins.client.job.deploy.openstack
+- system.reclass.storage.system.kubernetes_control_cluster
+- system.salt.minion.cert.k8s_server
 - cluster.vlab.infra.maas
 - cluster.vlab.infra
 - cluster.vlab.infra.networking.config
@@ -46,12 +48,12 @@ parameters:
     single_address: ${_param:infra_config_address}
     deploy_address: ${_param:infra_config_deploy_address}
     linux_system_codename: xenial
-    salt_api_password_hash: "$6$fdnGczVk$UbRqGtg3H9wkThUIjaa.C1BiPvhkRhmOBicAslSS6ViNUPcYJtVf2riR9sDb55Ui.P17RPniyWUJxDeOvqyLp0"
+    salt_api_password_hash: "$6$CUPDtftc$gqazirKDkrOfZzuizGt3mbymcrNWU4oOzR.M9febFlxcB7UHr5Ybrj.sjNEXk5j.i.bhMwS2ShtbX9pVTzZpz0"
     salt_master_host: ${_param:infra_config_deploy_address}
     backupninja_backup_host: ${_param:infra_kvm_node03_address}
     jenkins_git_url: 'git@cfg01:/home/repo'
     jenkins_gerrit_url: ${_param:jenkins_git_url}
-    salt_api_password: 3DsLnakhnXylKsld0z8PiKcG9HdJbwtq
+    salt_api_password: eaRgU4dgxpT5S1t0VRJdUaTBVICpis68
     jenkins_salt_api_url: "http://${_param:salt_master_host}:6969"
     jenkins_pipeline_library_url: git@cfg01:/home/repo/mcp-ci/pipeline-library
     jenkins_pipelines_branch: '2018.1'
@@ -149,7 +151,7 @@ parameters:
           classes:
           - cluster.${_param:cluster_name}.openstack.compute
           repeat:
-            count: 1
+            count: 2
             start: 1
             digits: 3
             params:
@@ -162,13 +164,69 @@ parameters:
           params:
             salt_master_host: ${_param:reclass_config_master}
             linux_system_codename: xenial
+# K8S Nodes
+
+        infra_kvm_node04:
+          classes:
+          - cluster.${_param:cluster_name}.infra.kvm04
+          domain: ${_param:cluster_domain}
+          name: ${_param:infra_kvm_node04_hostname}
+          params:
+            deploy_address: ${_param:infra_kvm_node04_deploy_address}
+            linux_system_codename: xenial
+            salt_master_host: ${_param:reclass_config_master}
+            single_address: ${_param:infra_kvm_node04_address}
+        kubernetes_compute_node01:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.compute
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_compute_node01_hostname}
+          params:
+            linux_system_codename: xenial
+            single_address: ${_param:kubernetes_compute_node01_address}
+            tenant_address: ${_param:kubernetes_compute_node01_tenant_address}
+        kubernetes_compute_node02:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.compute
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_compute_node02_hostname}
+          params:
+            linux_system_codename: xenial
+            single_address: ${_param:kubernetes_compute_node02_address}
+            tenant_address: ${_param:kubernetes_compute_node02_tenant_address}
+        kubernetes_compute_node03:
+          classes:
+          - cluster.${_param:cluster_name}.kubernetes.compute
+          domain: ${_param:cluster_domain}
+          name: ${_param:kubernetes_compute_node03_hostname}
+          params:
+            linux_system_codename: xenial
+#            salt_master_host: ${_param:infra_deploy_address}
+            single_address: ${_param:kubernetes_compute_node03_address}
+            tenant_address: ${_param:kubernetes_compute_node03_tenant_address}
+        kubernetes_control_node01:
+          name: ${_param:kubernetes_control_node01_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_deploy_node01_address}
+            tenant_address: ${_param:kubernetes_control_node01_tenant_address}
+        kubernetes_control_node02:
+          name: ${_param:kubernetes_control_node02_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_deploy_node02_address}
+            tenant_address: ${_param:kubernetes_control_node02_tenant_address}
+        kubernetes_control_node03:
+          name: ${_param:kubernetes_control_node03_hostname}
+          params:
+            deploy_address: ${_param:kubernetes_deploy_node03_address}
+            tenant_address: ${_param:kubernetes_control_node03_tenant_address}
+#Ceph Nodes
         ceph_osd_rack01:
           name: ${_param:ceph_osd_rack01_hostname}<<count>>
           domain: ${_param:cluster_domain}
           classes:
             - cluster.${_param:cluster_name}.ceph.osd
           repeat:
-            count: 10
+            count: 3
             start: 1
             digits: 3
             params:

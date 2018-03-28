@@ -551,6 +551,10 @@ OpenStack Infra
 
     salt -C 'I@keystone:server' state.sls keystone.server -b 1
 
+    Restart Apache2
+
+    salt -C 'I@keystone:server' service.restart apache2
+
     Populate keystone services/tenants/admins:
 
     salt -C 'I@keystone:client' state.sls keystone.client

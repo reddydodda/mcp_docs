@@ -6,6 +6,7 @@ parameters:
     network:
       bridge: openvswitch
       interface:
+        eth0: ${_param:linux_dhcp_interface}
         eth1:
           enabled: true
           type: slave
@@ -26,8 +27,8 @@ parameters:
           type: bond
           use_interfaces:
           - ${_param:primary_first_nic}
-          - ${_param:primary_second_nic}
-          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
+#          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_first_nic}
           mode: active-backup
         br-floating:
           enabled: true

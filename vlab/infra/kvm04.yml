@@ -6,7 +6,9 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.salt.control.virt
 - system.salt.control.cluster.openstack_benchmark_single
-- cluster.vlab.infra.k8s-vms
+#- cluster.vlab.infra.k8s-vms
+- cluster.vlab.infra.ceph-vms
+- cluster.vlab.infra.cmp-vms
 - cluster.vlab.infra
 parameters:
   _param:
@@ -30,11 +32,11 @@ parameters:
           net_profile: private
         kubernetes.compute:
           net_profile: private
-      cluster:
-        internal:
-          node:
-            bmk01:
-              provider: ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
+#      cluster:
+#        internal:
+#          node:
+#            bmk01:
+#              provider: ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
   virt:
     nic:
       newdefault:
@@ -64,6 +66,18 @@ parameters:
         - name: eth2
           bridge: br_private
           model: virtio
+      cephnet:
+        - name: eth0
+          bridge: br_mgm
+          model: virtio
+        - name: eth1
+          bridge: br_ctl
+          model: virtio
+        - name: eth2
+          bridge: br_proxy
+          model: virtio
+
+
   linux:
     network:
       interface:

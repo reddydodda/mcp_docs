@@ -17,7 +17,9 @@ classes:
   - system.jenkins.client.job.git-mirrors.downstream.pipelines
   - system.jenkins.client.job.deploy.openstack
   - system.jenkins.client.job.deploy.update
+  - system.jenkins.client.job.deploy.update.utils
   - system.jenkins.client.job.ceph
+
   # Security
   - system.jenkins.client.security.ldap
   - system.jenkins.client.security.matrix
@@ -26,6 +28,8 @@ classes:
   # OpenLDAP
   - system.openldap.client
   - system.openldap.client.people.admin
+
+  - system.jenkins.client.job.deploy.update.upgrade_opencontrail4_0  
 
   # Gerrit
   - system.gerrit.client
@@ -46,34 +50,34 @@ parameters:
     jenkins_admin_email: ${_param:admin_email}
     aptly_api_port: 8080
     aptly_public_port: 80
-    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4qrZO8zbHXtRNSJ2mOqp2HvivJNI2hLy1B6A14E2p9DRX50o229shd3lE/+exoNOuzeLUblMiADoZGkq4iLDyKXNiZcL4gE+s3QMSYXzfPktJmZGWYKWk9AOS1o9X1CAU4t7Z6gec5TB0aeD/rQ0TFY97TAWo16uAcE3UL7xdPJsuQs4Yi6tPp5o2fWAU4Yd0JQeQnQoDKodynimjA1rmbDllpg+IXHoFFU6SJaPjxvg28c4Do6/gUt/e8omgEM2Dhk0YI6GYCr5xuVGCGHWmPXwWKUi+aSVBlgQwcp0zdE3zH64lR5rAGegxClrR4ymUZ+fF5j9b1fLp/eXws5nB
+    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuDlvodJjTQx4r7gSBg8qLo7Oo8ctNL7tYjGZ2ZuPJH5v03RkTzzLW+KtM6bGiZNZ5hQXaxd91eD/5mUoRY9W3QgSwF4OX4XZORPJpCawxaKr086jS61su1M2374QpWX2IL/3Tnuw+4SnK680eqiW+Yu3ps8Rq6iQ3fzW+SWjIo1C9bMbd4W8Hyyeha0rw8yzLUW12Ga1Y+ULiX5+1NsfIr8NBtXHWwn3DN0uiZAdu62K6iLbmjIXVzFzR+4u41FaaoFXc2mCVIgILOoJ1o9SjKntO7/YWfaPKUjXV9sHb3EHySM5Ctkxt3MXgh6iCYn5ZKHa08Uhwd4NOLqaRMiYr
     jenkins_admin_private_key: |
       -----BEGIN RSA PRIVATE KEY-----
-      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
+      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
       -----END RSA PRIVATE KEY-----
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:haproxy_gerrit_bind_host}:${_param:haproxy_gerrit_ssh_bind_port}
