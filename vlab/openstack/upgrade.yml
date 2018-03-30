@@ -18,8 +18,8 @@ classes:
 - system.rabbitmq.server.single
 - system.rabbitmq.server.vhost.openstack
 - system.backupninja.server.single
-- cluster.vlab.infra
-- cluster.vlab.openstack.networking.virtual
+- cluster.snv.infra
+- cluster.snv.openstack.networking.virtual
 parameters:
   _param:
     nova_vncproxy_url: http://${_param:openstack_proxy_address}:6080
@@ -29,7 +29,7 @@ parameters:
     openstack_control_address: ${_param:openstack_upgrade_node01_address}
     public_address: ${_param:openstack_upgrade_node01_address}
     cluster_public_protocol: http
-    openstack_version: ocata
+    openstack_version: pike
   glance:
     server:
       storage:

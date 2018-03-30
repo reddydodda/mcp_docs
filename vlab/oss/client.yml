@@ -43,7 +43,7 @@ classes:
 - system.devops_portal.service.grafana
 - system.devops_portal.service.security_monkey
 - system.devops_portal.service.janitor_monkey
-- cluster.vlab.infra
+- cluster.snv.infra
 
 parameters:
   _param:
@@ -58,7 +58,7 @@ parameters:
     docker_image_security_monkey_scheduler: docker-prod-local.artifactory.mirantis.com/mirantis/oss/security-monkey-scheduler:${_param:apt_mk_version}
     docker_image_hce: docker-prod-local.artifactory.mirantis.com/mirantis/oss/hce:${_param:apt_mk_version}
     # PostgreSQL
-    postgresql_admin_user_password: aB2hkfBgWF4HDvpg
+    postgresql_admin_user_password: dLvW1pVbUaWXCzdW
     postgresql_client_user: ${_param:postgresql_admin_user}
     postgresql_client_password: ${_param:postgresql_admin_user_password}
     postgresql_client_host: ${_param:haproxy_postgresql_bind_host}
@@ -71,7 +71,7 @@ parameters:
 
     # Pushkin
     pushkin_db_user: pushkin
-    pushkin_db_user_password: o7FHOz62sF0zrtLr
+    pushkin_db_user_password: X1U7efD6gQ3dCO6V
     pushkin_db_host: ${_param:haproxy_postgresql_bind_host}
     pushkin_smtp_host: 
     pushkin_smtp_port: 
@@ -98,7 +98,7 @@ parameters:
             -----BEGIN CERTIFICATE----- MIIE0DCCA7igAwIBAgIBBzANBgkqhkiG9w0BAQsFADCBgzELMAkGA1UEBhMCVVMx EDAOBgNVBAgTB0FyaXpvbmExEzARBgNVBAcTClNjb3R0c2RhbGUxGjAYBgNVBAoT AAGjggEaMIIBFjAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAdBgNV 91cxG7685C/b+LrTW+C05+Z5Yg4MotdqY3MxtfWoSKQ7CC2iXZDXtHwlTxFWMMS2 -----END CERTIFICATE----- -----BEGIN CERTIFICATE----- dGhvcml0eSAtIEcyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAv3Fi 9kIDN0zmiN/VryTyscPfzLXs4Jlet0lUIDyUGAzHHFIYSaRt4bNYC8...
     # SecurityMonkey
     secmonkey_db_user: secmonkey
-    secmonkey_db_user_password: oDFTW1stjcoVTzoY
+    secmonkey_db_user_password: nm7vgD1dNmLwl3qe
     secmonkey_db_host: ${_param:postgresql_bind_host}
     security_monkey_openstack:
       username: ${_param:oss_openstack_username}
@@ -111,7 +111,7 @@ parameters:
       source_credentials: ${_param:oss_openstack_credentials_path}
     # JanitorMonkey
     docker_mongodb_admin_username: admin
-    docker_mongodb_admin_password: 9XhAaQ7wa8fgnvwU
+    docker_mongodb_admin_password: TaeV0WraCzHiygFL
     janitor_monkey_mongodb_host: ${_param:haproxy_mongodb_bind_host}
     janitor_monkey_openstack:
       username: ${_param:oss_openstack_username}
@@ -125,34 +125,34 @@ parameters:
 
     # Rundeck DB support
 
-    rundeck_runbook_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnHq7AQxwy2ifUTJ0Nw6SdaskFyO4L7K050ZofoW6ba0p2D9666OSPz9YkhFBfh+G4yqdaTyXfUwo368HCzQnMQ/nNfNysfIYu8EblCcG0PBS23SQb3B4IstL9AkVGa+t2Naxp95yEfX3xQlIKSg8thd7QDb8oLt9cpwuxhni5ewX0zYdedE45rflUSiEVNWBIeFhjGlN82KmrAwj3842MO1y//Sib/yeEAQ7fm9JAyZA4B7kCXc7Gb39Puw6swHk1S559GdsV++pBwMY9ycnDKlOcnzI5Jp/+pLacdgsKX1t70tKUNhRkWYOni6eEOMtRNxZCObuVr/IBlz3EPxzd
+    rundeck_runbook_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDj84I0BfN8iYAOvn8BANgFiYYdg9RbwYtainLtq9ZUeF5IFMPLQTOmM9s/9M/p06Rqwv/ThQap11lAD1oddOF2kAIJmkNPzXaLLOdzphPkNBUgalg6CJ84ts5F2ihCVACR/Z6DhFUX4Jj1LwgtxXjwcn5FWnsbdLwEpXdUhrGx0LLdCABhfgH8ay9B38Tp6ZAeNbkx/+0z6Q1u8o7Gl4YVosdIpj5ZVBPyH2phPEFfq6M5L/++Sl9676kSLCNquCOecDbC3z++LOoJKR1zcDoWzjCBXmr9Zc8+UD8AQNURfCe2JUIX1y1J4/dQmunMHklYnXxFM05EKWxeffMDww6T
     rundeck_runbook_private_key: |
       -----BEGIN RSA PRIVATE KEY-----
-      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
+      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
       -----END RSA PRIVATE KEY-----
     # CIS
     rundeck_cis_enabled: True

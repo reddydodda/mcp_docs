@@ -11,7 +11,6 @@ classes:
 - system.nginx.server.proxy.cicd.gerrit
 - system.nginx.server.proxy.cicd.jenkins
 - system.nginx.server.proxy.openstack_api
-- system.nginx.server.proxy.openstack.glare
 - system.nginx.server.proxy.openstack_vnc
 - system.nginx.server.proxy.openstack_web
 - system.nginx.server.proxy.ceph_radosgw
@@ -21,12 +20,12 @@ classes:
 - system.salt.minion.cert.proxy.pki
 - system.sphinx.server.doc.reclass
 - service.keepalived.cluster.single
-- cluster.vlab.infra
-- cluster.vlab.openstack.dashboard
-- cluster.vlab.stacklight.proxy
+- cluster.snv.infra
+- cluster.snv.openstack.dashboard
+- cluster.snv.stacklight.proxy
 - system.nginx.server.proxy.oss.devops_portal
 - system.nginx.server.proxy.oss.rundeck
-- cluster.vlab.openstack.networking.virtual
+- cluster.snv.openstack.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3

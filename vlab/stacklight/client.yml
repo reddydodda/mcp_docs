@@ -6,10 +6,11 @@ classes:
 - system.docker.swarm.stack.monitoring
 - system.docker.swarm.stack.monitoring.remote_agent.ceph_common
 
-#- cluster.vlab.infra
-#- cluster.vlab.cicd.control
 
-- cluster.vlab.infra
+#- cluster.snv.infra
+#- cluster.snv.cicd.control
+
+- cluster.snv.infra
 parameters:
   _param:
     docker_image_alertmanager: docker-prod-local.artifactory.mirantis.com/openstack-docker/alertmanager:${_param:apt_mk_version}

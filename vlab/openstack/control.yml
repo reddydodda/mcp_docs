@@ -34,9 +34,9 @@ classes:
 - system.heka.ceilometer_collector.single
 - system.aodh.server.cluster
 - system.ceilometer.server.cluster
-- cluster.vlab.ceph.common
-- cluster.vlab.infra
-- cluster.vlab.openstack.networking.virtual
+- cluster.snv.ceph.common
+- cluster.snv.infra
+- cluster.snv.openstack.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3
@@ -50,4 +50,3 @@ parameters:
     cluster_node03_hostname: ${_param:openstack_control_node03_hostname}
     cluster_node03_address: ${_param:openstack_control_node03_address}
     nova_vncproxy_url: https://${_param:cluster_public_host}:6080
-    nova_cpu_allocation_ratio: 8.0

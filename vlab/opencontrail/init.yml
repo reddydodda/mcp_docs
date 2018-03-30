@@ -1,8 +1,8 @@
 parameters:
   _param:
-    opencontrail_version: 4.0
-    linux_repo_contrail_component: oc40
-    opencontrail_stats_password: 0NGTxOdeDVPeRfyL
+    opencontrail_version: 3.0
+    linux_repo_contrail_component: oc323
+    opencontrail_stats_password: rcnje78QVGyiGAbV
     opencontrail_compute_dns: ${_param:dns_server01}
     opencontrail_compute_gateway: ${_param:tenant_network_gateway}
     opencontrail_compute_iface: bond0.${_param:tenant_vlan}

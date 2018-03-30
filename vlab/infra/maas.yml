@@ -3,7 +3,7 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.maas
 - system.maas.region.single
 - system.backupninja.client.single
-- cluster.vlab.infra
+- cluster.snv.infra
 parameters:
   _param:
     backupninja_backup_host: ${_param:infra_kvm_node03_address}

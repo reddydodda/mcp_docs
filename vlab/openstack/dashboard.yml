@@ -3,7 +3,7 @@ classes:
 #- system.horizon.server.plugin.theme
 - system.horizon.server.plugin.contrail
 - system.horizon.server.plugin.overrides
-- cluster.vlab.infra
+- cluster.snv.infra
 parameters:
   _param:
     horizon_site_branding: OpenStack Dashboard

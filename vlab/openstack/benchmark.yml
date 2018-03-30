@@ -1,1 +1,6 @@
 
+classes:
+- system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.apt_mirantis.ubuntu
+- cluster.snv.infra
+- cluster.snv.openstack.networking.benchmark

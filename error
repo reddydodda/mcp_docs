@@ -4,3 +4,15 @@ mcp_salt.list:deb [arch=amd64] http://apt.mirantis.com/xenial/ nightly salt
 
 
 http://apt.mirantis.com/public.gpg"
+
+
+
+#############
+ceph
+#############
+
+The problem of "ceph-disk activation issue in 12.2.2" has been catched ,It can be solved by this：
+
+1. delete osd
+2. ceph-disk zap /dev/sde
+3. prepare osd && activate osd

@@ -3,7 +3,7 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.linux.system.repo.mcp.apt_mirantis.ceph
-- cluster.vlab.infra
+- cluster.snv.infra
 parameters:
   ceph:
     common:

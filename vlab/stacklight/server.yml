@@ -20,10 +20,10 @@ classes:
 - system.prometheus.remote_storage_adapter.container
 - system.ceph.common.cluster
 - system.ceph.common.container
-- cluster.vlab.ceph
-- cluster.vlab.ceph.common
-- cluster.vlab.infra
-- cluster.vlab.stacklight.networking.virtual
+- cluster.snv.ceph
+- cluster.snv.ceph.common
+- cluster.snv.infra
+- cluster.snv.stacklight.networking.virtual
 parameters:
   _param:
     heka_amqp_host: ${_param:openstack_message_queue_address}

@@ -1,18 +1,18 @@
 classes:
 - system.ceph.osd.cluster
 - system.ceph.backup.client.single
-- cluster.vlab.ceph.common
-- cluster.vlab.ceph.networking.osd
+- cluster.snv.ceph.common
+- cluster.snv.ceph.networking.osd
 parameters:
   _param:
     ceph_remote_backup_server: ${_param:infra_kvm_node03_address}
-    ceph_osd_primary_first_nic: ens3
+    ceph_osd_primary_first_nic: ens4
     ceph_osd_primary_second_nic: eth4
   ceph:
     osd:
       enabled: true
       crush_parent: ${_param:ceph_crush_parent}
-      bluestore_block_db_size: 5368709120
+      bluestore_block_db_size: 21474836480
       backend:
         bluestore:
           disks:
@@ -36,20 +36,3 @@ parameters:
               block_db: /dev/vdb
 #              class: hdd
 #              weight: 1.5
-
-            - dev: /dev/vdh
-              block_db: /dev/vdb
-#              class: hdd
-#              weight: 1.5
-
-            - dev: /dev/vdi
-              block_db: /dev/vdb
-#              class: hdd
-#              weight: 1.5
-
-            - dev: /dev/vdj
-              block_db: /dev/vdb
-#              class: hdd
-#              weight: 1.5
-
-

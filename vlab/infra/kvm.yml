@@ -17,16 +17,17 @@ classes:
 - system.salt.control.cluster.openstack_proxy_cluster
 - system.salt.control.cluster.openstack_database_cluster
 - system.salt.control.cluster.openstack_message_queue_cluster
+- system.salt.control.cluster.openstack_benchmark_single
 #- system.salt.control.cluster.openstack_upgrade_single
 - system.salt.control.cluster.stacklight_server_cluster
 - system.salt.control.cluster.stacklight_log_cluster
 - system.salt.control.cluster.stacklight_telemetry_cluster
 - system.salt.control.cluster.cicd_control_cluster
-- cluster.vlab.cicd.gluster
+- cluster.snv.cicd.gluster
 - system.salt.control.cluster.ceph_mon_cluster
 - system.salt.control.cluster.ceph_rgw_cluster
-- cluster.vlab.infra
-- cluster.vlab.infra.networking.kvm
+- cluster.snv.infra
+- cluster.snv.infra.networking.kvm
 parameters:
   _param:
     cluster_vip_address: ${_param:infra_kvm_address}
@@ -37,7 +38,7 @@ parameters:
     keepalived_vip_virtual_router_id: 69
     deploy_nic: ens3
     primary_first_nic: ens4
-    primary_second_nic: eth2
+    primary_second_nic: eth4
   salt:
     control:
       size: #RAM 4096,8192,16384,32768,65536
@@ -95,6 +96,8 @@ parameters:
       cluster:
         internal:
           node:
+            bmk01:
+              image: ${_param:salt_control_xenial_image}
             ctl01:
               image: ${_param:salt_control_xenial_image}
             ctl02:
