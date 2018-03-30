@@ -1,10 +1,10 @@
 classes:
 - system.ceph.rgw.cluster
 - system.ceph.rgw.keystone
-- cluster.snv.ceph
-- cluster.snv.ceph.common
-- cluster.snv.infra
-- cluster.snv.ceph.networking.virtual
+- cluster.vlab.ceph
+- cluster.vlab.ceph.common
+- cluster.vlab.infra
+- cluster.vlab.ceph.networking.virtual
 parameters:
   _param:
     keepalived_vip_interface: ens3
@@ -12,7 +12,7 @@ parameters:
     haproxy_radosgw_bind_port: 8080
     haproxy_radosgw_source_port: 8080
     ceph_radosgw_bind_port: 8080
-    keepalived_vip_password: epOFowsLQD6
+    keepalived_vip_password: ${_param:rgw_keepalived_vip_password_generated}
     cluster_vip_address: 10.101.0.75
     cluster_node01_hostname: ${_param:ceph_rgw_node01_hostname}
     cluster_node01_address: ${_param:ceph_rgw_node01_address}

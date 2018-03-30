@@ -8,6 +8,7 @@ classes:
 - system.keystone.client.service.neutron
 - system.keystone.client.service.nova21
 - system.keystone.client.service.nova-placement
+- system.keystone.client.service.glare
 - system.keystone.client.service.cinder3
 - system.keystone.client.service.keystone
 - system.keystone.client.service.aodh
@@ -17,4 +18,4 @@ parameters:
   _param:
     radosgw_swift_cluster_port: 8080
     radosgw_service_host: ${_param:ceph_rgw_address}
-    keystone_swift_password: pf3czrOJa2xnNkSF
+    keystone_swift_password: ${_param:keystone_swift_password_generated}

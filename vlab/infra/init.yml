@@ -1,31 +1,32 @@
-
 classes:
 - system.linux.system.single
+- system.linux.system.single.debian
+- system.salt.minion.single
 #- system.openssh.server.team.lab
 #- system.openssh.server.team.presales
 #- system.openssh.server.team.services
 #- system.openssh.server.team.networking
 #- system.openssh.server.team.stacklight
 - system.rsyslog.client.single
-- cluster.snv.openstack
-- cluster.snv.opencontrail
-- cluster.snv.stacklight
+- cluster.vlab.openstack
+- cluster.vlab.stacklight
 - system.heka.log_collector.single
 - system.heka.log_collector.output.telegraf
 - system.telegraf.agent
 - system.prometheus.collector
 - service.grafana.collector
-- cluster.snv.oss
-- cluster.snv.ceph
-- cluster.snv.cicd
-#- cluster.snv.infra.proxy
+- cluster.vlab.oss
+- cluster.vlab.ceph
+- cluster.vlab.cicd
+#- cluster.vlab.infra.proxy
+- cluster.vlab.infra.secrets
 parameters:
   _param:
     # Don't set it "false" before you configure sudo policies and enable power users.
     linux_system_user_sudo: true
 
     apt_mk_version: 2018.1
-    jenkins_pipelines_branch: refs/tags/2018.1
+    jenkins_pipelines_branch: '${_param:apt_mk_version}'
     salt_control_trusty_image: http://images.mirantis.com/ubuntu-14-04-x64-mcp${_param:apt_mk_version}.qcow2
     salt_control_xenial_image: http://images.mirantis.com/ubuntu-16-04-x64-mcp${_param:apt_mk_version}.qcow2
     infra_config_hostname: cfg01
@@ -35,15 +36,13 @@ parameters:
     infra_config_deploy_address: 10.100.0.15
 
     cluster_domain: mirantis.net
-    cluster_name: snv
+    cluster_name: vlab
     cluster_public_host: ${_param:openstack_proxy_address}
-
     control_network_netmask: 255.255.255.0
     tenant_network_netmask: 255.255.255.0
 
     dns_server01: 8.8.8.8
     dns_server02: 8.8.4.4
-    tenant_network_gateway: 10.102.0.1
     control_vlan: 101
     tenant_vlan: 102
 
@@ -54,8 +53,8 @@ parameters:
     infra_maas_node01_deploy_address: ${_param:infra_config_deploy_address}
     infra_maas_node01_hostname: ${_param:infra_config_hostname}
     maas_admin_username: mirantis
-    maas_admin_password: r00tme
-    maas_db_password: fRqC7NJrBR0x
+    maas_admin_password: ${_param:maas_admin_password_generated}
+    maas_db_password: ${_param:maas_db_password_generated}
     infra_kvm_address: 10.101.0.240
     infra_kvm_node01_address: 10.101.0.241
     infra_kvm_node02_address: 10.101.0.242

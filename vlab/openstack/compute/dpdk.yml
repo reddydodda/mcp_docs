@@ -1,3 +1,3 @@
 classes:
-- cluster.snv.openstack.compute
-- system.opencontrail.compute.dpdk
+- cluster.vlab.openstack.compute
+- system.neutron.compute.nfv.dpdk

@@ -1,7 +1,6 @@
-
 classes:
   - system.linux.system.haveged
-  - cluster.snv.cicd.networking.virtual
+  - cluster.vlab.cicd.networking.virtual
   - system.linux.system.repo.mcp.apt_mirantis.ubuntu
   - system.linux.system.repo.mcp.apt_mirantis.glusterfs
   - system.linux.system.repo.mcp.apt_mirantis.docker
@@ -14,6 +13,8 @@ classes:
   - system.glusterfs.client.volume.registry
   - system.glusterfs.client.volume.salt_pki
   - system.glusterfs.client.volume.mysql
+  - system.glusterfs.client.volume.kqueen
+  - system.glusterfs.client.volume.etcd
   - system.glusterfs.client.volume.openldap
  #- system.glusterfs.client.volume.salt
   # Docker
@@ -35,6 +36,8 @@ classes:
   - system.haproxy.proxy.listen.docker.visualizer
   - system.haproxy.proxy.listen.openldap
   - system.haproxy.proxy.listen.phpldapadmin
+  - system.haproxy.proxy.listen.cicd.kqueen
+  - system.haproxy.proxy.listen.cicd.etcd
   - system.haproxy.proxy.listen.mysql
   - system.haproxy.proxy.listen.stats
 parameters:
@@ -51,22 +54,21 @@ parameters:
     glusterfs_node02_address: ${_param:infra_kvm_node02_address}
     glusterfs_node03_address: ${_param:infra_kvm_node03_address}
     keepalived_vip_virtual_router_id: 180
-    keepalived_vip_password: uk9jnhxrNlSzf2qB
+    keepalived_vip_password: ${_param:cicd_keepalived_vip_password_generated}
     keepalived_vip_interface: ens3
     cluster_vip_address: ${_param:control_vip_address}
     control_vip_address: ${_param:cicd_control_address}
-    salt_api_password: 1pJTA7hgsTVngU456TRB0fGD8pskrytt
+    salt_api_password: ZdWPIXBZ4itrY485pvunEEebmdKPsfgw
     jenkins_slave_user_id: 10000
     jenkins_slave_group_id: ${_param:jenkins_slave_user_id}
     # Docker images and versions
-    docker_registry_http_secret: X49FX8P1Uhpy8Uml
+    docker_registry_http_secret: ${_param:docker_registry_http_secret_generated}
     # CI/CD service databases
-    mysql_admin_password: QCBrg0niDviaXhoI
-    mysql_gerrit_password: kkspgOfbh9zmQDzp
+    mysql_admin_password: ${_param:cicd_mysql_admin_password_generated}
+    mysql_gerrit_password: ${_param:cicd_mysql_gerrit_password_generated}
     nginx_proxy_gerrit_server_site_host: ${_param:cluster_public_host}
     nginx_proxy_gerrit_server_site_port: 8070
     gerrit_http_listen_url: proxy-https://*:8080/
-
     # Proxy
     cluster_ssl_certificate:
       enabled: true

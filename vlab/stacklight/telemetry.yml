@@ -4,14 +4,19 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.influxdb
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.extra
+- system.linux.system.repo.mcp.apt_mirantis.openstack
 - system.haproxy.proxy.listen.stacklight.influxdb_relay
 - system.influxdb.relay.cluster
 - system.influxdb.server.single
 - system.influxdb.database.ceilometer
-- system.influxdb.database.prometheus
-- cluster.snv.stacklight
-- cluster.snv.infra
-- cluster.snv.stacklight.networking.virtual
+- system.prometheus.relay
+- system.prometheus.server.standalone
+- system.prometheus.server.target.federation
+- system.prometheus.server.target.federation.all_metrics
+- system.haproxy.proxy.listen.stacklight.prometheus_relay
+- cluster.vlab.stacklight
+- cluster.vlab.infra
+- cluster.vlab.stacklight.networking.virtual
 parameters:
   _param:
     keepalived_stacklight_telemetry_vip_address: ${_param:stacklight_telemetry_address}

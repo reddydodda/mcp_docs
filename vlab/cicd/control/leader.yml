@@ -1,4 +1,3 @@
-
 classes:
   # Services
   - system.docker.client
@@ -6,6 +5,9 @@ classes:
   - system.docker.swarm.stack.docker
   - system.docker.swarm.stack.gerrit
   - system.docker.swarm.stack.jenkins
+  - system.docker.swarm.stack.kqueen
+  - system.docker.swarm.network.kqueen_backend
+  - system.docker.swarm.stack.kqueen_mail
   - system.docker.swarm.stack.ldap
 
   # Jenkins
@@ -33,11 +35,31 @@ classes:
 
   - system.docker.swarm.master
 
-  - cluster.snv.infra
-  - cluster.snv.cicd.control
+  - cluster.vlab.infra
+  - cluster.vlab.cicd.control
 
 parameters:
   _param:
+    # Kqueen
+    docker_image_kqueen_api: kqueen/api:v0.18
+    docker_image_kqueen_ui: kqueen/ui:v0.18
+    kqueen_api_bind_port: ${_param:haproxy_kqueen_api_bind_port}
+    kqueen_api_debug: False
+    kqueen_api_prometheus_whitelist: 172.16.238.0/24
+    kqueen_ui_bind_port: ${_param:haproxy_kqueen_ui_bind_port}
+    kqueen_ui_debug: False
+    kqueen_ui_enable_public_registration: True
+    kqueen_credentials:
+      kqueen_api_secret_key: 7Kmkq57xTbaqliPxgUj37EghCHRIJF5V
+      kqueen_ui_secret_key: clc49PemJRKwFXUSu4l8DeIA2ZkM0fqR
+      kqueen_api_bootstrap_admin: True
+      kqueen_api_admin_username: admin
+      kqueen_api_admin_password: X2ABBS7an7iMeMi6Dwwg6FQhvmxw4IYU
+      kqueen_api_admin_organization: MirantisCloudPlatform
+      kqueen_api_admin_namespace: mcp
+    # Using default mail server with default port 10025
+    mail_server_hostname: mail
+    kqueen_ui_mail_host: ${_param:mail_server_hostname}
     # Jenkins
     jenkins_slave_user: admin
     jenkins_client_user: admin
@@ -46,35 +68,8 @@ parameters:
     jenkins_admin_email: ${_param:admin_email}
     aptly_api_port: 8080
     aptly_public_port: 80
-    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1gAa/XfbHcAff8Fv4ZiWp6Db1CT/X6T4xfCa1R/+y5TjR2FUoH8bDRE+Y0C9LeLkKdqALyjoOFIYDjETFSDSB9vG1HzTviVvPhngagAK5Nwy0k2JyFuTvuZUlkPfUBksCTHsSgGtB6ERzXBImAHjl3FBer4iLpkj2qT8v9Z1ApZKpS1MIvchuquYTks2FviilBI61ALg9jktQzIrG2nYveaw+TwNTN00h7egW3WUbmvJUQ8kLHWFrQbTJLTej7nbjCjlsAKOkKouMYx2ZvCTq9lvDZJh9hUV0+UXPFMMcDtS98Zkz0uokK5oIq6t8VAao6jFOH6nieJGQGLajBZwp
-    jenkins_admin_private_key: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEogIBAAKCAQEAtYAGv132x3AH3/Bb+GYlqeg29Qk/1+k+MXwmtUf/suU40dhV
-      KB/Gw0RPmNAvS3i5CnagC8o6DhSGA4xExUg0gfbxtR8074lbz4Z4GoACuTcMtJNi
-      chbk77mVJZD31AZLAkx7EoBrQehEc1wSJgB45dxQXq+Ii6ZI9qk/L/WdQKWSqUtT
-      CL3IbqrmE5LNhb4opQSOtQC4PY5LUMyKxtp2L3msPk8DUzdNIe3oFt1lG5ryVEPJ
-      Cx1ha0G0yS03o+524wo5bACjpCqLjGMdmbwk6vZbw2SYfYVFdPlFzxTDHA7UvfGZ
-      M9LqJCuaCKurfFQGqOoxTh+p4niRkBi2owWcKQIDAQABAoIBAGNmfkuH9oM7Q9TN
-      GlFr/+yRlKeWLTTeNIV9bOWTTOJ4zyl9xQV4ga6nVsBmI8C9mPm2BejvE+RqMQr4
-      YyF4belPiQic0qztGS8KgfRhbxxonbi3jw7UowT3KkusnU2tNJ9Jq41yb0tlHTfg
-      kL/nOk8I3as9jxaMNyF/h2+IoFqqZl0PeLKnhrzpwIPsVQGGCTjl3fChkxdmbpmA
-      ccpXloTxMnZqMFq/m7F5Z1xZjDWjD6q6h5il5hgi8opA6YTCbTNQ10bEHfCzHWdZ
-      X2qnFy2zwqyCX3cNKgRebikX0nxiK67BF344LTUk2PHIqaK5V9GNVzZg9Skj/fQR
-      6wKfbgECgYEA6NcIpU6MZEOX9YHzpE7JUk3DzqCc0CAiUR6hd/EOALGVTCTi4Zcb
-      lCBAkeK4OyyhkL1aUDI23GBHNXtuVTOrZLf5qN4maXETOoKUMWt5adZKC/8HOJ6/
-      SRpKEZjePI2GA0EbQ8/V9XZ7TfeITxSBSGMly3z7fc4DL8zvjNGG4pkCgYEAx42w
-      kFODAXrP2vz5ZRYC03A5JB3dnih7BuRuRFCcUpiDPCAt6qL5PbEoUuG3JeNWzsoq
-      MKwRsdINvGgN4sTam8jg2A2dQO1FQ3DA3bc+d3zJaNfQlDZxEqAQ9VXAyQBzP8c1
-      ouleTek3V+qrDc9HyKpTyMLYtqnym06Whol/EBECgYB8h311RARsH4anZMBVMVoV
-      Lcg6u8YCvhz8e8BqML+HeXLbDaNWegXi/DjsjXBxHZavncYuvByBUvDi1sgUw5S4
-      QnlBasbqf/KDyZDOuadvBpAFyHkpPCYcR/YzYSoDAsIY/XpCk2bgaGTcNzZs7Q+U
-      EosFQSwUhdlIeHfqPanBiQKBgAwPk0FV2tAnFRL+QTCL4QXYfYuiRne9qJnlCokU
-      ei4/y4bBxySsTvYck/xWahRfJir/awdgDv25XV0qyNQQ48mQnY5RXFTFQm9uDCoa
-      Xisonp+4k4GxvKnMhNnfIfTEEzMinipHgoyg8NhedZIzGfqV2NSEekaoBOLAIDbn
-      boeRAoGAGRF4kAwSsnAciHJFwglrMA/bVO0W1r4o5zdQjHdvAjbfBkReSjNaOXC7
-      QM5yLQFtOZnTuzMs5P1+CNX+CWNOHq7HkmzIB3R/THarRpDzHdvBTOcExeDX1ksB
-      gIkiplDxVsB/Y8SjaUnj5YbfNU/1KdZiyaLOopwbRoDXAslG6aU=
-      -----END RSA PRIVATE KEY-----
+    jenkins_admin_public_key: ${_param:jenkins_admin_public_key_generated}
+    jenkins_admin_private_key: ${_param:jenkins_admin_private_key_generated}
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:haproxy_gerrit_bind_host}:${_param:haproxy_gerrit_ssh_bind_port}
 

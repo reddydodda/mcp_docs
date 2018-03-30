@@ -5,20 +5,14 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.glusterfs
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
-- system.openssh.client.lab
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.salt_pki
 - system.salt.master.pkg
 - system.salt.minion.ca.salt_master
 - system.salt.master.api
 - system.reclass.storage.salt
-- system.backupninja.client.single
-- system.xtrabackup.server.single
-- system.cassandra.backup.server.single
-- system.zookeeper.backup.server.single
 - system.reclass.storage.system.physical_control_cluster
-- system.reclass.storage.system.opencontrail_analytics_cluster
-- system.reclass.storage.system.opencontrail_control_cluster
+- system.reclass.storage.system.openstack_gateway_cluster
 - system.reclass.storage.system.openstack_control_cluster
 - system.reclass.storage.system.openstack_proxy_cluster
 - system.reclass.storage.system.openstack_database_cluster
@@ -35,9 +29,10 @@ classes:
 - service.jenkins.client
 - system.jenkins.client.credential.salt
 - system.jenkins.client.job.deploy.openstack
-- cluster.snv.infra.maas
-- cluster.snv.infra
-- cluster.snv.infra.networking.config
+- cluster.vlab.infra.maas
+- cluster.vlab.infra
+- cluster.vlab.infra.backup.client_common
+- cluster.vlab.infra.networking.config
 parameters:
   _param:
     salt_master_base_environment: prd
@@ -47,15 +42,13 @@ parameters:
     single_address: ${_param:infra_config_address}
     deploy_address: ${_param:infra_config_deploy_address}
     linux_system_codename: xenial
-    salt_api_password_hash: "$6$fKPrBHsC$BLksNU0O3ET3pP39iW2e3VROfQX8pEh0SeBIcLzcqxvrGmOSAbKsFOa3kIZq2bk/xKzcOMjC5HataTlPfGj.d0"
+    salt_api_password_hash: "$6$PiykSXxX$j3FITLayEgXFenzgc12XrjjN9Fod7.k0iCmWvBq0YZLeBEetOz1XWWV2FWGorPuI/vq525Yg02FkUhFGfYKNo0"
     salt_master_host: ${_param:infra_config_deploy_address}
-    backupninja_backup_host: ${_param:infra_kvm_node03_address}
     jenkins_git_url: 'git@cfg01:/home/repo'
     jenkins_gerrit_url: ${_param:jenkins_git_url}
-    salt_api_password: 1pJTA7hgsTVngU456TRB0fGD8pskrytt
+    salt_api_password: ZdWPIXBZ4itrY485pvunEEebmdKPsfgw
     jenkins_salt_api_url: "http://${_param:salt_master_host}:6969"
     jenkins_pipeline_library_url: git@cfg01:/home/repo/mcp-ci/pipeline-library
-    jenkins_pipelines_branch: '2018.1'
   jenkins:
     client:
       lib:
@@ -93,20 +86,14 @@ parameters:
             linux_system_codename: xenial
         infra_kvm_node03:
           classes:
-          - system.backupninja.server.single
+          - cluster.${_param:cluster_name}.infra.backup.server
           params:
             keepalived_vip_priority: 102
             linux_system_codename: xenial
-          classes:
-          - system.ceph.backup.server.single
-          - system.backupninja.server.single
         stacklight_log_node01:
           classes:
           - system.elasticsearch.client.single
           - system.kibana.client.single
-        opencontrail_control_node01:
-          classes:
-          - cluster.${_param:cluster_name}.opencontrail.control_init
         openstack_control_node01:
           params:
             linux_system_codename: xenial
@@ -169,7 +156,7 @@ parameters:
           classes:
             - cluster.${_param:cluster_name}.ceph.osd
           repeat:
-            count: 5
+            count: 3
             start: 1
             digits: 3
             params:

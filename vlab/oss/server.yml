@@ -41,7 +41,7 @@ classes:
 - system.glusterfs.server.volume.mongodb
 - system.haproxy.proxy.listen.oss.janitor_monkey
 - system.haproxy.proxy.listen.oss.mongodb
-- cluster.snv.infra
+- cluster.vlab.infra
 
 # Rundeck
 - system.rundeck.client.runbook
@@ -72,32 +72,5 @@ parameters:
     elasticsearch_ssl:
       enabled: false
 
-    rundeck_runbook_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDj84I0BfN8iYAOvn8BANgFiYYdg9RbwYtainLtq9ZUeF5IFMPLQTOmM9s/9M/p06Rqwv/ThQap11lAD1oddOF2kAIJmkNPzXaLLOdzphPkNBUgalg6CJ84ts5F2ihCVACR/Z6DhFUX4Jj1LwgtxXjwcn5FWnsbdLwEpXdUhrGx0LLdCABhfgH8ay9B38Tp6ZAeNbkx/+0z6Q1u8o7Gl4YVosdIpj5ZVBPyH2phPEFfq6M5L/++Sl9676kSLCNquCOecDbC3z++LOoJKR1zcDoWzjCBXmr9Zc8+UD8AQNURfCe2JUIX1y1J4/dQmunMHklYnXxFM05EKWxeffMDww6T
-    rundeck_runbook_private_key: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEowIBAAKCAQEA4/OCNAXzfImADr5/AQDYBYmGHYPUW8GLWopy7avWVHheSBTD
-      y0EzpjPbP/TP6dOkasL/04UGqddZQA9aHXThdpACCZpDT812iyznc6YT5DQVIGpY
-      OgifOLbORdooQlQAkf2eg4RVF+CY9S8ILcV48HJ+RVp7G3S8BKV3VIaxsdCy3QgA
-      YX4B/GsvQd/E6emQHjW5Mf/tM+kNbvKOxpeGFaLHSKY+WVQT8h9qYTxBX6ujOS//
-      vkpfeu+pEiwjargjnnA2wt8/vizqCSkdc3A6Fs4wgV5q/WXPPlA/AEDVEXwntiVC
-      F9ctSeP3UJrpzB5JWJ18RTNORClsXn3zA8MOkwIDAQABAoIBAEcGZJdZE1jGbwQp
-      DuF9JdHz27nujYhZcdYwNUcgt5NyPc4vyiHWmwU6OyJeYTn2G9C4GYYKeN0KoGB5
-      aBatiGKs1DWxvy9qUXlj8Gn0YVZFdB+5guvyK8o8C2FwbALesZ7La0yHOwxJit86
-      XE4GrXwd8IIjgyA26y53cAsCPPOuAIKYouy68EJX/bzvZIBB2mRiHyhlt+uB15Mi
-      AQFEHFOewV3Nt8/qcvFJq9VyCyMtNKcCcamPFl6sWOx5Xxj59vQLIt9m+3dC8EeE
-      671ybTrPD8lDvV/1dO9Nqigpm6ZUYbpLnzxBpARW5Ng/B1wARIsNIGpFFpohl7nw
-      okomGkECgYEA//yO6i+Zeu+/Tt9nIsXkaPNwkxf27aqpClFrb6O1Ru0EbypZkV8o
-      C77ldxymHUxzcb2HApi35oQnTPOI1JwBmCG2+ACEymr4WBgg+bIPplbgWl5oXUsQ
-      qIL10+v9KgNg2jraFTBuScGBtG8ky5RZ2P71a+wSE4tdKxemN8tpPOkCgYEA4/aS
-      ywHtytUBU2j55OQAzqE171weJ/1ElkjI6aN/Iu3ocvCgjR0LwHFzdGhEfpMwrGPz
-      sweTLOtQqgml0hAKirW25t62l6XEZa5fGox+yDzxEEC0Rx5dHQtBOemKx2OOfUnI
-      H1DOu9d6qv8ZjUFZnn5xgr2n0BG0tnnWbLSPUhsCgYA+0ujwKIZuWXCGFuXk7tRD
-      vZsfPn5njb62vYy0dWUD5x9zeN1KhCP73fnK5ckO37hlbbI4vOpFNKHAjPRD2ZW6
-      lGunKdltJBuW4zUUktKsbB3bj9flLYsFED7sp7oWGYYniNIE6UHn8Am5Ep3hKKN0
-      Uf5BYkp9aXKQJNmyT8WgIQKBgQDHKJyGj2DYW8+Ut5naxveNjno4bBpMhZBuW5hr
-      xlNEiOUTxfX+Uun5bySXBqEQlDdp5Mj8GBoUnGEUrOkZ5LnRBYCNovWS91fmHbko
-      0KXS+qsAsAbQO07OGQ8bMVX1bJ0ICHW2Jjr3EQIycjw4lGdfeMhimJ8LwOxIn5kd
-      z4GHEQKBgHAVXCwr+V2iXU2V6XaZvwUpD7ElxESwUFBRtiaqq4lvzrAD3+xCW+4G
-      Kvvt54DX+B19TuCoXVjI5jxpgcvDzNT3ZYAXcf8cSzkey4vm5WekRBYTDQa5M2ZO
-      +QwHYY4ilJXCrmutrNacX43xzUVhg9OWOS23kgwJlxAUpj5Heh5o
-      -----END RSA PRIVATE KEY-----
+    rundeck_runbook_public_key: ${_param:rundeck_runbook_public_key_generated}
+    rundeck_runbook_private_key: ${_param:rundeck_runbook_private_key_generated}

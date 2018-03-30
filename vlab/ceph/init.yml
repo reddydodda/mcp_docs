@@ -1,6 +1,5 @@
 parameters:
   _param:
-    linux_repo_ceph_component: ${_param:ceph_version}
     ceph_version: luminous
 
     ceph_mon_node01_hostname: cmn01
@@ -21,10 +20,10 @@ parameters:
 
     ceph_osd_rack01_hostname: osd
 
-    backend_vlan: 104
-    ceph_cluster_fsid: "e00sh8z4-6zuc-u3j7-91x2-v057n228ukep"
+    backend_vlan: 30
+    ceph_cluster_fsid: ${_param:ceph_cluster_fsid_generated}
     ceph_osd_rack01_single_subnet: 10.101.0
-    ceph_osd_rack01_backend_subnet: 10.104.0
+    ceph_osd_rack01_backend_subnet: 10.0.2
     backend_network_netmask: 255.255.255.0
   linux:
     network:
