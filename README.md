@@ -147,6 +147,10 @@ Important TODO
       c. On cid01 node remove `/srv/jeepyb` directory
       d. On cid01 node run Salt state `gerrit.client`
 
+10. Check docker images are available for OSS
+
+11. Components to be installed. Valid values are 'core,kvm,k8s,openstack,contrail,ovs,ceph,oss,cicd,stacklight,sl-legacy,finalize'. For all deployments it's recommended to run 'finalize' as a final step as Salt highstate on all nodes will be run
+
 
 ###########
 MaaS node
