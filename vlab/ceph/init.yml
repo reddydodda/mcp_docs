@@ -1,0 +1,104 @@
+parameters:
+  _param:
+    ceph_version: luminous
+    linux_repo_ceph_component: ${_param:ceph_version}
+    ceph_mon_node01_hostname: cmn01
+    ceph_mon_node02_hostname: cmn02
+    ceph_mon_node03_hostname: cmn03
+    ceph_mon_node01_address: 10.101.0.66
+    ceph_mon_node02_address: 10.101.0.67
+    ceph_mon_node03_address: 10.101.0.68
+
+    ceph_rgw_hostname: rgw
+    ceph_rgw_node01_hostname: rgw01
+    ceph_rgw_node02_hostname: rgw02
+    ceph_rgw_node03_hostname: rgw03
+    ceph_rgw_address: 10.101.0.75
+    ceph_rgw_node01_address: 10.101.0.76
+    ceph_rgw_node02_address: 10.101.0.77
+    ceph_rgw_node03_address: 10.101.0.78
+
+    ceph_osd_rack01_hostname: osd
+
+    
+    #Ceph
+    ceph_osd_node01_hostname: osd001
+    ceph_osd_node02_hostname: osd002
+    ceph_osd_node03_hostname: osd003
+    ceph_osd_node01_address: 10.101.0.201
+    ceph_osd_node02_address: 10.101.0.202
+    ceph_osd_node03_address: 10.101.0.203
+
+
+
+    backend_vlan: 104
+    ceph_cluster_fsid: ${_param:ceph_cluster_fsid_generated}
+    ceph_osd_rack01_single_subnet: 10.101.0
+    ceph_osd_rack01_backend_subnet: 10.104.0
+    backend_network_netmask: 255.255.255.0
+  linux:
+    network:
+      host:
+        cmn01:
+          address: ${_param:ceph_mon_node01_address}
+          names:
+          - ${_param:ceph_mon_node01_hostname}
+          - ${_param:ceph_mon_node01_hostname}.${_param:cluster_domain}
+        cmn02:
+          address: ${_param:ceph_mon_node02_address}
+          names:
+          - ${_param:ceph_mon_node02_hostname}
+          - ${_param:ceph_mon_node02_hostname}.${_param:cluster_domain}
+        cmn03:
+          address: ${_param:ceph_mon_node03_address}
+          names:
+          - ${_param:ceph_mon_node03_hostname}
+          - ${_param:ceph_mon_node03_hostname}.${_param:cluster_domain}
+        rgw:
+          address: ${_param:ceph_rgw_address}
+          names:
+          - ${_param:ceph_rgw_hostname}
+          - ${_param:ceph_rgw_hostname}.${_param:cluster_domain}
+        rgw01:
+          address: ${_param:ceph_rgw_node01_address}
+          names:
+          - ${_param:ceph_rgw_node01_hostname}
+          - ${_param:ceph_rgw_node01_hostname}.${_param:cluster_domain}
+        rgw02:
+          address: ${_param:ceph_rgw_node02_address}
+          names:
+          - ${_param:ceph_rgw_node02_hostname}
+          - ${_param:ceph_rgw_node02_hostname}.${_param:cluster_domain}
+        rgw03:
+          address: ${_param:ceph_rgw_node03_address}
+          names:
+          - ${_param:ceph_rgw_node03_hostname}
+          - ${_param:ceph_rgw_node03_hostname}.${_param:cluster_domain}
+
+        osd001:
+          address: ${_param:ceph_osd_node01_address}
+          names:
+          - ${_param:ceph_osd_node01_hostname}
+          - ${_param:ceph_osd_node01_hostname}.${_param:cluster_domain}
+
+        osd002:
+          address: ${_param:ceph_osd_node02_address}
+          names:
+          - ${_param:ceph_osd_node02_hostname}
+          - ${_param:ceph_osd_node02_hostname}.${_param:cluster_domain}
+
+        osd003:
+          address: ${_param:ceph_osd_node03_address}
+          names:
+          - ${_param:ceph_osd_node03_hostname}
+          - ${_param:ceph_osd_node03_hostname}.${_param:cluster_domain}
+
+  ceph:
+    common:
+      config:
+        global:
+          mon osd min down reporters: 1
+          mon max pg per osd: 500
+          osd pool default size: 1
+          osd pool default min size: 1
+          mon allow pool delete: "true"

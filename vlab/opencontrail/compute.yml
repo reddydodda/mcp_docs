@@ -1,6 +1,7 @@
 classes:
 - system.linux.system.repo.mcp.contrail
-- system.opencontrail.compute.cluster
+- system.opencontrail.compute.cluster4_0
+- system.opencontrail.compute.upgrade
 - system.opencontrail.client.cluster
 - system.opencontrail.client.resource.virtual_router
 - cluster.vlab.infra

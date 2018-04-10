@@ -6,11 +6,14 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.linux.system.repo.mcp.apt_mirantis.cassandra
+- system.linux.system.repo.docker_legacy
+- service.docker.host
+- system.docker.client.compose
 - system.prometheus.exporters.jmx
 - system.opencontrail.client.cluster
 - system.opencontrail.client.resource.analytics_node
 - system.opencontrail.client.resource.database_node
-- system.opencontrail.control.analytics
+- system.opencontrail.control.analytics4_0
 - cluster.vlab.infra
 - cluster.vlab.opencontrail.networking.virtual
 parameters:
@@ -27,3 +30,8 @@ parameters:
     cluster_node02_address: ${_param:opencontrail_analytics_node02_address}
     cluster_node03_hostname: ${_param:opencontrail_analytics_node03_hostname}
     cluster_node03_address: ${_param:opencontrail_analytics_node03_address}
+  docker:
+    host:
+      pkgs:
+        - docker-engine
+        - python-docker

@@ -1,0 +1,39 @@
+classes:
+- system.ceph.rgw.cluster
+- system.ceph.rgw.keystone
+- cluster.vlab.ceph
+- cluster.vlab.ceph.common
+- cluster.vlab.infra
+- cluster.vlab.ceph.networking.virtual
+parameters:
+  _param:
+    keepalived_vip_interface: ens3
+    keepalived_vip_virtual_router_id: 51
+    haproxy_radosgw_bind_port: 8080
+    haproxy_radosgw_source_port: 8080
+    ceph_radosgw_bind_port: 8080
+    keepalived_vip_password: ${_param:rgw_keepalived_vip_password_generated}
+    cluster_vip_address: 10.101.0.75
+    cluster_node01_hostname: ${_param:ceph_rgw_node01_hostname}
+    cluster_node01_address: ${_param:ceph_rgw_node01_address}
+    cluster_node02_hostname: ${_param:ceph_rgw_node02_hostname}
+    cluster_node02_address: ${_param:ceph_rgw_node02_address}
+    cluster_node03_hostname: ${_param:ceph_rgw_node03_hostname}
+    cluster_node03_address: ${_param:ceph_rgw_node03_address}
+    ceph_radosgw_keystone_host: ${_param:openstack_control_address}
+    ceph_radosgw_keystone_password: ${_param:keystone_admin_password}
+  ceph:
+    common:
+      keyring:
+        rgw.rgw01:
+          caps:
+            mon: "allow *"
+            osd: "allow *"
+        rgw.rgw02:
+          caps:
+            mon: "allow *"
+            osd: "allow *"
+        rgw.rgw03:
+          caps:
+            mon: "allow *"
+            osd: "allow *"

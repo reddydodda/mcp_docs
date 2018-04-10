@@ -6,8 +6,11 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.linux.system.repo.mcp.apt_mirantis.cassandra
+- system.linux.system.repo.docker_legacy
+- service.docker.host
+- system.docker.client.compose
 - system.prometheus.exporters.jmx
-- system.opencontrail.control.control
+- system.opencontrail.control.control4_0
 - system.opencontrail.client.cluster
 - system.opencontrail.client.resource.openstack_metadata
 - system.zookeeper.backup.client.single
@@ -53,3 +56,8 @@ parameters:
     config:
       network:
         host: ${_param:openstack_control_address}
+  docker:
+    host:
+      pkgs:
+        - docker-engine
+        - python-docker

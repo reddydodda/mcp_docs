@@ -5,7 +5,7 @@ classes:
 - system.keepalived.cluster.instance.stacklight_monitor_vip
 - system.salt.minion.cert.proxy.cicd
 - system.linux.system.repo.mcp.apt_mirantis.docker
-- system.linux.system.repo.mcp.apt_mirantis.glusterfs
+#- system.linux.system.repo.mcp.apt_mirantis.glusterfs
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.extra
 
@@ -49,7 +49,6 @@ classes:
 
 parameters:
   _param:
-
     glusterfs_service_host: ${_param:stacklight_monitor_address}
     glusterfs_node01_address: ${_param:oss_node01_address}
     glusterfs_node02_address: ${_param:oss_node02_address}
@@ -72,32 +71,5 @@ parameters:
     elasticsearch_ssl:
       enabled: false
 
-    rundeck_runbook_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnHq7AQxwy2ifUTJ0Nw6SdaskFyO4L7K050ZofoW6ba0p2D9666OSPz9YkhFBfh+G4yqdaTyXfUwo368HCzQnMQ/nNfNysfIYu8EblCcG0PBS23SQb3B4IstL9AkVGa+t2Naxp95yEfX3xQlIKSg8thd7QDb8oLt9cpwuxhni5ewX0zYdedE45rflUSiEVNWBIeFhjGlN82KmrAwj3842MO1y//Sib/yeEAQ7fm9JAyZA4B7kCXc7Gb39Puw6swHk1S559GdsV++pBwMY9ycnDKlOcnzI5Jp/+pLacdgsKX1t70tKUNhRkWYOni6eEOMtRNxZCObuVr/IBlz3EPxzd
-    rundeck_runbook_private_key: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEowIBAAKCAQEA5x6uwEMcMton1EydDcOknWrJBcjuC+ytOdGaH6Fum2tKdg/e
-      uujkj8/WJIRQX4fhuMqnWk8l31MKN+vBws0JzEP5zXzcrHyGLvBG5QnBtDwUtt0k
-      G9weCLLS/QJFRmvrdjWsafechH198UJSCkoPLYXe0A2/KC7fXKcLsYZ4uXsF9M2H
-      XnROOa35VEohFTVgSHhYYxpTfNipqwMI9/ONjDtcv/0om/8nhAEO35vSQMmQOAe5
-      Al3Oxm9/T7sOrMB5NUuefRnbFfvqQcDGPcnJwypTnJ8yOSaf/qS2nHYLCl9be9LS
-      lDYUZFmDp4unhDjLUTcWQjm7la/yAZc9xD8c3QIDAQABAoIBAD5BGIc3TIAyHSpl
-      XKSZf1zbp7xELELQBLUfTWmZvUZl9w+oJLGqC+7k5+S8Mz4YRufUxpFf4m6uWoFH
-      otCLFEmOQdpk+LgJbsdz91S4dRHMYTQEizZp6zkimgyGsQxQA4O6329HwEQ73VHA
-      MIMPAdmcRrE6ErSLM6UsZczy0M/83SUQv/SMhj+zahf8YygOjMixoAPMdl/OxT61
-      6sGBbH9aB7AqAzXPcmlggTXeIQgB5xdJTImgRcGSqebERvUCVT7Xw1Gr7RmMnD3a
-      wN6dmmRvamvgKd5GMfXscS/oPJpnGL5QlB02p/SY7OyWj7aOZC5D71lZuO/7JPiO
-      0kpvwwECgYEA/vyD5Bt1f/7eOSgufNfLzmdYa/Vikm5Zyk1bmHs2bCeilWyltrNt
-      B76ZNDErCUIdeA7gBfcVr2oU0/Eow3YSPCXWqxKon3sl2PS4SAfq5dEDbw1y+jg2
-      O6UGVZOIP3gyIirQ6lnbNXdS+W+PKapG/uQ3WIbaQgzlbA1WvVqUxEECgYEA6Anh
-      PTVT4/bys/S7shjfRMUWOeBgYNzEUiBAS8M6t0H1eTOds19CJL9uoe426PRroezL
-      AayANbmJW7gpMFol1L8aMkKd6ohwCTsueii5plPH3Vy2aPSRbk+itqX6IPosXb0r
-      7VXpZFL5jaI4JcfB/W6qPoSkZcXQPNcmXyCegZ0CgYBXS9JHtRLsKDCidtw7h5HR
-      71W5WEBQC5GYDhXuxTgjnQoviAvP2evY++rtkGvAdq8qHEWcJTR6YqIQ0X54NKMX
-      jojI9tFeEEYr2dSBbJyB46X+Tidv/PCsSNo7UBAUUq0vP2NY6DyBOIHivcvQoug9
-      eZptJ3XvqQSeko6As1M9QQKBgDLGfrBLLBlVX5S7eBsn0CuXSR7PF6f6h0dFYWxy
-      wzV4zIOCJP8sWCf8b/QlUYS2f5sGWwH5wnB/MiyM5w56m46rZssawr2gr4uFlM0M
-      fluEN9cbw5rB8dUGvh9jwJFYzT6R97vOsezPL2ar2ceCp9OSVNSrZ+IRYFj/55in
-      ZagNAoGBAPrcF9c0jKTN/ZmKgrbko3XkltShR5IwmKQfyKiV5H8LKZu77876+Ets
-      EvgJaZQC+S4PCnrCShRt/ABphwcr0tacS38FGvEoopVWaL3IS3IMJJP3g0JuHv1p
-      oEJbpNYPNzbAKXRAgh2mqEEhWBs7+Lmr6zBheIgK3qsSlW73ETjr
-      -----END RSA PRIVATE KEY-----
+    rundeck_runbook_public_key: ${_param:rundeck_runbook_public_key_generated} 
+    rundeck_runbook_private_key: ${_param:rundeck_runbook_private_key_generated}

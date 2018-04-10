@@ -1,6 +1,7 @@
 
 parameters:
   _param:
+    apt_mk_version: '2018.3.1'
     cicd_control_address: 10.101.0.90
     cicd_control_node01_address: 10.101.0.91
     cicd_control_node02_address: 10.101.0.92
@@ -9,6 +10,7 @@ parameters:
     cicd_control_node01_hostname: cid01
     cicd_control_node02_hostname: cid02
     cicd_control_node03_hostname: cid03
+    glusterfs_service_host: ${_param:infra_kvm_address}
     docker_image_registry: docker-prod-local.artifactory.mirantis.com/mirantis/external/registry:${_param:apt_mk_version}
     docker_image_compose: docker-prod-local.artifactory.mirantis.com/mirantis/external/compose:${_param:apt_mk_version}
     docker_image_visualizer: docker-prod-local.artifactory.mirantis.com/mirantis/external/visualizer:${_param:apt_mk_version}
@@ -27,9 +29,9 @@ parameters:
     openldap_organisation: "${_param:cluster_name}"
     openldap_dn: "dc=miranits,dc=net"
     openldap_domain: "miranits.net"
-    openldap_admin_password: hlY0zvFTwpT8Z1vu
-    openldap_config_password: g2T7mQgYxCA3zSXf
-    openldap_readonly_password: yYN767Isasb4SPcq
+    openldap_admin_password: ${_param:openldap_admin_password_generated}
+    openldap_config_password: ${_param:openldap_config_password_generated}
+    openldap_readonly_password: ${_param:openldap_readonly_password_generated}
     # Jenkins
     jenkins_admin_password: ${_param:openldap_admin_password}
     jenkins_security_ldap_server: ${_param:cicd_control_address}

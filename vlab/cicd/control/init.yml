@@ -13,6 +13,8 @@ classes:
   - system.glusterfs.client.volume.jenkins
   - system.glusterfs.client.volume.registry
   - system.glusterfs.client.volume.salt_pki
+#  - system.glusterfs.client.volume.kqueen
+#  - system.glusterfs.client.volume.etcd
   - system.glusterfs.client.volume.mysql
   - system.glusterfs.client.volume.openldap
  #- system.glusterfs.client.volume.salt
@@ -35,11 +37,16 @@ classes:
   - system.haproxy.proxy.listen.docker.visualizer
   - system.haproxy.proxy.listen.openldap
   - system.haproxy.proxy.listen.phpldapadmin
+#  - system.haproxy.proxy.listen.cicd.kqueen
+#  - system.haproxy.proxy.listen.cicd.etcd
   - system.haproxy.proxy.listen.mysql
   - system.haproxy.proxy.listen.stats
+#  - cluster.vlab.cicd.control.cvp
+
+
 parameters:
   _param:
-    apt_mk_version: 2018.1
+    apt_mk_version: '2018.3.1'
     admin_email: root@localhost
     cluster_node01_name: ${_param:cicd_control_node01_hostname}
     cluster_node01_address: ${_param:cicd_control_node01_address}
@@ -51,7 +58,7 @@ parameters:
     glusterfs_node02_address: ${_param:infra_kvm_node02_address}
     glusterfs_node03_address: ${_param:infra_kvm_node03_address}
     keepalived_vip_virtual_router_id: 180
-    keepalived_vip_password: wFJ6sHh8Oc0Z5dED
+    keepalived_vip_password: ${_param:cicd_keepalived_vip_password_generated}
     keepalived_vip_interface: ens3
     cluster_vip_address: ${_param:control_vip_address}
     control_vip_address: ${_param:cicd_control_address}
@@ -59,13 +66,18 @@ parameters:
     jenkins_slave_user_id: 10000
     jenkins_slave_group_id: ${_param:jenkins_slave_user_id}
     # Docker images and versions
-    docker_registry_http_secret: SWkFZhzSxyr6oNNT
+    docker_registry_http_secret: ${_param:docker_registry_http_secret_generated}
     # CI/CD service databases
-    mysql_admin_password: Z1AyS3ysXogahKSd
-    mysql_gerrit_password: pyOHDd1kW42X16LG
+    mysql_admin_password: ${_param:cicd_mysql_admin_password_generated}
+    mysql_gerrit_password: ${_param:cicd_mysql_gerrit_password_generated}
     nginx_proxy_gerrit_server_site_host: ${_param:cluster_public_host}
     nginx_proxy_gerrit_server_site_port: 8070
     gerrit_http_listen_url: proxy-https://*:8080/
+
+    #kqueen
+#    haproxy_kqueen_api_exposed_port: 15000 
+#    haproxy_etcd_exposed_port: 14001
+
 
     # Proxy
     cluster_ssl_certificate:

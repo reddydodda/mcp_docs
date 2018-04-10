@@ -6,8 +6,8 @@ classes:
 - cluster.vlab.infra
 parameters:
   _param:
-    backupninja_backup_host: ${_param:infra_kvm_node03_address}
-    backupninja_engine: rsync
+    maas_region_port: 5240
+    maas_cluster_region_port: ${_param:maas_region_port}
 
   maas:
     region:
@@ -15,9 +15,11 @@ parameters:
         00-maas-05-simplify-network-interfaces: /etc/maas/files/commisioning_scripts/00-maas-05-simplify-network-interfaces
       bind:
         host: ${_param:deploy_address}
+#        host: ${_param:deploy_address}:${_param:maas_region_port}
     cluster:
       region:
         host: ${_param:deploy_address}
+#        host: ${_param:deploy_address}:${_param:maas_cluster_region_port}
 # linux:
 #   network:
 #     interface:

@@ -7,6 +7,9 @@ classes:
 - system.salt.control.virt
 - system.salt.control.cluster.openstack_benchmark_single
 - cluster.vlab.infra.k8s-vms
+- cluster.vlab.infra.ceph-vms
+- cluster.vlab.infra.cmp-vms
+- cluster.vlab.infra.gtw-vms
 - cluster.vlab.infra
 parameters:
   _param:
@@ -30,11 +33,11 @@ parameters:
           net_profile: private
         kubernetes.compute:
           net_profile: private
-      cluster:
-        internal:
-          node:
-            bmk01:
-              provider: ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
+#      cluster:
+#        internal:
+#          node:
+#            bmk01:
+#              provider: ${_param:infra_kvm_node04_hostname}.${_param:cluster_domain}
   virt:
     nic:
       newdefault:
@@ -64,6 +67,18 @@ parameters:
         - name: eth2
           bridge: br_private
           model: virtio
+      cephnet:
+        - name: eth0
+          bridge: br_mgm
+          model: virtio
+        - name: eth1
+          bridge: br_ctl
+          model: virtio
+        - name: eth2
+          bridge: br_proxy
+          model: virtio
+
+
   linux:
     network:
       interface:
@@ -86,6 +101,9 @@ parameters:
           gateway: ${_param:deploy_network_gateway}
           use_interfaces:
           - ${_param:deploy_nic}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
         ens4.101:
           name: ${_param:primary_first_nic}.${_param:control_vlan}
           enabled: true

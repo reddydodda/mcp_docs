@@ -7,13 +7,13 @@ classes:
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.salt_pki
 - system.nginx.server.single
-- system.nginx.server.proxy.opencontrail_web
 - system.nginx.server.proxy.cicd.gerrit
 - system.nginx.server.proxy.cicd.jenkins
 - system.nginx.server.proxy.openstack_api
 - system.nginx.server.proxy.openstack.glare
 - system.nginx.server.proxy.openstack_vnc
 - system.nginx.server.proxy.openstack_web
+- system.nginx.server.proxy.ceph_radosgw
 - system.nginx.server.proxy.openstack.ceilometer
 - system.horizon.server.single
 - system.salt.minion.cert.proxy.openstack

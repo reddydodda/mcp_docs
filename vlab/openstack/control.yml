@@ -4,11 +4,8 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.linux.system.repo.mcp.apt_mirantis.glusterfs
-- system.linux.system.repo.mcp.contrail
 - system.memcached.server.single
-- system.neutron.control.opencontrail.cluster
-- system.opencontrail.client.cluster
-- system.heat.server.resource.contrail
+- system.neutron.control.openvswitch.cluster
 - system.keystone.server.cluster
 - system.keystone.server.wsgi
 - system.keystone.server.notification.messagingv2
@@ -20,6 +17,9 @@ classes:
 - system.cinder.control.notification.messagingv2
 - system.cinder.volume.single
 - system.cinder.volume.notification.messagingv2
+- system.glance.control.storage.ceph
+- system.cinder.control.backend.ceph
+- system.ceph.common.cluster
 - system.heat.server.cluster
 - system.heat.server.notification.messagingv2
 - system.haproxy.proxy.listen.openstack.nova-placement
@@ -31,6 +31,7 @@ classes:
 - system.heka.ceilometer_collector.single
 - system.aodh.server.cluster
 - system.ceilometer.server.cluster
+- cluster.vlab.ceph.common
 - cluster.vlab.infra
 - cluster.vlab.openstack.networking.virtual
 parameters:

@@ -1,30 +1,32 @@
 parameters:
   _param:
-    docker_registry_http_secret: Dv6qWZ7Efd2DKK8m
+    apt_mk_version: '2018.3.1'
+    docker_registry_http_secret: ${_param:docker_registry_http_secret_generated}
     stacklight_monitor_address: ${_param:stacklight_monitor_address}
     prometheus_control_address: ${_param:stacklight_monitor_address}
     kibana_elasticsearch_host: ${_param:stacklight_log_address}
     heka_elasticsearch_host: ${_param:stacklight_log_address}
+    fluentd_elasticsearch_host: ${_param:stacklight_log_address}
     heka_influxdb_host: ${_param:stacklight_telemetry_address}
     heka_aggregator_host: ${_param:stacklight_monitor_address}
     grafana_user: admin
-    grafana_password: dUzFPzHUCZnlpP6C
+    grafana_password: ${_param:grafana_password_generated}
     cluster_elasticsearch_port: 9200
     cluster_kibana_port: 5601
     cluster_grafana_port: 3000
-    mysql_grafana_password: VYLT9xR9Yaxv0uMf
+    mysql_grafana_password: ${_param:mysql_grafana_password_generated}
     grafana_influxdb_host: ${_param:stacklight_telemetry_address}
     elasticsearch_port: 9200
-    influxdb_stacklight_password: VpvyAcgwbY13vLZp
-    influxdb_admin_password: DGC4yWeXwLt8JsZD
+    influxdb_stacklight_password: ${_param:influxdb_stacklight_password_generated}
+    influxdb_admin_password: ${_param:influxdb_admin_password_generated}
     influxdb_port: 8086
     influxdb_database: lma
     influxdb_user: lma
-    influxdb_password: XpJQcpCodSHeJxeS
-    stacklight_log_keepalived_password: jfmseiGGoeeRTqKG
-    stacklight_telemetry_keepalived_password: w5r2N60I9B9ENVf0
-    keepalived_stacklight_monitor_vip_password: JBgmFQvZWdDPDja0
-    keepalived_prometheus_vip_password: 9IwVaemF5abnvRqn
+    influxdb_password: ${_param:influxdb_password_generated}
+    stacklight_log_keepalived_password: ${_param:stacklight_log_keepalived_password_generated}
+    stacklight_telemetry_keepalived_password: ${_param:stacklight_telemetry_keepalived_password_generated}
+    keepalived_stacklight_monitor_vip_password: ${_param:keepalived_stacklight_monitor_vip_password_generated}
+    keepalived_prometheus_vip_password: ${_param:keepalived_prometheus_vip_password_generated}
     stacklight_environment: ${_param:cluster_domain}
     stacklight_log_address: 10.101.0.60
     stacklight_log_node01_address: 10.101.0.61
@@ -43,7 +45,7 @@ parameters:
     stacklight_monitor_node01_address: 10.101.0.71
     stacklight_monitor_node02_address: 10.101.0.72
     stacklight_monitor_node03_address: 10.101.0.73
-    grafana_admin_password: odolzmO5azpSNWFW
+    grafana_admin_password: ${_param:grafana_password_generated}
     grafana_database_type: mysql
     grafana_database_host: ${_param:openstack_database_address}
     grafana_database_password: ${_param:mysql_grafana_password}

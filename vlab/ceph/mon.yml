@@ -1,0 +1,6 @@
+classes:
+- system.ceph.mon.cluster
+- service.ceph.mgr.cluster
+- cluster.vlab.infra.backup.client_ceph
+- cluster.vlab.ceph.networking.virtual
+- cluster.vlab.ceph.common

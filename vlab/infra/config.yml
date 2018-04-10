@@ -5,38 +5,35 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.glusterfs
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
-- system.openssh.client.lab
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.salt_pki
 - system.salt.master.pkg
 - system.salt.minion.ca.salt_master
 - system.salt.master.api
 - system.reclass.storage.salt
-- system.backupninja.client.single
-- system.xtrabackup.server.single
-- system.cassandra.backup.server.single
-- system.zookeeper.backup.server.single
 - system.reclass.storage.system.physical_control_cluster
-- system.reclass.storage.system.opencontrail_analytics_cluster
-- system.reclass.storage.system.opencontrail_control_cluster
+- system.reclass.storage.system.openstack_gateway_cluster
 - system.reclass.storage.system.openstack_control_cluster
 - system.reclass.storage.system.openstack_proxy_cluster
 - system.reclass.storage.system.openstack_database_cluster
 - system.reclass.storage.system.openstack_message_queue_cluster
+- system.reclass.storage.system.openstack_benchmark_single
 - system.reclass.storage.system.openstack_control_upgrade_single
+- system.reclass.storage.system.oss_cluster
 - system.reclass.storage.system.stacklight_log_cluster
 - system.reclass.storage.system.stacklight_telemetry_cluster
 - system.reclass.storage.system.stacklightv2_server_cluster
-- system.reclass.storage.system.oss_cluster
 - system.reclass.storage.system.cicd_control_cluster
+- system.reclass.storage.system.ceph_mon_cluster
+- system.reclass.storage.system.ceph_rgw_cluster
 - service.jenkins.client
 - system.jenkins.client.credential.salt
 - system.jenkins.client.job.deploy.openstack
 - system.reclass.storage.system.kubernetes_control_cluster
 - system.salt.minion.cert.k8s_server
-#- cluster.vlab.kubernetes
 - cluster.vlab.infra.maas
 - cluster.vlab.infra
+- cluster.vlab.infra.backup.client_common
 - cluster.vlab.infra.networking.config
 parameters:
   _param:
@@ -49,13 +46,12 @@ parameters:
     linux_system_codename: xenial
     salt_api_password_hash: "$6$CUPDtftc$gqazirKDkrOfZzuizGt3mbymcrNWU4oOzR.M9febFlxcB7UHr5Ybrj.sjNEXk5j.i.bhMwS2ShtbX9pVTzZpz0"
     salt_master_host: ${_param:infra_config_deploy_address}
-    backupninja_backup_host: ${_param:infra_kvm_node03_address}
+#    backupninja_backup_host: ${_param:infra_kvm_node03_address}
     jenkins_git_url: 'git@cfg01:/home/repo'
     jenkins_gerrit_url: ${_param:jenkins_git_url}
     salt_api_password: eaRgU4dgxpT5S1t0VRJdUaTBVICpis68
     jenkins_salt_api_url: "http://${_param:salt_master_host}:6969"
     jenkins_pipeline_library_url: git@cfg01:/home/repo/mcp-ci/pipeline-library
-    jenkins_pipelines_branch: 'master'
   jenkins:
     client:
       lib:
@@ -93,20 +89,20 @@ parameters:
             linux_system_codename: xenial
         infra_kvm_node03:
           classes:
-          - system.backupninja.server.single
+          - cluster.${_param:cluster_name}.infra.backup.server
           params:
             keepalived_vip_priority: 102
             linux_system_codename: xenial
-          classes:
-          - system.ceph.backup.server.single
-          - system.backupninja.server.single
+#          classes:
+#          - system.ceph.backup.server.single
+#          - system.backupninja.server.single
         stacklight_log_node01:
           classes:
           - system.elasticsearch.client.single
           - system.kibana.client.single
-        opencontrail_control_node01:
-          classes:
-          - cluster.${_param:cluster_name}.opencontrail.control_init
+#        opencontrail_control_node01:
+#          classes:
+#          - cluster.${_param:cluster_name}.opencontrail.control_init
         openstack_control_node01:
           params:
             linux_system_codename: xenial
@@ -150,7 +146,7 @@ parameters:
           classes:
           - cluster.${_param:cluster_name}.openstack.compute
           repeat:
-            count: 1
+            count: 2
             start: 1
             digits: 3
             params:
@@ -163,6 +159,8 @@ parameters:
           params:
             salt_master_host: ${_param:reclass_config_master}
             linux_system_codename: xenial
+# K8S Nodes
+
         infra_kvm_node04:
           classes:
           - cluster.${_param:cluster_name}.infra.kvm04
@@ -216,3 +214,25 @@ parameters:
           params:
             deploy_address: ${_param:kubernetes_deploy_node03_address}
             tenant_address: ${_param:kubernetes_control_node03_tenant_address}
+#Ceph Nodes
+        ceph_osd_rack01:
+          name: ${_param:ceph_osd_rack01_hostname}<<count>>
+          domain: ${_param:cluster_domain}
+          classes:
+            - cluster.${_param:cluster_name}.ceph.osd
+          repeat:
+            count: 3
+            start: 1
+            digits: 3
+            params:
+              single_address:
+                value: ${_param:ceph_osd_rack01_single_subnet}.<<count>>
+                start: 201
+              backend_address:
+                value: ${_param:ceph_osd_rack01_backend_subnet}.<<count>>
+                start: 201
+          params:
+            salt_master_host: ${_param:reclass_config_master}
+            ceph_crush_parent: rack01
+            linux_system_codename: xenial
+

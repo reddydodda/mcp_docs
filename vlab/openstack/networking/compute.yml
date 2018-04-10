@@ -1,2 +1,59 @@
-# Openstack compute node networking template
-#
+parameters:
+  linux:
+    network:
+      bridge: openvswitch
+      interface:
+        ens2: ${_param:linux_dhcp_interface}
+        ens3:
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_first_nic}
+          master: bond0
+        ens4:
+          enabled: true
+          type: slave
+          proto: manual
+          name: ${_param:primary_second_nic}
+          master: bond1
+        bond0:
+          enabled: true
+          proto: manual
+          type: bond
+          use_interfaces:
+          - ${_param:primary_first_nic}
+          slaves: ${_param:primary_first_nic}
+          mode: active-backup
+        bond1:
+          enabled: true
+          proto: manual
+          ovs_bridge: br_floating
+          ovs_type: OVSPort
+          type: bond
+          use_interfaces:
+          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_second_nic}
+          mode: active-backup
+
+
+        br_floating:
+          enabled: true
+          type: ovs_bridge
+
+        br_ctl:
+          enabled: true
+          type: bridge
+          proto: static
+          address: ${_param:single_address}
+          netmask: ${_param:control_network_netmask}
+          use_interfaces:
+          - bond0
+
+        br_mesh:
+          enabled: true
+          type: ovs_port
+          bridge: br_floating
+          proto: static
+          address: ${_param:tenant_address}
+          netmask: ${_param:tenant_network_netmask}
+

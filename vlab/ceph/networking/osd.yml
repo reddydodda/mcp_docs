@@ -1,0 +1,19 @@
+# Ceph OSD nodes default network configuration template
+#
+parameters:
+  linux:
+    network:
+      interface:
+        ens2: ${_param:linux_dhcp_interface}
+        ens3: ${_param:linux_single_interface}
+        ens4:
+          mtu: 9000
+          enabled: true
+          type: eth
+          proto: static
+          address: ${_param:backend_address}
+          netmask: ${_param:backend_network_netmask}
+          name_servers:
+            - ${_param:dns_server01}
+            - ${_param:dns_server02}
+

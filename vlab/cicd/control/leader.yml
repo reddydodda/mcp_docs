@@ -6,6 +6,9 @@ classes:
   - system.docker.swarm.stack.docker
   - system.docker.swarm.stack.gerrit
   - system.docker.swarm.stack.jenkins
+#  - system.docker.swarm.stack.kqueen
+#  - system.docker.swarm.network.kqueen_backend
+#  - system.docker.swarm.stack.kqueen_mail
   - system.docker.swarm.stack.ldap
 
   # Jenkins
@@ -18,6 +21,8 @@ classes:
   - system.jenkins.client.job.deploy.openstack
   - system.jenkins.client.job.deploy.update
   - system.jenkins.client.job.deploy.update.utils
+  - system.jenkins.client.job.ceph
+  - system.jenkins.client.job.validate
 
   # Security
   - system.jenkins.client.security.ldap
@@ -36,9 +41,31 @@ classes:
 
   - cluster.vlab.infra
   - cluster.vlab.cicd.control
+  - cluster.vlab.cicd.control.cvp
 
 parameters:
   _param:
+    # Kqueen
+#    docker_image_kqueen_api: kqueen/api:v0.18
+#    docker_image_kqueen_ui: kqueen/ui:v0.18
+#    kqueen_api_bind_port: ${_param:haproxy_kqueen_api_bind_port}
+#    kqueen_api_debug: False
+#    kqueen_api_prometheus_whitelist: 172.16.238.0/24
+#    kqueen_ui_bind_port: ${_param:haproxy_kqueen_ui_bind_port}
+#    kqueen_ui_debug: False
+#    kqueen_ui_enable_public_registration: True
+#    kqueen_credentials:
+#      kqueen_api_secret_key: 7Kmkq57xTbaqliPxgUj37EghCHRIJF5V
+#      kqueen_ui_secret_key: clc49PemJRKwFXUSu4l8DeIA2ZkM0fqR
+#      kqueen_api_bootstrap_admin: True
+#      kqueen_api_admin_username: admin
+#      kqueen_api_admin_password: X2ABBS7an7iMeMi6Dwwg6FQhvmxw4IYU
+#      kqueen_api_admin_organization: MirantisCloudPlatform
+#      kqueen_api_admin_namespace: mcp
+    # Using default mail server with default port 10025
+#    mail_server_hostname: mail
+#    kqueen_ui_mail_host: ${_param:mail_server_hostname}
+
     # Jenkins
     jenkins_slave_user: admin
     jenkins_client_user: admin
@@ -47,35 +74,9 @@ parameters:
     jenkins_admin_email: ${_param:admin_email}
     aptly_api_port: 8080
     aptly_public_port: 80
-    jenkins_admin_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCuDlvodJjTQx4r7gSBg8qLo7Oo8ctNL7tYjGZ2ZuPJH5v03RkTzzLW+KtM6bGiZNZ5hQXaxd91eD/5mUoRY9W3QgSwF4OX4XZORPJpCawxaKr086jS61su1M2374QpWX2IL/3Tnuw+4SnK680eqiW+Yu3ps8Rq6iQ3fzW+SWjIo1C9bMbd4W8Hyyeha0rw8yzLUW12Ga1Y+ULiX5+1NsfIr8NBtXHWwn3DN0uiZAdu62K6iLbmjIXVzFzR+4u41FaaoFXc2mCVIgILOoJ1o9SjKntO7/YWfaPKUjXV9sHb3EHySM5Ctkxt3MXgh6iCYn5ZKHa08Uhwd4NOLqaRMiYr
-    jenkins_admin_private_key: |
-      -----BEGIN RSA PRIVATE KEY-----
-      MIIEpAIBAAKCAQEArg5b6HSY00MeK+4EgYPKi6OzqPHLTS+7WIxmdmbjyR+b9N0Z
-      E88y1virTOmxomTWeYUF2sXfdXg/+ZlKEWPVt0IEsBeDl+F2TkTyaQmsMWiq9POo
-      0utbLtTNt++EKVl9iC/9057sPuEpyuvNHqolvmLt6bPEauokN381vkloyKNQvWzG
-      3eFvB8snoWtK8PMsy1FtdhmtWPlC4l+ftTbHyK/DQbVx1sJ9wzdLomQHbutiuoi2
-      5oyF1cxc0fuLuNRWmqBV3NpglSICCzqCdaPUoyp7Tu/2Fn2jylI11fbB29xB8kjO
-      QrZMbdzF4IeogmJ+WSh2tPFIcHeDTi6mkTImKwIDAQABAoIBAQCIqsepz5uMDqBr
-      N/obw+LPIFvaZPkQA1GkZqGxiHqFGqe3bb/aGRA/UYQX4UtUSr9JLZT6QfKC50e8
-      cYuB+hT+Tv0lU2FFaYgeTu7UYP7u0NOjgIroCltPe1KIga4RVa5GuAAjIR85BE1v
-      gxVNZaY7RqyumzO4C18ioGUPo8598snOtVsl6gcOlR5D0wy6yralG7q3In9/8Pi1
-      HCpmPCHUGJKxwaXAVW1lKbMk7pKSjy05jc0PCMc+AfzQFdX++wF7Bcq9VzzG1UH+
-      LrnyvXhUU6ynofPusB0hSqvPORsyAyRr6+lQvdFlBj8H8XUVAFan/eocsmlKk91P
-      6o7XJ0bBAoGBAOSiRzq3c9raSksX3izpBirwcIoiD/t8C0EuN3nXtIfBWncBaG8M
-      lkgrb5qB5QwaZuOvL+hxVoUbhYlI/RxmqhPWDwit97nQF80uMLEGE2awPMRCA1ix
-      K0tvSh+WybiIJm4/bW6k9NfKUxald5zruJppR20L3RjQ4PZa055dcRKhAoGBAMLj
-      ueheBVx04aSFXaeV/rNX0c9mVtdi0KlvUhfaqRkovLnHzHawRJFGsdsXbF+VFQvP
-      AIUf6IS3TjhFKzKwR2vGd3QUqcI3KtjlffMymv7lj6kxrOJnS+OCd9TEvuQ6o/C0
-      49WizfJeXAzQ/KDcctIXNQ6kZ6YdMmhgcH6jtRFLAoGAOyOeuRlq5llAjlwGJCfC
-      aKj480IMUEitwJZr0yBwmgzxkYbTtKXU2aYioBypWpAZvRs7kSx/7L5JtFEk54vG
-      worEKMKXKYEiJvijr6aarh04GqvYocByKnkG+1TNqOXOywWtEMmqa4byJxF19ykh
-      /w7sYtCGyDx/dDnaM0SIUwECgYA+SnE6TwrhoU4ZurLThMKy6efapXguQZw1+6m+
-      jBouO3IO40h7yx0vXews/dCawFjIvHILGsbD3J74p0sGWYeKcBXwGUalF+LvDnLy
-      T4Nw40jGqGT8vE1qO2I3tGbbJc8OeZK0zuOKixRa2FVWyP8+HULNGkkys/RPnjt2
-      jrap/wKBgQCO4GmnZi2QWY+W4OtqXqstfoy4faTe8TlH4vc1GIpkRAc+JfT9dM93
-      Zu/OL246+DKXACwkGkvyWKq2Q7ww8b1lGHI9ZGWnaNivBaWNKFw04cZPcX24YpMR
-      o9B0iilDbJEqfFRB9w22qry+YeojLFlw34ndlL11lbYSBsM3kUM5jQ==
-      -----END RSA PRIVATE KEY-----
+    jenkins_admin_public_key: ${_param:jenkins_admin_public_key_generated}
+    jenkins_admin_private_key: ${_param:jenkins_admin_private_key_generated}
+    
     # Jobs params
     jenkins_gerrit_url: ssh://admin@${_param:haproxy_gerrit_bind_host}:${_param:haproxy_gerrit_ssh_bind_port}
 
