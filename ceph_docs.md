@@ -76,3 +76,46 @@ ceph:
     salt -C 'I@ceph:osd' state.sls ceph.osd
 
 Once done, if your Ceph version is Luminous or newer, you can access the Ceph dashboard through http://<active_mgr_node_IP>:7000/. Run ceph -s on a cmn node to obtain the active mgr node.
+
+
+
+#########################
+# Script
+#########################
+
+#!/bin/bash
+
+for i in {1..3}; do
+disk_name='osd'
+vm_name='osd00'
+qemu-img create -f qcow2 $disk_name$i-jrn.qcow2 100G
+virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-jrn.qcow2 --target vdb --driver qemu --subdriver qcow2 --targetbus virtio --persistent
+
+for j in {1..5}; do
+k=(b c d e f g)
+qemu-img create -f qcow2 $disk_name$i-disk$j.qcow2 500G
+virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-disk$j.qcow2 --target vd${k[$j]} --driver qemu --subdriver qcow2 --targetbus virtio --persistent
+
+
+done
+done
+
+##############
+# ceph tool
+##############
+
+monmaptool --print /tmp/monmap
+
+ceph --admin-daemon /var/run/ceph/ceph-mon.cmn01.asok mon_status
+
+
+################
+#!/bin/bash
+#for i in {14}; do
+i=14
+ceph osd out $i
+ceph osd purge $i --yes-i-really-mean-it
+ceph osd crush remove osd.$i
+ceph auth del osd.$i
+ceph osd rm $i
+#done

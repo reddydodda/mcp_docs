@@ -56,3 +56,14 @@ iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o br-public -j SNAT --to 172.17
 
  $ git fetch -unf origin 1.0.12:refs/tags/1.0.12
 $ git checkout 1.0.12
+
+
+
+git push REMOTE '*:*'
+git push REMOTE --all
+To push all your tags:
+
+git push REMOTE --tags
+Finally, I think you can do this all in one command with:
+
+git push REMOTE --mirror
