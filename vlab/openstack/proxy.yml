@@ -7,7 +7,6 @@ classes:
 - system.glusterfs.client.cluster
 - system.glusterfs.client.volume.salt_pki
 - system.nginx.server.single
-- system.nginx.server.proxy.opencontrail_web
 - system.nginx.server.proxy.cicd.gerrit
 - system.nginx.server.proxy.cicd.jenkins
 - system.nginx.server.proxy.openstack_api

@@ -3,13 +3,12 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.openstack
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
-- system.linux.system.repo.mcp.contrail
 - system.memcached.server.single
 - system.heat.server.single
 - system.keystone.server.single
 - system.keystone.server.wsgi
 - system.glance.control.single
-- system.neutron.control.opencontrail.single
+- system.neutron.control.openvswitch.single
 - system.cinder.control.single
 - system.cinder.volume.local
 - system.nova.control.single
@@ -17,7 +16,6 @@ classes:
 - system.keystone.client.service.nova21
 - system.rabbitmq.server.single
 - system.rabbitmq.server.vhost.openstack
-- system.backupninja.server.single
 - cluster.vlab.infra
 - cluster.vlab.openstack.networking.virtual
 parameters:
@@ -60,6 +58,7 @@ parameters:
         name: cinder_upgrade
   nova:
     controller:
+      update_cells: true
       database:
         host: ${_param:openstack_database_address}
         name: nova_upgrade

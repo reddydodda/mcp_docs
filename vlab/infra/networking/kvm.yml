@@ -22,7 +22,7 @@ parameters:
           proto: manual
           name: ${_param:primary_second_nic}
           master: bond0
-        br_mgm:
+        br-mgm:
           enabled: true
           proto: static
           type: bridge
@@ -40,8 +40,8 @@ parameters:
           type: bond
           use_interfaces:
           - ${_param:primary_first_nic}
-#          - ${_param:primary_second_nic}
-          slaves: ${_param:primary_first_nic}
+          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_first_nic} ${_param:primary_second_nic}
           mode: active-backup
         bond0.1:
           name: bond0.${_param:control_vlan}
@@ -50,7 +50,7 @@ parameters:
           type: vlan
           use_interfaces:
           - bond0
-        br_ctl:
+        br-ctl:
           enabled: true
           type: bridge
           proto: static

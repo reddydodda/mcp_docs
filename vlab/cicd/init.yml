@@ -1,4 +1,3 @@
-
 parameters:
   _param:
     cicd_control_address: 10.101.0.90
@@ -9,6 +8,7 @@ parameters:
     cicd_control_node01_hostname: cid01
     cicd_control_node02_hostname: cid02
     cicd_control_node03_hostname: cid03
+    glusterfs_service_host: ${_param:infra_kvm_address}
     docker_image_registry: docker-prod-local.artifactory.mirantis.com/mirantis/external/registry:${_param:apt_mk_version}
     docker_image_compose: docker-prod-local.artifactory.mirantis.com/mirantis/external/compose:${_param:apt_mk_version}
     docker_image_visualizer: docker-prod-local.artifactory.mirantis.com/mirantis/external/visualizer:${_param:apt_mk_version}
@@ -23,13 +23,15 @@ parameters:
       base: docker-prod-local.artifactory.mirantis.com/mirantis/cicd/aptly:${_param:apt_mk_version}
       api: docker-prod-local.artifactory.mirantis.com/mirantis/cicd/aptly-api:${_param:apt_mk_version}
       public: docker-prod-local.artifactory.mirantis.com/mirantis/cicd/aptly-public:${_param:apt_mk_version}
+    docker_image_kqueen_api: docker-prod-local.artifactory.mirantis.com/mirantis/external/api:${_param:apt_mk_version}
+    docker_image_kqueen_ui: docker-prod-local.artifactory.mirantis.com/mirantis/external/ui:${_param:apt_mk_version}
     # OpenLDAP
     openldap_organisation: "${_param:cluster_name}"
-    openldap_dn: "dc=miranits,dc=net"
-    openldap_domain: "miranits.net"
-    openldap_admin_password: hlY0zvFTwpT8Z1vu
-    openldap_config_password: g2T7mQgYxCA3zSXf
-    openldap_readonly_password: yYN767Isasb4SPcq
+    openldap_dn: "dc=deploy-name,dc=local"
+    openldap_domain: "deploy-name.local"
+    openldap_admin_password: ${_param:openldap_admin_password_generated}
+    openldap_config_password: ${_param:openldap_config_password_generated}
+    openldap_readonly_password: ${_param:openldap_readonly_password_generated}
     # Jenkins
     jenkins_admin_password: ${_param:openldap_admin_password}
     jenkins_security_ldap_server: ${_param:cicd_control_address}

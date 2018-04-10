@@ -14,9 +14,10 @@ classes:
 - cluster.vlab.stacklight.networking.virtual
 parameters:
   _param:
+    keepalived_vip_interface: ens3
     keepalived_stacklight_log_vip_address: ${_param:stacklight_log_address}
     keepalived_stacklight_log_vip_password: ${_param:stacklight_log_keepalived_password}
-    keepalived_stacklight_log_vip_interface: ens3
+    keepalived_stacklight_log_vip_interface: ${_param:keepalived_vip_interface}
     cluster_elasticsearch_port: 9200
     cluster_kibana_port: 5601
     kibana_elasticsearch_host: ${_param:stacklight_log_address}
