@@ -7,23 +7,36 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.docker
 - system.linux.system.repo.mcp.apt_mirantis.ubuntu
 - system.linux.system.repo.mcp.extra
+- system.heka.remote_collector.container
+- system.heka.remote_collector.input.amqp
+- system.heka.remote_collector.output.elasticsearch
+- system.heka.remote_collector.output.telegraf
 - system.telegraf.agent.remote
 - system.telegraf.agent.remote.input.http_listener
 - system.prometheus.alertmanager.notification.pushkin
 - system.prometheus.server.alert.labels_add.route
-- system.prometheus.server.remote_write.docker
-- system.prometheus.server.target.dns
+- system.prometheus.server.target.dns.alertmanager
+- system.prometheus.server.target.dns.prometheus
+- system.prometheus.server.target.dns.pushgateway
+- system.prometheus.server.target.dns.remote_agent
 - system.prometheus.server.alertmanager.dns
 - system.prometheus.pushgateway.container
 - system.prometheus.server.container
 - system.prometheus.alertmanager.container
-- system.prometheus.remote_storage_adapter.container
 - system.ceph.common.cluster
 - system.ceph.common.container
 - cluster.vlab.ceph
 - cluster.vlab.ceph.common
 - cluster.vlab.infra
 - cluster.vlab.stacklight.networking.virtual
+- system.linux.system.repo.mcp.apt_mirantis.glusterfs
+
+# Kqueen metrics support
+#- system.prometheus.server.alert.etcd
+#- system.prometheus.server.target.static.etcd
+#- system.prometheus.server.target.static.kqueen
+#- system.haproxy.proxy.listen.cicd.kqueen
+
 parameters:
   _param:
     heka_amqp_host: ${_param:openstack_message_queue_address}
@@ -34,6 +47,14 @@ parameters:
     alertmanager_notification_pushkin_host: ${_param:stacklight_monitor_address}
     alertmanager_notification_pushkin_port: 8887
     cluster_vip_address: ${_param:stacklight_monitor_address}
+    prometheus_storage_retention: 120h
+
+    # Kqueen metrics support
+#    haproxy_etcd_exposed_port: 14001
+#    prometheus_etcd_host: ${_param:cicd_control_address}
+#    prometheus_etcd_port: ${_param:haproxy_etcd_exposed_port}
+#    prometheus_kqueen_api_host: ${_param:cicd_control_address}
+#    prometheus_kqueen_api_port: ${_param:haproxy_kqueen_api_exposed_port}
 
     keepalived_stacklight_monitor_vip_address: ${_param:stacklight_monitor_address}
 

@@ -7,7 +7,10 @@ classes:
 - system.nova.compute.notification.messagingv2
 - system.ceilometer.agent.cluster
 - system.prometheus.exporters.libvirt
-- cluster.vlab.opencontrail.compute
+- system.neutron.compute.cluster
+- system.nova.compute.storage.ceph
+- system.ceph.common.cluster
+- cluster.vlab.ceph.common
 - system.linux.network.dynamic_hosts
 - cluster.vlab.infra
 - cluster.vlab.openstack.networking.compute
@@ -22,8 +25,8 @@ parameters:
     cluster_node03_hostname: ${_param:openstack_control_node03_hostname}
     cluster_node03_address: ${_param:openstack_control_node03_address}
     nova_vncproxy_url: https://${_param:cluster_public_host}:6080
-    primary_first_nic: eth1
-    primary_second_nic: eth2
+    primary_first_nic: ens3
+    primary_second_nic: ens4
 ## Best practice configure high speed interface for live migrations
 #  nova:
 #    libvirt:

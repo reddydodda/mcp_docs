@@ -1,6 +1,6 @@
 classes:
 - system.ceph.osd.cluster
-- system.ceph.backup.client.single
+- cluster.vlab.infra.backup.client_ceph
 - cluster.vlab.ceph.common
 - cluster.vlab.ceph.networking.osd
 parameters:
@@ -12,7 +12,7 @@ parameters:
     osd:
       enabled: true
       crush_parent: ${_param:ceph_crush_parent}
-      bluestore_block_db_size: 5368709120
+      bluestore_block_db_size: 10737418240
       backend:
         bluestore:
           disks:
@@ -37,18 +37,18 @@ parameters:
 #              class: hdd
 #              weight: 1.5
 
-            - dev: /dev/vdh
-              block_db: /dev/vdb
+#            - dev: /dev/vdh
+#              block_db: /dev/vdb
 #              class: hdd
 #              weight: 1.5
 
-            - dev: /dev/vdi
-              block_db: /dev/vdb
+#            - dev: /dev/vdi
+#              block_db: /dev/vdb
 #              class: hdd
 #              weight: 1.5
 
-            - dev: /dev/vdj
-              block_db: /dev/vdb
+#            - dev: /dev/vdj
+#              block_db: /dev/vdb
 #              class: hdd
 #              weight: 1.5
 

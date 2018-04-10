@@ -3,15 +3,22 @@ classes:
 - system.grafana.client.datasource.prometheus
 - system.docker.client
 - system.docker.swarm.stack.dashboard
-- system.docker.swarm.stack.monitoring
+- system.docker.swarm.stack.monitoring.prometheus
+- system.docker.swarm.stack.monitoring.prometheus.global
+- system.docker.swarm.stack.monitoring.alertmanager
+- system.docker.swarm.stack.monitoring.prometheus_relay
+- system.docker.swarm.stack.monitoring.pushgateway
+- system.docker.swarm.stack.monitoring.remote_agent
+- system.docker.swarm.stack.monitoring.remote_collector
 - system.docker.swarm.stack.monitoring.remote_agent.ceph_common
 
+- system.linux.system.repo.mcp.apt_mirantis.glusterfs
 #- cluster.vlab.infra
 #- cluster.vlab.cicd.control
 
-- cluster.vlab.infra
 parameters:
   _param:
+    apt_mk_version: '2018.3.1'
     docker_image_alertmanager: docker-prod-local.artifactory.mirantis.com/openstack-docker/alertmanager:${_param:apt_mk_version}
     docker_image_pushgateway: docker-prod-local.artifactory.mirantis.com/openstack-docker/pushgateway:${_param:apt_mk_version}
     docker_image_prometheus: docker-prod-local.artifactory.mirantis.com/openstack-docker/prometheus:${_param:apt_mk_version}

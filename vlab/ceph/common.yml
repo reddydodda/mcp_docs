@@ -5,6 +5,8 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.ceph
 - cluster.vlab.infra
 parameters:
+  _param:
+    linux_system_repo_mcp_ceph_codename: ${_param:ceph_version}
   ceph:
     common:
       public_network: 10.101.0.0/24
@@ -14,7 +16,7 @@ parameters:
           name: ${_param:glance_storage_user}
           caps:
             mon: "allow r"
-            osd: "allow class-read object_prefix rdb_children, allow rwx pool=images"
+            osd: "allow class-read object_prefix rbd_children, allow rwx pool=images"
         cinder:
           name: ${_param:cinder_storage_user}
           caps:
@@ -25,3 +27,4 @@ parameters:
           caps:
             mon: "allow r"
             osd: "allow class-read object_prefix rbd_children, allow rwx pool=vms, allow rx pool=images"
+

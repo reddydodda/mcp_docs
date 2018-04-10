@@ -1,0 +1,40 @@
+classes:
+- system.backupninja.client.single
+- system.openssh.client.root
+parameters:
+  _param:
+    backupninja_backup_host: ${_param:infra_kvm_node03_address}
+    root_private_key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAvbMEqkRDjutMIJZpgYh5Bf2Pm2gaEVpI55sUEKw7jiUw35+E
+      jB7BcYNgaIRVRArZBuxFn4XVwN3gV6R6xfVeamNHqd6GS/YSAdkP9zTbOUbqfQvg
+      lPLPPx0fO1hx5xbxkhw5RM5QlMRpK6VYePJpvB7Oo8yf7Gg7EjJ/WzHhl5pBajIr
+      VYgf/93xPnI6CiqbOM5HxNbrnQvfgedsJxA/XlHh/NTBVYeerjT7FoHks2Bv9LgO
+      NYgUkyRqlgKB4jN5sLj6fjBkk3jFS+oEPqdBVT17y7p5v9/twKoRrqhz1eyxFY9p
+      BgiIp6MK7VB/8JI+fKSzu2m1HdP6U7pL9e3WVQIDAQABAoIBAF24JePg2eewA+pN
+      pU5jmDcHcH18zvQnwMD78svR65JseVrhumBniXaFS4oXZvC400QCUttfCZ3BgGaM
+      UkOe18iDyBH6aCr7JSZYkPS23l/L02l4BrpPw2gRAS8WoR9kTHC9FOYTb+gvqS3x
+      AGawjOBt7/Uo0RHA5P42iIkLecKljri7FS9yQWOKfkFxfXIWA6zSN/5K1hjOqy1n
+      21d9HP4WjvMXF5az5zozhP/bnvnMT4hl7kQy3S8qdgG1Zv3CcLoCgNj7x6MFbi7v
+      aa1XOY45QGiPf4zyQAxvveYGTq4QDhUke722nnNnV+OKQRlY7beWvo5kbqk6BeC4
+      dY4xGgECgYEA7T8GkJYKRSEJsXVS905ShNIhNt9yj/I0dpqbwviAsNCN0CeCWzSp
+      +aEQcWmfLHabiKkYCIrL/aXpSaTq0NKCFWChfJ3PmqY6hwb+PY5EaDm2KIyiJGal
+      Bp/hIAiH2RwsProfwCAZZBnQVKVOGZEA/adfpELL0yrLPX2PzOd8vhUCgYEAzLHS
+      QrImUn+6um7xAAFhCCGGlgX+BxnkPAJcDaHuKdiEusS/0ipz3uk5m3hZaDINrmDJ
+      kvDrrSbjg6V+iQNY6cHHbDOM8z2EsoZoHEu2TZeLku1/6LVT6VYj7jQYwWbaZSC7
+      qrcTp3iqqavSOlIkSrZV4nElI/TU2IUGmSCTB0ECgYAHNDC41zV8n+Ixd0SLqd8r
+      lU3Y4rQR1uLs7wjnxK/zroF/3pNAvbqjj9Z1+yUQLpHOdoP6TmyfSRhqWg2fRaUZ
+      jROaOxiAs6d3TikOKXG+UHJNjOenf05ngxdM57VoTEizpucr6E2dEoOW7mYOtK55
+      BUoMLNMPmG8PcO6a5DSPeQKBgE+QZwwptx+mKmzBJsg7wP2qGmhCGAWmmMKCoElk
+      QfDeCmmWhIEqozNoME4wL4CCxDKdyHxnTRRW42SOdWrIdE0YV23Fc+owZV4HRHyL
+      KWdrmoMX8foAUYeHRhwW//BdDFL2sDuhQfB8xMmC0gp9V0H7MdL869TYG8u1mWT3
+      9m6BAoGBALtXFvF2sAQxc/2GxZ4re2kCs4fxcaUwTjfzXUHqKc1SQs3b/Q5w10nH
+      +QP3RrcnZzfzgffTQp7CO40zY4iG0mn+xHbgssVVPQfcjiamUi3gxUAg7LHz7BRk
+      UJ2ZVxEuTobQatEsbWIB/fMFk4/0JAwWMGejxMWKWpLgrnWy8RHf
+      -----END RSA PRIVATE KEY-----
+  # for salt-master backup
+  backupninja:
+    client:
+      target:
+        home_dir: /srv/volumes/backup/backupninja
+        engine_opts: "-av --delete --recursive --safe-links"

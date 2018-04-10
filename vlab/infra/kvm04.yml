@@ -6,9 +6,10 @@ classes:
 - system.linux.system.repo.mcp.apt_mirantis.saltstack_2016_3
 - system.salt.control.virt
 - system.salt.control.cluster.openstack_benchmark_single
-#- cluster.vlab.infra.k8s-vms
+- cluster.vlab.infra.k8s-vms
 - cluster.vlab.infra.ceph-vms
 - cluster.vlab.infra.cmp-vms
+- cluster.vlab.infra.gtw-vms
 - cluster.vlab.infra
 parameters:
   _param:
@@ -100,6 +101,9 @@ parameters:
           gateway: ${_param:deploy_network_gateway}
           use_interfaces:
           - ${_param:deploy_nic}
+          name_servers:
+          - ${_param:dns_server01}
+          - ${_param:dns_server02}
         ens4.101:
           name: ${_param:primary_first_nic}.${_param:control_vlan}
           enabled: true

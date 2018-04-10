@@ -1,6 +1,8 @@
 
 classes:
 - system.linux.system.single
+- system.linux.system.single.debian
+- system.salt.minion.single
 #- system.openssh.server.team.lab
 #- system.openssh.server.team.presales
 #- system.openssh.server.team.services
@@ -8,11 +10,18 @@ classes:
 #- system.openssh.server.team.stacklight
 - system.rsyslog.client.single
 - cluster.vlab.openstack
-- cluster.vlab.opencontrail
 - cluster.vlab.kubernetes
 - cluster.vlab.stacklight
-- system.heka.log_collector.single
-- system.heka.log_collector.output.telegraf
+#- system.heka.log_collector.single
+#- system.heka.log_collector.output.telegraf
+- system.linux.system.repo.mcp.updates
+- system.linux.system.repo.mcp.apt_mirantis.fluentd
+- system.linux.system.repo.mcp.apt_mirantis.openstack
+- system.fluentd
+- system.fluentd.label.default_metric
+- system.fluentd.label.default_metric.prometheus
+- system.fluentd.label.default_output.elasticsearch
+- system.fluentd.label.default_output.drop_event
 - system.telegraf.agent
 - system.prometheus.collector
 - service.grafana.collector
@@ -20,14 +29,15 @@ classes:
 - cluster.vlab.ceph
 - cluster.vlab.cicd
 - cluster.vlab.infra.chandra
+- cluster.vlab.infra.secrets
 #- cluster.vlab.infra.proxy
 parameters:
   _param:
     # Don't set it "false" before you configure sudo policies and enable power users.
     linux_system_user_sudo: true
 
-    apt_mk_version: 2018.1
-    jenkins_pipelines_branch: 2018.1
+    apt_mk_version: '2018.3.1'
+    jenkins_pipelines_branch: '2018.3.1'
 #    salt_control_trusty_image: http://images.mirantis.com/ubuntu-14-04-x64-mcp${_param:apt_mk_version}.qcow2
 #    salt_control_xenial_image: http://images.mirantis.com/ubuntu-16-04-x64-mcp${_param:apt_mk_version}.qcow2
     salt_control_trusty_image: salt://images/ubuntu-14-04-x64-mcp${_param:apt_mk_version}.qcow2
@@ -59,8 +69,8 @@ parameters:
     infra_maas_node01_deploy_address: ${_param:infra_config_deploy_address}
     infra_maas_node01_hostname: ${_param:infra_config_hostname}
     maas_admin_username: mirantis
-    maas_admin_password: r00tme
-    maas_db_password: fRqC7NJrBR0x
+    maas_admin_password: ${_param:maas_admin_password_generated}
+    maas_db_password: ${_param:maas_db_password_generated}
     infra_kvm_address: 10.101.0.240
     infra_kvm_node01_address: 10.101.0.241
     infra_kvm_node02_address: 10.101.0.242

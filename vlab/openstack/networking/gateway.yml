@@ -6,46 +6,56 @@ parameters:
     network:
       bridge: openvswitch
       interface:
-        eth0: ${_param:linux_dhcp_interface}
-        eth1:
+        ens2: ${_param:linux_dhcp_interface}
+        ens3:
           enabled: true
           type: slave
           proto: manual
           name: ${_param:primary_first_nic}
           master: bond0
-        eth2:
+        ens4:
           enabled: true
           type: slave
           proto: manual
           name: ${_param:primary_second_nic}
-          master: bond0
+          master: bond1
         bond0:
           enabled: true
           proto: manual
-          ovs_bridge: br-floating
-          ovs_type: OVSPort
           type: bond
           use_interfaces:
           - ${_param:primary_first_nic}
-#          - ${_param:primary_second_nic}
           slaves: ${_param:primary_first_nic}
           mode: active-backup
-        br-floating:
+        bond1:
+          enabled: true
+          proto: manual
+          ovs_bridge: br_floating
+          ovs_type: OVSPort
+          type: bond
+          use_interfaces:
+          - ${_param:primary_second_nic}
+          slaves: ${_param:primary_second_nic}
+          mode: active-backup
+
+
+        br_floating:
           enabled: true
           type: ovs_bridge
-        br-ctl:
+
+        br_ctl:
           enabled: true
-          type: ovs_port
-          bridge: br-floating
+          type: bridge
           proto: static
-          ovs_options: tag=${_param:control_vlan}
           address: ${_param:single_address}
           netmask: ${_param:control_network_netmask}
-        br-mesh:
+          use_interfaces:
+          - bond0
+
+        br_mesh:
           enabled: true
           type: ovs_port
-          bridge: br-floating
+          bridge: br_floating
           proto: static
-          ovs_options: tag=${_param:tenant_vlan}
           address: ${_param:tenant_address}
           netmask: ${_param:tenant_network_netmask}
