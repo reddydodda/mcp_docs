@@ -81,6 +81,7 @@ Create Networks On KVM Node
 3. Copy qcow2 images to cfg nodes
 
    Login to cfg01
+   
     a. mkdir /srv/salt/env/prd/images
 
     b. cd /srv/salt/env/prd/images
