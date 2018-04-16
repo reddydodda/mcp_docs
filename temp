@@ -67,3 +67,25 @@ git push REMOTE --tags
 Finally, I think you can do this all in one command with:
 
 git push REMOTE --mirror
+
+
+###############
+Ceph disks
+###############
+
+1. mkfs.ext4 /dev/sdb1
+
+2. mnt
+
+3. qemu-img create -f raw example-vm-swap.img 1G
+
+4. virsh attach-disk example-vm --source /var/lib/libvirt/images/example-vm-swap.img --target vdb --persistent
+
+
+
+
+# mcp_lab
+MCP cluster model to deploy OpenStack + k8s with contrail and ceph
+# installation document is available at
+
+https://github.com/reddydodda/mcp_Installation
