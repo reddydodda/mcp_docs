@@ -55,21 +55,40 @@ parameters:
 
 3. Enforce the Keystone update using the Jenkins Deploy - update service(s) config pipeline or directly using Salt:
 
-  salt 'ctl*' state.sls keystone
+  salt 'ctl01*' state.sls keystone -b1 
 
-4. Verify the LDAP integration:
+4. Add parameters for Horizon to
+      cluster/<cluster_name>/openstack/proxy.yml:
+
+    parameters:
+      horizon:
+        server:
+          multidomain: true
+
+5. Enforce the Keystone update using the Jenkins
+
+      Deploy - update service(s) config - pipeline or
+
+   Directly using Salt:
+
+      salt -C 'I@keystone:server and *01*' state.sls keystone
+      salt -C 'I@keystone:server and not *01*' state.sls keystone
+      salt -C 'I@horizon:server' state.sls horizon
+
+
+6. Verify the LDAP integration:
 
   source /roo/keystonercv3
   openstack user list --domain <your_domain>
 
-5. Grant the admin role to a specific user:
+7. Grant the admin role to a specific user:
 
   Obtain the user ID:
 
   openstack user list --domain <your_domain> | grep <user_name>
 | <user_id> | <user_name>  |
 
-6. Set the admin role:
+8. Set the admin role:
 
   openstack role add --user <user_id> admin --domain <your_domain>
 
@@ -126,3 +145,7 @@ parameters:
 5. Enforce the linux.system update using the Jenkins Deploy - update service(s) config pipeline or directly using Salt:
 
   salt '<target_node>*' state.sls linux.system
+
+
+
+  10.101.0.90

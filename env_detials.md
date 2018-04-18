@@ -24,4 +24,12 @@ Admin endpoint : 10.101.0.10
 
 Kibana : 10.101.0.80:5601
 
-Prometheus UI : 10.101.0.70:15010  ( obtain vip by salt 'mon01*'  pillar.get _param:keepalived_prometheus_vip_address)
+Prometheus UI : 10.101.0.70:15010  ( _param:keepalived_prometheus_vip_address)
+
+Alertmanager web UI : 10.101.0.80:15011 ( _param:cluster_public_host)
+
+Grafana UI : 10.101.0.80:8084
+
+## Devops Portal
+
+Devops Portal URL : https://10.101.0.80:8800
