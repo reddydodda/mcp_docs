@@ -11,40 +11,42 @@
 parameters:
   keystone:
     server:
-    service_name: apache2
-    domain:
-        <DOMAIN NAME>:
-        description: ""
-        backend: ldap
-        identity:
+      service_name: apache2
+      domain:
+        e-lab:
+          description: 'E-Lab domain'
+          identity:
             backend: ldap
-        assignment:
+            driver: ldap
+          assignment:
             backend: sql
-        ldap:
-            url: ldap://<LDAP ADDRESS>
-            bind_user: CN=<UserName>,OU=<OU-name>,DC=<DomainName>,DC=<DomainExtension>
+            driver: sql
+          backend: ldap
+          ldap:
+            url: ldap://192.168.2.249
+            bind_user: cn=admin,dc=e-lab,dc=com
             query_scope: sub
-            page_size: 1000
-            password: <LDAP PASSWORD>
-            suffix: DC=<DomainName>,DC=<DomainExtension>
-            user_tree_dn: DC=<DomainName>,DC=<DomainExtension>
-            group_tree_dn: DC=<DomainName>,DC=<DomainExtension>
-            user_objectclass: person
-            user_id_attribute: sAMAccountName
-            user_name_attribute: sAMAccountName
-            user_pass_attribute: userPassword
-            user_enabled_attribute: userAccountControl
+            page_size: 65536
+            password: r00tme
+            suffix: dc=e-lab,dc=com
+            user_tree_dn: ou=Users,dc=e-lab,dc=com
+            group_tree_dn: ou=Groups,dc=e-lab,dc=com
+            user_objectclass: posixAccount
+            user_id_attribute: uid
+            user_name_attribute: uid
+            user_pass_attribute: Password
+            user_enabled_attribute: shadowInactive
             user_mail_attribute: mail
-            group_objectclass: ""
-            group_id_attribute: sAMAccountName
+            group_objectclass: posixGroup
+            group_id_attribute: gidNumber
             group_name_attribute: cn
-            group_member_attribute: member
+            group_member_attribute: memberUid
             group_desc_attribute: cn
             filter:
-            user: "(&(&(objectClass=person)(uidNumber=*))(unixHomeDirectory=*))"
-            group: ""
+              user: '"(&(&(objectClass=posixAccount)(uid=*))(homeDirectory=*))"'
+              group: '"(objectClass=posixGroup)"'
 
-2. In cluster.yml, include the previously created class to the bottom of the classes section:
+2. In cluster/<cluster_name>/openstack/cluster.yml, include the previously created class to the bottom of the classes section:
 
 classes:
   ...
@@ -52,10 +54,6 @@ classes:
   cluster.<cluster_name>
 parameters:
   ...
-
-3. Enforce the Keystone update using the Jenkins Deploy - update service(s) config pipeline or directly using Salt:
-
-  salt 'ctl01*' state.sls keystone -b1 
 
 4. Add parameters for Horizon to
       cluster/<cluster_name>/openstack/proxy.yml:

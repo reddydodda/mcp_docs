@@ -78,6 +78,24 @@ ceph:
 Once done, if your Ceph version is Luminous or newer, you can access the Ceph dashboard through http://<active_mgr_node_IP>:7000/. Run ceph -s on a cmn node to obtain the active mgr node.
 
 
+## Ceph Key value pair
+-----------------------------
+
+1. edit ceph/init.yml
+
+parameters:
+  ceph:
+    common:
+      config:
+        global:
+          mon osd min down reporters: 1
+          mon max pg per osd: 500
+          osd pool default size: 1
+          osd pool default min size: 1
+          mon allow pool delete: "true"
+        rgw:
+          rgw swift versioning enabled: "true"
+
 
 #########################
 # Script
