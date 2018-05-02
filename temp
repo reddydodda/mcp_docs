@@ -89,3 +89,12 @@ MCP cluster model to deploy OpenStack + k8s with contrail and ceph
 # installation document is available at
 
 https://github.com/reddydodda/mcp_Installation
+
+
+
+##################
+
+salt modules location :
+
+ln -s /usr/share/salt-formulas/env/_formulas/glance/_states/glanceng.py
+/usr/share/salt-formulas/env/_states/glanceng.py

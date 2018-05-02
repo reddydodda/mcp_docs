@@ -37,6 +37,7 @@
 
         Include the following classes to cluster/<NAME>/infra/config.yml:
 
+          - system.keystone.client.single
           - system.glance.client.image.octavia
           - system.nova.client.service.octavia
           - system.neutron.client.service.octavia
@@ -257,3 +258,65 @@ parameters:
 
       salt -C 'I@octavia:manager' state.sls salt.minion.ca
       salt -C 'I@octavia:manager' state.sls salt.minion.cert
+
+
+
+## Enable UI
+---------------------
+
+1. Edit cluster/vlab/openstack/dashboard.yml
+
+- system.horizon.server.plugin.lbaasv2
+
+2. To install Horizon:
+
+    salt -C 'I@horizon:server' state.sls horizon
+    salt -C 'I@nginx:server' state.sls nginx
+
+
+
+## Work Workaround
+
+to fix keypair error on nova client, add
+
+system/keystone/client/single.yml
+
+octavia_identity:
+  admin:
+    user: octavia
+    password: ${_param:keystone_octavia_password}
+    project: service
+    host: ${_param:keystone_service_host}
+    port: 5000
+    region_name: ${_param:openstack_region}
+    use_keystoneauth: true
+    protocol: ${_param:keystone_service_protocol}
+
+
+
+and run salt.minion state on cfg node
+
+
+
+## Fix cluster IP for mysql and rabbit
+
+Edit /srv/salt/reclass/classes/service/octavia/api/cluster.yml
+
+#        host: ${_param:cluster_vip_address}
+        host: ${_param:openstack_database_address}
+
+
+#        host: ${_param:cluster_vip_address}
+        host: ${_param:openstack_message_queue_address}
+
+Edit /srv/salt/reclass/classes/service/octavia/manager/single.yml
+
+
+#        host: ${_param:cluster_vip_address}
+        host: ${_param:openstack_database_address}
+
+
+#        host: ${_param:cluster_vip_address}
+        host: ${_param:openstack_message_queue_address}
+
+        
