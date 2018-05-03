@@ -38,6 +38,30 @@
   salt -C 'I@devops_portal:config' state.sls devops_portal.config
   salt -C 'I@rundeck:server' state.sls rundeck.server
 
+8. Apply the docker.client state:
+
+  salt -C 'I@docker:swarm:role:master' state.sls docker.client
+
+9. Initialize OSS services databases by setting up the PostgreSQL client:
+
+  salt -C 'I@postgresql:client' state.sls postgresql.client
+
+10. Deploy Runbook Automation:
+
+  salt -C 'I@rundeck:client' state.sls rundeck.client
+
+11. Deploy the Elasticsearch back end:
+
+  salt -C 'I@elasticsearch:client' state.sls elasticsearch.client
+
+12. If required, generate documentation and set up proxy to access it. The generated content will reflect the current configuration of the deployed environment:
+
+  salt -C  'I@sphinx:server' state.sls 'sphinx'
+  # Execute 'salt-run' on salt-master
+  salt-run state.orchestrate sphinx.orch.generate_doc || echo "Command execution failed"
+  salt -C 'I@nginx:server' state.sls 'nginx'
+
+
 
 #########################
 stacklight

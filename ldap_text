@@ -1,0 +1,46 @@
+ldapsearch -H "ldap://10.101.0.90:389" -x -D "CN=ldapbind user,OU=Service Accounts,DC=miranits,DC=net" -w hlY0zvFTwpT8Z1vu -b "OU=miranits Users,DC=miranits,DC=net"
+
+
+ldapsearch -H "ldap://10.101.0.90:389" -x -W -D "cn=admin,dc=miranits,dc=net" -w hlY0zvFTwpT8Z1vu -b "uid=adam,ou=users,dc=tgs,dc=com" "(objectclass=*)"
+
+
+ldapadd -H "ldap://10.101.0.90:389" -w hlY0zvFTwpT8Z1vu -x -D "cn=admin,dc=miranits,dc=net" -f os_group.ldif
+
+
+parameters:
+  keystone:
+    server:
+      service_name: apache2
+      domain:
+        e-lab:
+          description: 'E-Lab domain'
+          identity:
+            backend: ldap
+            driver: ldap
+          assignment:
+            backend: sql
+            driver: sql
+          backend: ldap
+          ldap:
+            url: ldap://192.168.2.249
+            bind_user: cn=admin,dc=e-lab,dc=com
+            query_scope: sub
+            page_size: 65536
+            password: r00tme
+            suffix: dc=e-lab,dc=com
+            user_tree_dn: ou=Users,dc=e-lab,dc=com
+            group_tree_dn: ou=Groups,dc=e-lab,dc=com
+            user_objectclass: posixAccount
+            user_id_attribute: uid
+            user_name_attribute: uid
+            user_pass_attribute: Password
+            user_enabled_attribute: shadowInactive
+            user_mail_attribute: mail
+            group_objectclass: posixGroup
+            group_id_attribute: gidNumber
+            group_name_attribute: cn
+            group_member_attribute: memberUid
+            group_desc_attribute: cn
+            filter:
+              user: '"(&(&(objectClass=posixAccount)(uid=*))(homeDirectory=*))"'
+              group: '"(objectClass=posixGroup)"'

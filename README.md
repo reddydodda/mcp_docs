@@ -141,6 +141,12 @@ Create Networks On KVM Node
       c. On cid01 node remove `/srv/jeepyb` directory
       d. On cid01 node run Salt state `gerrit.client`
 
+10. Verify that the volume is mounted on Docker Swarm nodes:
+
+      salt '*' cmd.run 'systemctl -a|grep "GlusterFS File System"|grep -v mounted'
+
+11. check all repos are in same tag and also for duplicate repos
+
 
 ## MaaS node
 ---------------
