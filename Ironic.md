@@ -6,15 +6,15 @@
 
 1. In the Reclass cluster model under  cluster/<cluster>/infra/init.yml file, add:
 
-parameters:
-  _param:
-    openstack_baremetal_node01_address: 172.16.10.110
-    openstack_baremetal_address: 192.168.90.10
-    openstack_baremetal_node01_baremetal_address: 192.168.90.11
-    openstack_baremetal_neutron_subnet_cidr: 192.168.90.0/24
-    openstack_baremetal_neutron_subnet_allocation_start: 192.168.90.100
-    openstack_baremetal_neutron_subnet_allocation_end: 192.168.90.150
-    openstack_baremetal_node01_hostname: bmt01
+        parameters:
+          _param:
+             openstack_baremetal_node01_address: 172.16.10.110
+             openstack_baremetal_address: 192.168.90.10
+             openstack_baremetal_node01_baremetal_address: 192.168.90.11
+             openstack_baremetal_neutron_subnet_cidr: 192.168.90.0/24
+             openstack_baremetal_neutron_subnet_allocation_start: 192.168.90.100
+             openstack_baremetal_neutron_subnet_allocation_end: 192.168.90.150
+             openstack_baremetal_node01_hostname: bmt01
 
 
 1. Setup BMT node
