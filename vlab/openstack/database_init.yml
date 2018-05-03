@@ -1,3 +1,0 @@
-classes:
-- system.mysql.client.single
-- cluster.vlab.infra.backup.client_mysql

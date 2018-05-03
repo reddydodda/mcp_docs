@@ -1,3 +1,0 @@
-classes:
-- cluster.vlab.openstack.compute
-- system.neutron.compute.nfv.dpdk

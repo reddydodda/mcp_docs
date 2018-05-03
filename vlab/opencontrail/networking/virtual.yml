@@ -1,8 +1,0 @@
-# virtual node default networking template
-#
-parameters:
-  linux:
-    network:
-      interface:
-        eth0: ${_param:linux_dhcp_interface}
-        eth1: ${_param:linux_single_interface}
