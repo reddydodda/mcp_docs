@@ -1,7 +1,7 @@
 ## Ironic
 -------------------------
 
-## Settings
+### Modify the deployment model
 --------------------
 
 1. In the Reclass cluster model under  cluster/<cluster>/infra/init.yml file, add:
@@ -16,6 +16,8 @@
              openstack_baremetal_neutron_subnet_allocation_end: 192.168.90.150
              openstack_baremetal_node01_hostname: bmt01
 
+### Apply salt sates
+--------------------
 
 1. Setup BMT node
 
