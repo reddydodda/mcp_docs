@@ -38,6 +38,7 @@
         Include the following classes to cluster/<NAME>/infra/config.yml:
 
           - system.keystone.client.single
+          - system.keystone.client.service.octavia
           - system.glance.client.image.octavia
           - system.nova.client.service.octavia
           - system.neutron.client.service.octavia
@@ -300,23 +301,4 @@ and run salt.minion state on cfg node
 
 ## Fix cluster IP for mysql and rabbit
 
-Edit /srv/salt/reclass/classes/service/octavia/api/cluster.yml
-
-#        host: ${_param:cluster_vip_address}
-        host: ${_param:openstack_database_address}
-
-
-#        host: ${_param:cluster_vip_address}
-        host: ${_param:openstack_message_queue_address}
-
-Edit /srv/salt/reclass/classes/service/octavia/manager/single.yml
-
-
-#        host: ${_param:cluster_vip_address}
-        host: ${_param:openstack_database_address}
-
-
-#        host: ${_param:cluster_vip_address}
-        host: ${_param:openstack_message_queue_address}
-
-        
+https://gerrit.mcp.mirantis.net/#/c/19888

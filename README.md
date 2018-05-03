@@ -151,6 +151,8 @@ Important TODO
 
       salt '*' cmd.run 'systemctl -a|grep "GlusterFS File System"|grep -v mounted'
 
+11. check all repos are in same tag and also for duplicate repos
+
 
 ###########
 MaaS node
