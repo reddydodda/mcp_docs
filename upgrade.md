@@ -42,6 +42,69 @@
 
 
 
+## Upgrade MCP Drive Train
+----------------------------
+
+1. Enable the update pipelines in the model by adding the following class to the leader.yml file in the
+ classes/cluster/${_param:cluster_name}/cicd/control/ directory:
+
+    - system.jenkins.client.job.deploy.update.utils
+
+2. Apply the change:
+
+    salt -C 'I@jenkins:client' state.apply jenkins.client
+
+3. Log in as Administrator or refresh your Jenkins web UI.
+
+      MCP DriveTrain component	       Pipeline
+
+      System Reclass model	           Deploy - Update reclass metadata
+      Salt formulas	                   Deploy - Update salt master formulas
+      Jenkins pipelines	               Deploy - Update jenkins master jobs
+
+4.
+
+## Update MCP cluster
+--------------------------
+
+1. This pipeline helps with
+
+      Delivering hot fixes to source code of OpenStack, Kubernetes, or MCP Control Plane.
+      Updating packages for an OpenStack service.
+      Applying security patches to operating system components and packages.
+
+2. Change service configuration by running below Job
+
+      Update Service(s) Configuration
+
+3. Update service packages by running below Jobs
+
+      Update System Package(s)
+
+4. Add a service to MCp cluster
+
+      Update Service(s) Configuration
+
+5.
+
+
+## Upgrade an MCP cluster
+-----------------------------
+
+1. Major upgrades enable:
+
+    Delivering new features of MCP Control plane.
+    Upgrading between OpenStack releases.
+    Upgrading host and guest operating systems to new versions including kernels.
+    Upgrading the OpenStack compute nodes.
+    Updating the LCM platform.
+    Upgrading the OpenStack OVS gateway nodes.
+    Upgrading the OpenContrail nodes to 3.2 version.
+    Upgrading the OpenContrail nodes to 4.x version.
+
+2.
+
+
 ## Bugs
 -----------------------------
 
