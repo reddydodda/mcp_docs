@@ -28,15 +28,15 @@
 
 5. Update the classes/system to updating tag at classes/system
 
-      git checkout 2018.4.0
+        git checkout 2018.4.0
 
 6. apply the patch to classes/system
 
-     git apply 2018.4.0.patch
+        git apply 2018.4.0.patch
 
 7. Update Jenkins pipelines:
 
-    salt -C 'I@jenkins:client' state.sls jenkins.client
+        salt -C 'I@jenkins:client' state.sls jenkins.client
 
 8. Run the Deploy - update cloud pipeline in the Jenkins web UI.
 
