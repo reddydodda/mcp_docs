@@ -19,7 +19,7 @@ Create Networks On KVM Node
     br-ctl for the control network
 
 3. Log in to the Foundation node.
-        
+
         mkdir -p /var/lib/libvirt/images/cfg01/
         wget http://images.mirantis.com/cfg01-day01.qcow2 -O /var/lib/libvirt/images/cfg01/system.qcow2
         cp /path/to/prepared-drive/cfg01-config.iso /var/lib/libvirt/images/cfg01/cfg01-config.iso
@@ -34,6 +34,27 @@ Create Networks On KVM Node
         --ram 16384 --vcpus=8 --accelerate \
         --boot hd --vnc --noreboot --autostart
 
+
+4. Download the shell script from GitHub:
+
+export MCP_VERSION="2018.4.0"
+wget https://github.com/Mirantis/mcp-common-scripts/blob/${MCP_VERSION}/predefine-vm/define-vm.sh
+
+5.
+
+chmod 0755 define-vm.sh
+export VM_NAME="cfg01.sct.mr.ericsson.se"
+export VM_SOURCE_DISK="/var/lib/libvirt/images/cfg01/system.qcow2"
+export VM_CONFIG_DISK="/var/lib/libvirt/images/cfg01/cfg01.sct.mr.ericsson.se-config.iso"
+export VM_MGM_BRIDGE_NAME="br-mgm"
+export VM_CTL_BRIDGE_NAME="br-ctl"
+export VM_MEM_KB="16777216"
+export VM_CPUS="8"
+
+./define-vm.sh
+
+
+
 5. Start the Salt Master node VM:
 
         virsh start cfg01.mirantis.local
@@ -44,6 +65,7 @@ Create Networks On KVM Node
 
 6. Verify that the following states are successfully applied during the execution of cloud-init:
 
+        /var/lib/cloud/instance/scripts/part-001
         salt-call state.sls linux.system,linux,openssh,salt
         salt-call state.sls maas.cluster,maas.region,reclass
 
@@ -52,13 +74,13 @@ Create Networks On KVM Node
     a. Depending on the deployment type, proceed with one of the options below:
 
 
-    a. deb [arch=amd64] http://repo.saltstack.com/apt/ubuntu/16.04/amd64/2016.3/xenial main
+    a. deb [arch=amd64] http://repo.saltstack.com/apt/ubuntu/16.04/amd64/2016.3/ xenial main
     b. Install the salt-minion package.
 
           apt-get install salt-minion=2016.3.8
 
       Note : fix key
-            
+
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys <Key>
 
 
@@ -81,7 +103,7 @@ Create Networks On KVM Node
 3. Copy qcow2 images to cfg nodes
 
    Login to cfg01
-   
+
     a. mkdir /srv/salt/env/prd/images
 
     b. cd /srv/salt/env/prd/images
@@ -135,7 +157,7 @@ Create Networks On KVM Node
 9. Fix Gerrit tags issues on CICD Nodes
 
     Workaround:
-    
+
       a. In Gerrit UI add access rule `Forge Committer Identity` for group `Administrators` to `refs/tags/*` for project `All-Projects`
       b. In Gerrit UI remove projects `mcp-ci/pipeline-library` and ` mk/mk-pipelines`
       c. On cid01 node remove `/srv/jeepyb` directory
@@ -236,7 +258,7 @@ Create Networks On KVM Node
 
         cfg01:/srv/salt/reclass/classes/system/openssh/server/team/
   to
-  
+
         cfg01:/srv/salt/reclass/classes/cluster/snv/infra/chandra.yml
 
   edit the file as required
@@ -273,7 +295,7 @@ Create Networks On KVM Node
         reclass-salt --top
 
 4. To verify that the rebooting of the nodes, which will be performed further, is successful, create the trigger file:
-    
+
         salt -C 'I@salt:control or I@nova:compute or I@neutron:gateway' cmd.run "touch /run/is_rebooted"
 
 5. For KVM nodes:
@@ -433,7 +455,7 @@ Note: If using single kvm machine. then apply this fix
    -> login to cicd01 node
 
    i. root@dvtcoscid01:~# vim /usr/local/bin/manage-projects
-   
+
     #!/usr/bin/python
     # PBR Generated from u'console_scripts'
     import sys
@@ -443,7 +465,7 @@ Note: If using single kvm machine. then apply this fix
 
    ii. chmod +x /usr/local/bin/manage-projects
 
-   
+
    o. Configure the Jenkins service, create users, add pipelines, and so on:
 
     salt -C 'I@jenkins:client' state.sls jenkins
@@ -510,13 +532,13 @@ c. Verify that all nodes are ready for deployment:
        salt -C 'I@glusterfs:server' state.sls glusterfs.server.setup -b 1
 
     To verify GlusterFS:
-    
+
        salt -C 'I@glusterfs:server' cmd.run "gluster peer status; gluster volume status" -b 1
 
 6. Apply the rabbitmq state:
 
        salt -C 'I@rabbitmq:server' state.sls rabbitmq
-    
+
     Verify the RabbitMQ status:
 
        salt -C 'I@rabbitmq:server' cmd.run "rabbitmqctl cluster_status"
@@ -643,5 +665,3 @@ In a browser, connect to each of the proxy IPs and its VIP to verify that they a
 4. Apply all states for the target nodes:
 
         salt 'cmp*' state.apply
-        
-       
