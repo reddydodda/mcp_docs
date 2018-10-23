@@ -81,54 +81,56 @@ Once done, if your Ceph version is Luminous or newer, you can access the Ceph da
 -----------------------------
 
 1. edit ceph/init.yml
-`shell
-parameters:
-  ceph:
-    common:
-      config:
-        global:
-          mon osd min down reporters: 1
-          mon max pg per osd: 500
-          osd pool default size: 1
-          osd pool default min size: 1
-          mon allow pool delete: "true"
-        rgw:
-          rgw swift versioning enabled: "true"
-`
+
+
+        parameters:
+          ceph:
+            common:
+              config:
+               global:
+                 mon osd min down reporters: 1
+                  mon max pg per osd: 500
+                  osd pool default size: 1
+                  osd pool default min size: 1
+                  mon allow pool delete: "true"
+                rgw:
+                  rgw swift versioning enabled: "true"
 
 ## Script to create virtual disk for osd nodes
-`shell
-#!/bin/bash
-
-for i in {1..3}; do
-disk_name='osd'
-vm_name='osd00'
-qemu-img create -f qcow2 $disk_name$i-jrn.qcow2 100G
-virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-jrn.qcow2 --target vdb --driver qemu --subdriver qcow2 --targetbus virtio --persistent
-
-for j in {1..5}; do
-k=(b c d e f g)
-qemu-img create -f qcow2 $disk_name$i-disk$j.qcow2 500G
-virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-disk$j.qcow2 --target vd${k[$j]} --driver qemu --subdriver qcow2 --targetbus virtio --persistent
 
 
-done
-done
-`
+
+        #!/bin/bash
+
+        for i in {1..3}; do
+        disk_name='osd'
+        vm_name='osd00'
+        qemu-img create -f qcow2 $disk_name$i-jrn.qcow2 100G
+        virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-jrn.qcow2 --target vdb --driver qemu --subdriver qcow2 --targetbus virtio --persistent
+
+        for j in {1..5}; do
+        k=(b c d e f g)
+        qemu-img create -f qcow2 $disk_name$i-disk$j.qcow2 500G
+        virsh attach-disk $vm_name$i.mirantis.net --source /images/$disk_name$i-disk$j.qcow2 --target vd${k[$j]} --driver qemu --subdriver qcow2 --targetbus virtio --persistent
+
+
+        done
+        done
+
 ## ceph cmds
 
-monmaptool --print /tmp/monmap
+        monmaptool --print /tmp/monmap
 
-ceph --admin-daemon /var/run/ceph/ceph-mon.cmn01.asok mon_status
-`shell
+        ceph --admin-daemon /var/run/ceph/ceph-mon.cmn01.asok mon_status
 
-#!/bin/bash
-#for i in {14}; do
-i=14
-ceph osd out $i
-ceph osd purge $i --yes-i-really-mean-it
-ceph osd crush remove osd.$i
-ceph auth del osd.$i
-ceph osd rm $i
-#done
+
+        #!/bin/bash
+        #for i in {14}; do
+        i=14
+        ceph osd out $i
+        ceph osd purge $i --yes-i-really-mean-it
+        ceph osd crush remove osd.$i
+        ceph auth del osd.$i
+        ceph osd rm $i
+        #done
 `
