@@ -1,11 +1,11 @@
 Create Networks On KVM Node
 ----------------------------
 
-1. mcp-pxe : 10.100.0.0/24
-2. mcp-control : 10.101.0.0/24
-3. mcp-data(tenant) : 10.102.0.0/24
-4. mcp-public : 172.17.18.32/27
-5. mcp-proxy : 172.17.18.0/27
+    1. mcp-pxe : 10.100.0.0/24
+    2. mcp-control : 10.101.0.0/24
+    3. mcp-data(tenant) : 10.102.0.0/24
+    4. mcp-public : 172.17.18.32/27
+    5. mcp-proxy : 172.17.18.0/27
 
 
 ## Installation steps
