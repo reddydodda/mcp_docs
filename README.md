@@ -158,14 +158,14 @@ export VM_CPUS="8"
 
     Workaround:
 
-      a. In Gerrit UI add access rule `Forge Committer Identity` for group `Administrators` to `refs/tags/*` for project `All-Projects`
-      b. In Gerrit UI remove projects `mcp-ci/pipeline-library` and ` mk/mk-pipelines`
-      c. On cid01 node remove `/srv/jeepyb` directory
-      d. On cid01 node run Salt state `gerrit.client`
+        a. In Gerrit UI add access rule `Forge Committer Identity` for group `Administrators` to `refs/tags/*` for project `All-Projects`
+        b. In Gerrit UI remove projects `mcp-ci/pipeline-library` and ` mk/mk-pipelines`
+        c. On cid01 node remove `/srv/jeepyb` directory
+        d. On cid01 node run Salt state `gerrit.client`
 
 10. Verify that the volume is mounted on Docker Swarm nodes:
 
-      salt '*' cmd.run 'systemctl -a|grep "GlusterFS File System"|grep -v mounted'
+        salt '*' cmd.run 'systemctl -a|grep "GlusterFS File System"|grep -v mounted'
 
 11. check all repos are in same tag and also for duplicate repos
 
@@ -263,17 +263,17 @@ export VM_CPUS="8"
 
   edit the file as required
 
-2. add the user class to init files
+2. add the user class to init files at `/infra/init.yml`
 
           vim /srv/salt/reclass/classes/cluster/snv/infra/chandra.yml
 
           - cluster.snv.infra.chandra
 
-3. run salt-call to update user
+3. run user and openssh state to create new user
 
          salt '*' cmd.run 'salt-call state.sls linux.system.user,openssh'
 
-4. If encounter with any error try to run
+4. If encounter with any error try to run to check any miss-configration 
 
          reclass-salt --top
 
@@ -448,25 +448,7 @@ Note: If using single kvm machine. then apply this fix
 
     salt -C 'I@gerrit:client' state.sls gerrit
 
-   Note:
-
-   Apply this bug fix before you run gerrit state
-
-   -> login to cicd01 node
-
-   i. root@dvtcoscid01:~# vim /usr/local/bin/manage-projects
-
-    #!/usr/bin/python
-    # PBR Generated from u'console_scripts'
-    import sys
-    from jeepyb.cmd.manage_projects import main
-    if __name__ == "__main__":
-       sys.exit(main())
-
-   ii. chmod +x /usr/local/bin/manage-projects
-
-
-   o. Configure the Jenkins service, create users, add pipelines, and so on:
+  o. Configure the Jenkins service, create users, add pipelines, and so on:
 
     salt -C 'I@jenkins:client' state.sls jenkins
 
