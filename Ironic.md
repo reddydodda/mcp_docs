@@ -6,7 +6,6 @@
 
 1. #. In the top Reclass ``cluster/<cluster_name>/infra/init.yml`` file, add:
 
-   .. code-block:: yaml
    
        parameters:
         _param:
@@ -18,7 +17,6 @@
           openstack_baremetal_neutron_subnet_allocation_end: 192.168.90.150
           openstack_baremetal_node01_hostname: bmt01
 
-   .. note::
 
       The ``openstack_baremetal_neutron_subnet_`` parameters must match your
       baremetal network settings. The baremetal nodes must connected to the
@@ -27,8 +25,6 @@
 
 #. Modify the ``cluster/<cluster_name>/infra/config.yml``:
 
-
-   .. code-block:: yaml
 
       classes:
       - system.salt.master.formula.pkg.baremetal
@@ -57,8 +53,6 @@
 #. Modify the file to add custom network interfaces ``cluster/<cluster_name>/infra/kvm.yml``:
 
 
-   .. code-block:: yaml
-
       classes:
       - cluster.<cluster_name>.infra.baremetal
       parameters:
@@ -74,8 +68,6 @@
 
 #. Modify the file at ``cluster/<cluster_name>/infra/baremetal.yml``:
 
-
-   .. code-block:: yaml
 
       parameters:
         salt:
@@ -101,7 +93,6 @@
 
    * ``cluster/<cluster_name>/openstack/init.yml``:
 
-     .. code-block:: yaml
 
          parameters:
           _param:
@@ -122,8 +113,6 @@
 
    * ``cluster/<cluster_name>/openstack/control.yml``:
 
-     .. code-block:: yaml
-
          classes:
          - system.haproxy.proxy.listen.openstack.ironic
          - system.galera.server.database.ironic
@@ -132,28 +121,20 @@
 
   * ``cluster/<cluster_name>/openstack/database.yml``:
 
-     .. code-block:: yaml
-
         classes:
         - system.galera.server.database.ironic
 
    * ``cluster/<cluster_name>/openstack/control_init.yml``:
-
-     .. code-block:: yaml
 
          classes:
          - system.keystone.client.service.ironic
 
    * ``cluster/<cluster_name>/openstack/gateway.yml``:
 
-     .. code-block:: yaml
-
          classes:
          - system.neutron.gateway.ironic
 
    * ``cluster/<cluster_name>/openstack/baremetal.yml``:
-
-     .. code-block:: yaml
 
          classes:
          - system.linux.system.repo.mcp.openstack
@@ -211,8 +192,6 @@
 
    * add br-baremetal bridge in gateway_networking
 
-      .. code-block:: yaml
-
       # Ironic
          ens7:
            enabled: true
@@ -225,8 +204,6 @@
            type: ovs_bridge
 
    * update kvm04.yml to reflect gtw node with 4 nic
-
-     .. code-block:: yaml
 
     virt:
        nic:
