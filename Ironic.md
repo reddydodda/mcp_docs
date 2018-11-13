@@ -7,8 +7,8 @@
 1. #. In the top Reclass ``cluster/<cluster_name>/infra/init.yml`` file, add:
 
    .. code-block:: yaml
-
-      parameters:
+   
+       parameters:
         _param:
           openstack_baremetal_node01_address: 172.16.10.110
           openstack_baremetal_address: 192.168.90.10
@@ -103,7 +103,7 @@
 
      .. code-block:: yaml
 
-        parameters:
+         parameters:
           _param:
             ironic_version: ${_param:openstack_version}
             ironic_api_type: 'public'
@@ -124,11 +124,11 @@
 
      .. code-block:: yaml
 
-        classes:
-        - system.haproxy.proxy.listen.openstack.ironic
-        - system.galera.server.database.ironic
-        - service.ironic.client
-        - system.ironic.api.cluster
+         classes:
+         - system.haproxy.proxy.listen.openstack.ironic
+         - system.galera.server.database.ironic
+         - service.ironic.client
+         - system.ironic.api.cluster
 
   * ``cluster/<cluster_name>/openstack/database.yml``:
 
@@ -141,94 +141,94 @@
 
      .. code-block:: yaml
 
-        classes:
-        - system.keystone.client.service.ironic
+         classes:
+         - system.keystone.client.service.ironic
 
    * ``cluster/<cluster_name>/openstack/gateway.yml``:
 
      .. code-block:: yaml
 
-        classes:
-        - system.neutron.gateway.ironic
+         classes:
+         - system.neutron.gateway.ironic
 
    * ``cluster/<cluster_name>/openstack/baremetal.yml``:
 
      .. code-block:: yaml
 
-        classes:
-        - system.linux.system.repo.mcp.openstack
-        - system.linux.system.repo.mcp.extra
-        - system.linux.system.repo.saltstack.xenial
-        - system.ironic.api.cluster # deploy only api (heartbeat and lookup endpoints are open)
-        - system.ironic.conductor.cluster
-        - system.ironic.tftpd_hpa
-        - system.nova.compute_ironic.cluster
-        - system.apache.server.single
-        - system.apache.server.site.ironic
-        - system.keystone.client.core
-        - system.neutron.client.service.ironic
-        - cluster.<cluster_name>.infra
-        parameters:
-          _param:
-            primary_interface: ens4
-            baremetal_interface: ens5
-            linux_system_codename: xenial
-            interface_mtu: 1450
-            cluster_vip_address: ${_param:openstack_control_address}
-            cluster_baremetal_vip_address: ${_param:single_baremetal_address}
-            cluster_baremetal_local_address: ${_param:single_baremetal_address}
-            linux_system_codename: xenial
-          linux:
-            network:
-              concat_iface_files:
-              - src: '/etc/network/interfaces.d/50-cloud-init.cfg'
-                dst: '/etc/network/interfaces'
-              bridge: openvswitch
-              interface:
-                dhcp_int:
-                  enabled: true
-                  name: ens3
-                  proto: dhcp
-                  type: eth
-                  mtu: ${_param:interface_mtu}
-                primary_interface:
-                  enabled: true
-                  name: ${_param:primary_interface}
-                  proto: static
-                  address: ${_param:single_address}
-                  netmask: 255.255.255.0
-                  mtu: ${_param:interface_mtu}
-                  type: eth
-                baremetal_interface:
-                  enabled: true
-                  name: ${_param:baremetal_interface}
-                  mtu: ${_param:interface_mtu}
-                  proto: static
-                  address: ${_param:cluster_baremetal_local_address}
-                  netmask: 255.255.255.0
-                  type: eth
-                  mtu: ${_param:interface_mtu}
+         classes:
+         - system.linux.system.repo.mcp.openstack
+         - system.linux.system.repo.mcp.extra
+         - system.linux.system.repo.saltstack.xenial
+         - system.ironic.api.cluster # deploy only api (heartbeat and lookup endpoints are open)
+         - system.ironic.conductor.cluster
+         - system.ironic.tftpd_hpa
+         - system.nova.compute_ironic.cluster
+         - system.apache.server.single
+         - system.apache.server.site.ironic
+         - system.keystone.client.core
+         - system.neutron.client.service.ironic
+         - cluster.<cluster_name>.infra
+         parameters:
+           _param:
+             primary_interface: ens4
+             baremetal_interface: ens5
+             linux_system_codename: xenial
+             interface_mtu: 1450
+             cluster_vip_address: ${_param:openstack_control_address}
+             cluster_baremetal_vip_address: ${_param:single_baremetal_address}
+             cluster_baremetal_local_address: ${_param:single_baremetal_address}
+             linux_system_codename: xenial
+           linux:
+             network:
+               concat_iface_files:
+               - src: '/etc/network/interfaces.d/50-cloud-init.cfg'
+                 dst: '/etc/network/interfaces'
+               bridge: openvswitch
+               interface:
+                 dhcp_int:
+                   enabled: true
+                   name: ens3
+                   proto: dhcp
+                   type: eth
+                   mtu: ${_param:interface_mtu}
+                 primary_interface:
+                   enabled: true
+                   name: ${_param:primary_interface}
+                   proto: static
+                   address: ${_param:single_address}
+                   netmask: 255.255.255.0
+                   mtu: ${_param:interface_mtu}
+                   type: eth
+                 baremetal_interface:
+                   enabled: true
+                   name: ${_param:baremetal_interface}
+                   mtu: ${_param:interface_mtu}
+                   proto: static
+                   address: ${_param:cluster_baremetal_local_address}
+                   netmask: 255.255.255.0
+                   type: eth
+                   mtu: ${_param:interface_mtu}
 
-    * add br-baremetal bridge in gateway_networking
+   * add br-baremetal bridge in gateway_networking
 
       .. code-block:: yaml
 
       # Ironic
-        ens7:
-          enabled: true
-          proto: manual
-          type: eth
-          ovs_bridge: br-baremetal
-          ovs_type: OVSPort
-        br-baremetal:
-          enabled: true
-          type: ovs_bridge
+         ens7:
+           enabled: true
+           proto: manual
+           type: eth
+           ovs_bridge: br-baremetal
+           ovs_type: OVSPort
+         br-baremetal:
+           enabled: true
+           type: ovs_bridge
 
    * update kvm04.yml to reflect gtw node with 4 nic
 
      .. code-block:: yaml
 
-     virt:
+    virt:
        nic:
          gtwnet:
            - name: eth2
@@ -240,7 +240,7 @@
 
   * Run linux.netowkr state to create new interface and bridge
 
-    salt 'gtw*' state.sls linux.network
+         salt 'gtw*' state.sls linux.network
 
 
 
