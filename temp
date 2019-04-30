@@ -45,6 +45,7 @@ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 A FORWARD -d 192.168.122.0/24 -o virbr0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 -A FORWARD -s 192.168.122.0/24 -i virbr0 -j ACCEPT
 
+echo 1 > /proc/sys/net/ipv4/ip_forward
 
 
 iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o br-public -j SNAT --to 172.17.18.36
