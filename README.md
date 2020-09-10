@@ -230,7 +230,7 @@ export VM_CPUS="8"
 
   (Optional) Enforce the interfaces configuration defined in the model for servers:
 
-        salt-call state.sls maas.machines.assing_ip
+        salt-call state.sls maas.machines.assign_ip
 
 6. (Optional) Enforce the disk custom configuration defined in the model for servers:
 
