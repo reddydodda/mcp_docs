@@ -534,6 +534,10 @@ c. Verify that all nodes are ready for deployment:
 
        salt -C 'I@galera:master' mysql.status | grep -A1 wsrep_cluster_size
        salt -C 'I@galera:slave' mysql.status | grep -A1 wsrep_cluster_size
+       
+    recovery Galera 
+    
+       https://docs.mirantis.com/mcp/q4-18/mcp-operations-guide/tshooting/tshoot-mcp-openstack/tshoot-galera/restore-galera-cluster/restore-galera-manually.html
 
 8. To deploy HAProxy:
 
